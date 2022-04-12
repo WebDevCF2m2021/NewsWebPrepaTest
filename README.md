@@ -3,7 +3,9 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP
 
 Voici la demande du client (Pierre):
 
-    ## Les news du Web
+
+    Les news du Web
+
     Il s’agit de réaliser un site qui affiche des nouvelles concernant le Web ou l’informatique en général.
     Il se présente sous la forme d’un journal.
     Chaque nouvelle, est un résumé d'article qui affiche :
@@ -22,7 +24,9 @@ Voici la demande du client (Pierre):
     Le client a choisi le graphisme :
     https://www.free-css.com/free-css-templates/page183/sourcexsrt
     Il doit être adapté pour être responsive.
-    ## Version 1
+
+    Version 1
+    
     Sur la page d’accueil, la nouvelle la plus récente est mise en évidence (par exemple : en premier ou
     encadrée ou dans une zone plus large, à définir).
     Les articles doivent être lus, ajoutés, modifiés et supprimés via un CRUD
