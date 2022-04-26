@@ -5,7 +5,8 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 
 - [Demande du client](https://github.com/mikhawa/NewsWebPrepaTest#voici-la-demande-du-client-pierre-)
 - [Installation de Twig](https://github.com/mikhawa/NewsWebPrepaTest#installation-de-twig)
-- Le fichier config.php
+- Création du système de fichier MVC
+- [Le fichier config.php](https://github.com/mikhawa/NewsWebPrepaTest#le-fichier-configphp)
 
 ## Voici la demande du client (Pierre) :
 
@@ -52,7 +53,7 @@ https://github.com/WebFormP/NewsWeb_PHP
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
-Vérifiez d'abord que vous utilisez PHP 8 et que composer soit installé et à jour:
+Vérifiez d'abord que vous utilisez PHP 8 et que composer soit installé et à jour :
 
     composer self-update
 
@@ -64,7 +65,7 @@ Et pour l'installer depuis `composer.json` :
 
     composer update
 
-## Création du système de fichier
+## Création du système de fichier MVC
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
