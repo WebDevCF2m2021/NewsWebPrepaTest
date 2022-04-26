@@ -1,7 +1,7 @@
 # NewsWebPrepaTest
-Préparation de la base du test sur l'OO dans un modèle MVC en PHP
+Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 
-Voici la demande du client (Pierre):
+Voici la demande du client (Pierre) :
 
 
     Les news du Web
@@ -31,7 +31,7 @@ Voici la demande du client (Pierre):
     encadrée ou dans une zone plus large, à définir).
     Les articles doivent être lus, ajoutés, modifiés et supprimés via un CRUD
 
-Et voici les liens vers le design frontend et backend qu'il nous a fourni:
+Et voici les liens vers le design frontend et backend qu'il nous a fourni :
 
 https://partage2021.webdev-cf2m.be/WEB/NewsWeb/
 
@@ -40,3 +40,18 @@ https://github.com/WebFormP/NewsWeb
 https://github.com/WebFormP/AdminNewsWeb
 
 https://github.com/WebFormP/NewsWeb_PHP
+
+## Installation de Twig
+
+Vérifiez d'abord que vous utilisez PHP 8 et que composer soit installé et à jour:
+
+    composer self-update
+
+Nous utiliserons Twig 3 comme moteur de templates :
+
+    composer require "twig/twig:^3.0"
+
+Et pour l'installer depuis `composer.json` :
+
+    composer update
+
