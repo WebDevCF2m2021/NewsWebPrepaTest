@@ -8,8 +8,8 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [Création du système de fichier MVC](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-du-syst%C3%A8me-de-fichier-mvc)
 - [Le fichier config.php](https://github.com/mikhawa/NewsWebPrepaTest#le-fichier-configphp)
 - [La base de données](https://github.com/mikhawa/NewsWebPrepaTest#la-base-de-donn%C3%A9es)
-- Le contrôleur frontal
-- Le design par défaut du client
+- [Le contrôleur frontal](https://github.com/mikhawa/NewsWebPrepaTest#le-contr%C3%B4leur-frontal)
+- [Le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#le-design-par-d%C3%A9faut-du-client)
 
 ## Voici la demande du client (Pierre) :
 
@@ -93,6 +93,20 @@ Ce fichier contient des données sensibles et ne sera pas mis sur github pour de
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
 ## Le contrôleur frontal
+
+Ne contient au départ que l'appel des dépendances et l'instanciation de l'environement `Twig`
+
+    // dependencies
+    require_once "../config.php";
+    
+    // Composer autoload
+    require_once '../vendor/autoload.php';
+    
+    // Twig loader
+    $loader = new \Twig\Loader\FilesystemLoader('../view');
+    $twig = new \Twig\Environment($loader, [
+        //'cache' => '../view/cache',
+    ]);
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
