@@ -1,7 +1,12 @@
 # NewsWebPrepaTest
 Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 
-Voici la demande du client (Pierre) :
+## Arborescence
+
+- Demande du client
+- [Installation de Twig](https://github.com/mikhawa/NewsWebPrepaTest#installation-de-twig)
+
+## Voici la demande du client (Pierre) :
 
 
     Les news du Web
