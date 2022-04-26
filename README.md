@@ -5,7 +5,7 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 
 - [Demande du client](https://github.com/mikhawa/NewsWebPrepaTest#voici-la-demande-du-client-pierre-)
 - [Installation de Twig](https://github.com/mikhawa/NewsWebPrepaTest#installation-de-twig)
-- Création du système de fichier MVC
+- [Création du système de fichier MVC](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-du-syst%C3%A8me-de-fichier-mvc)
 - [Le fichier config.php](https://github.com/mikhawa/NewsWebPrepaTest#le-fichier-configphp)
 
 ## Voici la demande du client (Pierre) :
@@ -84,3 +84,6 @@ La racine contiendra les fichiers de configurations.
 Le fichier `config.php` devra être récréé à la racine en copiant et en renommant `config.php.ini`.
 
 Ce fichier contient des données sensibles et ne sera pas mis sur github pour des raisons de sécurité.
+
+## La base de donnée
+
