@@ -7,6 +7,9 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [Installation de Twig](https://github.com/mikhawa/NewsWebPrepaTest#installation-de-twig)
 - [Création du système de fichier MVC](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-du-syst%C3%A8me-de-fichier-mvc)
 - [Le fichier config.php](https://github.com/mikhawa/NewsWebPrepaTest#le-fichier-configphp)
+- [La base de données](https://github.com/mikhawa/NewsWebPrepaTest#la-base-de-donn%C3%A9es)
+- Le contrôleur frontal
+- Le design par défaut du client
 
 ## Voici la demande du client (Pierre) :
 
@@ -85,5 +88,15 @@ Le fichier `config.php` devra être récréé à la racine en copiant et en reno
 
 Ce fichier contient des données sensibles et ne sera pas mis sur github pour des raisons de sécurité.
 
-## La base de donnée
+## La base de données
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+## Le contrôleur frontal
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+## Le design par défaut du client
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
