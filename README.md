@@ -3,11 +3,13 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 
 ## Arborescence
 
-- Demande du client
+- [Demande du client](https://github.com/mikhawa/NewsWebPrepaTest#voici-la-demande-du-client-pierre-)
 - [Installation de Twig](https://github.com/mikhawa/NewsWebPrepaTest#installation-de-twig)
+- Le fichier config.php
 
 ## Voici la demande du client (Pierre) :
 
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
     Les news du Web
 
@@ -48,6 +50,8 @@ https://github.com/WebFormP/NewsWeb_PHP
 
 ## Installation de Twig
 
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
 Vérifiez d'abord que vous utilisez PHP 8 et que composer soit installé et à jour:
 
     composer self-update
@@ -60,3 +64,22 @@ Et pour l'installer depuis `composer.json` :
 
     composer update
 
+## Création du système de fichier
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+- `public` Le dossier où se trouveront le contrôleur frontal et les fichiers publics (css, js, images etc ...)
+- `controller` Le dossier contenant nos contrôleurs
+- `model` Le dossier contenant nos classes personnelles
+- `view` Le dossier contenant nos vues `twig`
+- `data` Le dossier contenant les fichiers utiles pour la création du site, les fichiers sql seront modifiés lors de la mise en production pour éviter le piratage du site.
+
+La racine contiendra les fichiers de configurations.
+
+## Le fichier config.php
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Le fichier `config.php` devra être récréé à la racine en copiant et en renommant `config.php.ini`.
+
+Ce fichier contient des données sensibles et ne sera pas mis sur github pour des raisons de sécurité.
