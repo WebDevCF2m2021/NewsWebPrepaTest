@@ -10,6 +10,7 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [La base de données](https://github.com/mikhawa/NewsWebPrepaTest#la-base-de-donn%C3%A9es)
 - [Le contrôleur frontal](https://github.com/mikhawa/NewsWebPrepaTest#le-contr%C3%B4leur-frontal)
 - [Le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#le-design-par-d%C3%A9faut-du-client)
+- Les vues pour le design par défaut du client
 
 ## Voici la demande du client (Pierre) :
 
@@ -72,7 +73,7 @@ Et pour l'installer depuis `composer.json` :
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
-- `public` Le dossier où se trouveront le contrôleur frontal et les fichiers publics (css, js, images etc ...)
+- `public` Le dossier où se trouveront le contrôleur frontal et les fichiers publics dans des sous-dossiers (css, js, images etc ...)
 - `controller` Le dossier contenant nos contrôleurs
 - `model` Le dossier contenant nos classes personnelles
 - `view` Le dossier contenant nos vues `twig`
@@ -114,6 +115,10 @@ Ne contient au départ que l'appel des dépendances et l'instanciation de l'envi
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
-Dans `data` nous avons mis le zip contenant le template proposé par le client.
+Dans `data` nous avons mis le zip contenant le template par défaut proposé par le client.
 
-Nous allons ensuite mettre les fichiers css, js et images du design par défaut du client dans le dossier public, car c'est le seul accès frontend au site.
+Nous allons ensuite mettre les fichiers css, fonts, js et images de ce design dans le dossier public, car c'est le seul accès frontend au site.
+
+## Les vues pour le design par défaut du client
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
