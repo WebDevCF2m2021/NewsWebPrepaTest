@@ -10,7 +10,7 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [La base de données](https://github.com/mikhawa/NewsWebPrepaTest#la-base-de-donn%C3%A9es)
 - [Le contrôleur frontal](https://github.com/mikhawa/NewsWebPrepaTest#le-contr%C3%B4leur-frontal)
 - [Le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#le-design-par-d%C3%A9faut-du-client)
-- Les vues pour le design par défaut du client
+- [Les vues pour le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#les-vues-pour-le-design-par-d%C3%A9faut-du-client)
 
 ## Voici la demande du client (Pierre) :
 
@@ -117,8 +117,37 @@ Ne contient au départ que l'appel des dépendances et l'instanciation de l'envi
 
 Dans `data` nous avons mis le zip contenant le template par défaut proposé par le client.
 
-Nous allons ensuite mettre les fichiers css, fonts, js et images de ce design dans le dossier public, car c'est le seul accès frontend au site.
+Nous allons ensuite mettre les fichiers dans les dossiers `css`, `fonts`, `js` et `images` de ce design dans le dossier `public`, car c'est le seul accès frontend au site.
 
 ## Les vues pour le design par défaut du client
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Pour tester le fonctionnement de Twig, nous allons d'abord créer dans `view` la base de toutes nos pages de template :
+
+    view/base.html.twig
+
+contenant
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+    </body>
+    </html>
+
+Puis un appel de `render` sur ce fichier depuis `public/index.php`
+
+    // test render Twig
+    echo $twig->render('base.html.twig');
+
+
+
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)

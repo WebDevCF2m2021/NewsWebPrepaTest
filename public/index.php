@@ -10,3 +10,6 @@ $loader = new \Twig\Loader\FilesystemLoader('../view');
 $twig = new \Twig\Environment($loader, [
     //'cache' => '../view/cache',
 ]);
+
+// test render Twig
+echo $twig->render('base.html.twig');
