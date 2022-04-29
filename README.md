@@ -119,6 +119,15 @@ Dans `data` nous avons mis le zip contenant le template par défaut proposé par
 
 Nous allons ensuite mettre les fichiers dans les dossiers `css`, `fonts`, `js` et `images` de ce design dans le dossier `public`, car c'est le seul accès frontend au site.
 
+On va ensuite dézipper ces données dans data pour pouvoir tester le fonctionnement du template par défaut dans
+
+    data/test-default-template
+
+Nous constatons que celui-ci diffère du modèle donné par le client consultable à cette adresse :
+
+https://partage2021.webdev-cf2m.be/WEB/NewsWeb/sources/
+
+
 ## Les vues pour le design par défaut du client
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
@@ -142,8 +151,9 @@ contenant
     </body>
     </html>
 
-Puis un appel de `render` sur ce fichier depuis `public/index.php`
+Puis un appel de `render` sur ce fichier depuis `public/index.php` :
 
+    ...
     // test render Twig
     echo $twig->render('base.html.twig');
 
