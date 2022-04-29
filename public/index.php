@@ -12,4 +12,4 @@ $twig = new \Twig\Environment($loader, [
 ]);
 
 // test render Twig
-echo $twig->render('base.html.twig');
+echo $twig->render('public/public.template.html.twig');

@@ -11,6 +11,7 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [Le contrôleur frontal](https://github.com/mikhawa/NewsWebPrepaTest#le-contr%C3%B4leur-frontal)
 - [Le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#le-design-par-d%C3%A9faut-du-client)
 - [Les vues pour le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#les-vues-pour-le-design-par-d%C3%A9faut-du-client)
+  - La vue publique pour la homepage 
 
 ## Voici la demande du client (Pierre) :
 
@@ -131,6 +132,7 @@ Nous allons donc prendre la source du client et la mettre dans le dossier :
 
     data/sources
 
+Nous allons utiliser la base de `index.html` se trouvant dans ce dossier pour structurer notre vue de l'accueil public.
 
 ## Les vues pour le design par défaut du client
 
@@ -140,16 +142,18 @@ Pour tester le fonctionnement de Twig, nous allons d'abord créer dans `view` la
 
     view/base.html.twig
 
-contenant
+Contenant, en partant de la base nécessaire à toutes les pages du modèle :
 
     <!DOCTYPE html>
-    <html>
+    <html lang="fr">
     <head>
+        {% block meta %}
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% endblock %}
+        <title>{% block title %}NewsWeb | {% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>
+    <body id="home">
     {% block body %}{% endblock %}
     {% block javascripts %}{% endblock %}
     </body>
@@ -161,7 +165,30 @@ Puis un appel de `render` sur ce fichier depuis `public/index.php` :
     // test render Twig
     echo $twig->render('base.html.twig');
 
+Nous allons l'étendre pour toutes nos vues publiques dans un autre fichier de template:
 
+    view/public/public.template.html.twig
+
+Nous allons y charger les dépendances dans les blocs existants (js, css etc... ) et créer les bloques nécessaires pour les pages enfants
+
+    {% extends 'base.html.twig' %}
+    ...
+    {% block body %}
+        {# On va créer les différentes zones modifiables du template dans le bloc body #}
+        {% block logo %}{% endblock %}
+        {% block nav %}{% endblock %}
+        {% block slider %}{% endblock %}
+        {% block main %}{% endblock %}
+        {% block footer %}{% endblock %}
+    {% endblock %}
+
+Puis un appel de `render` sur ce fichier pour le tester depuis `public/index.php` :
+
+    ...
+    // test render Twig
+    echo $twig->render('public/public.template.html.twig');
 
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+### La vue publique pour la homepage
