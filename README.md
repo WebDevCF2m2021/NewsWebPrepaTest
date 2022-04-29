@@ -114,3 +114,6 @@ Ne contient au départ que l'appel des dépendances et l'instanciation de l'envi
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
+Dans `data` nous avons mis le zip contenant le template proposé par le client.
+
+Nous allons ensuite mettre les fichiers css, js et images du design par défaut du client dans le dossier public, car c'est le seul accès frontend au site.
