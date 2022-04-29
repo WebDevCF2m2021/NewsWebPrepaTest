@@ -11,7 +11,8 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [Le contrôleur frontal](https://github.com/mikhawa/NewsWebPrepaTest#le-contr%C3%B4leur-frontal)
 - [Le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#le-design-par-d%C3%A9faut-du-client)
 - [Les vues pour le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#les-vues-pour-le-design-par-d%C3%A9faut-du-client)
-  - La vue publique pour la homepage 
+  - [La vue publique pour la homepage](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-pour-la-homepage) 
+  - 
 
 ## Voici la demande du client (Pierre) :
 
@@ -189,6 +190,20 @@ Puis un appel de `render` sur ce fichier pour le tester depuis `public/index.php
     echo $twig->render('public/public.template.html.twig');
 
 
+### La vue publique pour la homepage
+
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
-### La vue publique pour la homepage
+Création de la vue homepage :
+
+    view/public/homepage.html.twig
+
+Contenant
+
+    ...
+
+Puis un appel de `render` sur ce fichier depuis `public/index.php` :
+
+    ...
+    // test render Twig
+    echo $twig->render('public/homepage.html.twig');
