@@ -127,6 +127,10 @@ Nous constatons que celui-ci diffère du modèle donné par le client consultabl
 
 https://partage2021.webdev-cf2m.be/WEB/NewsWeb/sources/
 
+Nous allons donc prendre la source du client et la mettre dans le dossier : 
+
+    data/sources
+
 
 ## Les vues pour le design par défaut du client
 

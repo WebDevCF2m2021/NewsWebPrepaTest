@@ -1,0 +1,864 @@
+/****************** U S E D   F O N T S **********************/
+@font-face {
+    font-family: 'LeagueGothic';
+    src: url('../fonts/League_Gothic-webfont.eot');
+    src: url('../fonts/League_Gothic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/League_Gothic-webfont.woff') format('woff'),
+         url('../fonts/League_Gothic-webfont.ttf') format('truetype'),
+         url('../fonts/League_Gothic-webfont.svg#LeagueGothicRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source';
+    src: url('../fonts/SourceSansPro-Light-webfont.eot');
+    src: url('../fonts/SourceSansPro-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/SourceSansPro-Light-webfont.woff') format('woff'),
+         url('../fonts/SourceSansPro-Light-webfont.ttf') format('truetype'),
+         url('../fonts/SourceSansPro-Light-webfont.svg#SourceSansProLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ethno';
+    src: url('../fonts/ethnocentric_rg-webfont.eot');
+    src: url('../fonts/ethnocentric_rg-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ethnocentric_rg-webfont.woff') format('woff'),
+         url('../fonts/ethnocentric_rg-webfont.ttf') format('truetype'),
+         url('../fonts/ethnocentric_rg-webfont.svg#ethnocentricregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/********************* R E S E T *************************/
+
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+img{
+	border: none;
+	border-radius: 3px;
+}
+
+a{
+	color: #fff;
+	text-decoration: none;
+	text-shadow: none;
+}
+
+a:hover{
+	color: #B82924;
+}
+
+p{
+	margin-bottom: 8px;
+}
+
+::-moz-selection {
+       background-color: #B82924;
+       color: #fff;
+}
+
+/* Works in Safari */
+::selection {
+       background-color: #B82924;
+       color: #fff;
+}
+
+/************** G E N E R A L    S T Y L E ***************/
+body{
+	background-color: lightgray;
+	font-family: Source, Tahoma, sans-serif;
+	color: #fff;
+	font-size: 14px;
+	text-shadow: 1px 1px 0px #000;
+}
+
+#wrapper{
+	width: 100vw;						/* occupe toute la largeur d'écran */
+	background-color: #121212;
+
+	/* Affichage avec Flexbox pour le mobile */
+	display:flex;
+	flex-flow: column nowrap;
+	align-items: center;
+}
+
+#iisrt {
+	position: relative;
+	/* pour conserver les positionnements absolus des 2 spans #srt et #ii, on ajoute ce positionnement relatif car cet élément englobe les 2 autres et sert donc de référence */
+}
+
+#srt{
+	color: #f9f9f9;
+	display: block;
+	float: right;
+	position: absolute;
+	top: 14px;
+	left: 60px;
+	text-shadow: 1px 1px 0px #000;
+	font-size: 36px;
+	font-style: italic;
+	font-family: ethno, sans-serif;
+	font-weight: normal;
+}
+
+#ii{
+	font-size: 60px;
+	font-family: LeagueGothic, sans-serif;
+	font-weight: bold;
+	position: absolute;
+	left: 40px;
+	top: -3px;
+	color: #b82924;
+	display: block;
+	float: right;
+	text-shadow: none;
+	font-style: italic;
+	letter-spacing: 2px;
+}
+
+/* masquer le slider pour les smartphones et tablettes */
+.slider-wrapper {
+	display:none;
+}
+
+/************* L O G O   &  N A V   B A R    S T Y L E ****************/
+#logo{
+	width: 200px;
+	text-align: left;
+}
+
+#logo h1{
+	font-family: LeagueGothic, Impact, sans-serif;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-size: 2.5em;
+	text-shadow: 1px 1px 0 #000;
+	position: relative;
+	width: 230px;
+	margin-bottom: 2px;
+}
+
+#logo h2{
+	font-size: 16px;
+	font-weight: normal;
+	font-family: LeagueGothic, sans-serif;
+	width: 170px;
+	text-shadow: 1px 1px 0 #000;
+	text-transform: uppercase;
+}
+
+#tagline{
+	margin-top: -8px;
+}
+
+.topnav ul li a {
+	color: #fff;
+	font-family: LeagueGothic, sans-serif;
+	text-decoration: none;
+	font-size: 1.5em;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px #000;
+}
+
+.topnav ul li a {
+	display: none;
+}
+
+#home a#homenav, #blog a#blognav, #fullwidth a#fullwidthnav, #contact a#contactnav{
+	color: #b82924;
+}
+
+/* pour afficher l'icône du menu hamburger */
+#menu a, #blog #menu a {
+	display: block;
+	color: #fff;
+	font-size: 1.5em;
+	margin-top: 20px;
+}
+
+/* affichage de la liste quand on appuie sur le menu hamburger */
+.topnav.responsive ul {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 10px;
+}
+
+/* pour afficher les liens du menu hamburger quand on a appuyé sur le bouton */
+.topnav.responsive ul li a, #blog .topnav.responsive ul li a {
+	display: block;
+	height: 2em;
+	border: 2px solid white;
+	text-align: center;
+	width: 50vw;
+	line-height: 2em;
+}
+
+/* pour masquer la bordure autour du bouton hamburger quand le menu est ouvert */
+.topnav.responsive #menu a, #blog .topnav.responsive #menu a {
+	border: 2px solid transparent;
+	margin-top: 10px;
+}
+
+/*************** B A N N E R    S T Y L E ******************/
+#banner{
+	position: relative;
+	margin-bottom: 30px;
+}
+
+#banneri{
+	position: absolute;
+	bottom: 15%;
+	left: 0;
+	width: 500px;
+	background-color: rgba(0,0,0,.8);
+	padding: 5px 10px;
+}
+
+#banner img{
+	box-shadow: 0 4px 6px #000;
+}
+
+#banner h1{
+	font-family: LeagueGothic, Impact, sans-serif;
+	font-weight: normal;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 0px #000;
+	display: inline;
+}
+
+#banner .rm{
+	position: absolute;
+	color: #000;
+	background-color: #fff;
+	padding: 4px 8px;
+	right: 3%;
+	bottom: -10%;
+}
+
+/************* H O M E    C O N T E N T *******************/
+
+#line h1, .dline{
+	display: none;
+}
+
+#derniers-articles{
+	margin-top:40px;	/* pour écarter les articles du menu */
+	/* on aligne les 3 articles avec flexbox - VERTICALEMENT*/
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: flex-start;
+	gap: 20px;
+}
+
+#derniers-articles article{
+	width: 90vw;			/* l'article occupe presque toute la largeur */
+	border: 2px solid #B82924;
+	padding: 10px;
+}
+
+#derniers-articles article h1, #latestp article h1{
+	font-family: LeagueGothic, sans-serif;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-size: 22px;
+	margin-bottom: 5px;
+}
+
+#derniers-articles img, #latestp img{
+	margin-bottom: 5px;
+    box-shadow: 0 4px 6px #000;
+	
+	/* les images occupent toute la largeur */
+	width:100%;
+	height:auto;
+}
+
+/************** Bouton "En savoir plus..." des articles ***********/
+.rm{
+	color: #121212;
+	background-color: #F2F2F2;
+	padding: 1px 4px;
+	display:block;
+
+	width: 33%;			/* le bouton "En savoir plus..." occupe le tiers de la largeur de l'article */
+	margin-top: 5px;
+	box-shadow: 0px 0px 3px #000;
+	font-family: LeagueGothic, sans-serif;
+	text-transform: uppercase; 
+	font-size: 18px;
+	border-radius: 2px;
+}
+
+.rm:hover{
+	background-color: #B82924;
+	color: #121212;
+}	
+
+/*
+#sline h1{
+	font-family: LeagueGothic, Impact, sans-serif;
+	font-weight: normal;
+	font-size: 30px;
+	text-transform: uppercase;
+	color: #f5f5f5;
+	text-shadow: 2px 2px 0 #000;
+	text-align:  center;
+}
+
+#sline h1, .sdline{
+	display: inline-block;
+	*display: inline;
+	zoom:1;
+	margin: 0 0 0 10px;
+}
+
+#sline{
+	margin: 20px 0 10px 80px;
+}
+
+.sdline{
+	width: 300px;
+	height: 2px;
+	background: url('../images/bgdline.png') repeat-x ;
+	margin-bottom: 10px;
+}
+
+#latestp article{
+	width: 210px;
+	display: inline-block;
+	*display: inline;
+	zoom:1;
+	margin-right: 20px;
+}
+
+#latestp{
+	margin-left: 20px;
+}
+*/
+
+/************* B L O G    S T Y L E  &   C O N T A C T   P A G E *****************************/
+/*
+#articles, #sidebar{
+	display: inline-block;
+	vertical-align: top;
+	*display: inline;
+	zoom:1;
+}
+*/
+/*
+#blog section, #contact section{
+	margin: 30px 0 0 10px;
+}
+*/
+
+#blog section {
+	margin-top:40px;
+}
+
+#sidebar, #contact #sidebar{
+	width: 280px;
+	margin:0 0 0 55px;
+}
+#articles, #contactpost{
+	/*width: 600px;*/
+	width: 95vw;
+	margin:0 0 40px 0;
+}
+
+/* blog */
+
+/*
+#blog li, #contact li{
+	list-style-type: square;
+}
+*/
+
+#blog article{
+	/*width: 580px;*/
+	display: block;
+	width: 95vw;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 40px;
+}
+
+#blog footer, #contact footer{
+	margin-top: 0px;
+}
+#blog article h1 a{
+	font-family: LeagueGothic, sans-serif;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-size: 22px;
+	text-shadow: 1px 1px 0 #000;
+	word-spacing: 2px;
+	margin-bottom: 5px;
+}
+#blog article h2{
+	font-size: 12px;
+	font-weight: normal;
+	letter-spacing: 0.2px;
+	margin-bottom: 12px;
+	background-color: #0a0a0a;
+	padding: 4px 8px 4px 8px;
+	font-family: source, sans-serif;
+	text-transform: none;
+}
+#blog article h2 a:hover{
+	text-decoration: underline;
+}
+#blog article img{
+	box-shadow: 0 4px 6px #000;
+	margin-bottom: 10px;
+
+	width: 100%;
+	height: auto;
+}
+
+/* barre latérale */
+
+#sidebar h1, #contact #sidebar h1{
+	font-family: LeagueGothic, sans-serif;
+	font-weight: normal;
+	text-transform: uppercase;
+	font-size: 22px;
+	text-shadow: 1px 1px 0 #000;
+	word-spacing: 2px;
+	margin-bottom: 4px;
+}
+#sidebar li, #contact #sidebar li {
+	margin:0 0 4px 25px;
+	color: #b82924;
+}
+#sidebar li:hover, #contact #sidebar li:hover{
+	margin-left: 30px;
+}
+#sidebar li a:hover, #contact #sidebar li a:hover{
+	text-decoration: underline;
+}
+
+#blog aside, #contact #sidebar aside{
+	margin: 0 0 20px 0;
+}
+
+#cat, #archives, #contact #sidebar  #cat, #contact #sidebar #archives{
+	width: 130px;
+	display: inline-block;
+	vertical-align: top;
+	*display: inline;
+	zoom:1;
+}
+
+/* lien d'accès au contenu complet de l'article */
+.continue{
+	text-decoration: underline;
+	float: right;
+}
+
+/* SINGLE POST STYLE  and CONTACT PAGE with SIDEBAR*/
+/*
+#singlepost, #sidebar, #contactpost{
+	display: inline-block;
+	vertical-align: top;
+	*display: inline;
+	zoom:1;
+}*/
+/*
+#singlepost{
+	margin-right: 20px;
+}
+*/
+
+.singlepost {
+	text-align: justify;
+}
+
+/* CONTACT PAGE */
+#contactpost p{
+	margin-bottom: 25px;
+}
+input[type="user"]{
+	display: block;
+	float: right;
+	height: 20px;
+	width: 280px;
+	padding-left: 3px;
+}
+input[type="email"]{
+	display: block;
+	float: right;
+	height: 20px;
+	width: 280px;
+	padding-left: 3px;
+}
+#message{
+	display: block;
+	float: right;
+	width: 280px;
+	height: 130px;
+	padding-left: 3px;
+}
+input[type="submit"]{
+	display: block;
+	float: right;
+	font-family: LeagueGothic, sans-serif;
+	font-size: 18px;
+	text-transform: uppercase;
+	border: 2px outset #b2b2b2;
+	color: #121212;
+
+}
+input, #message{
+	margin-right: 180px;
+	background-color: #f8f8f8;
+	border: 2px inset #000;
+	border-radius: 3px;
+}
+input[type="submit"]:hover{
+	cursor:pointer;
+}
+input[type="submit"]:active{
+	border: 2px inset #b2b2b2;
+}
+
+/************* F U L L  W I D T H   &  S I N G L E   P O S T    S T Y L E*********************/
+#fullwidth h1,#fullwidth  h2,#fullwidth  h3,#fullwidth  h4,#fullwidth  h5,#fullwidth  h6, h1, h2, h3, h4, h5, h6{
+	font-family: LeagueGothic, sans-serif;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+#fullwidth section h2, #singlepost section h2{
+	color: #b82924;
+}
+.mg{ /*just for examples, do not use this class*/
+	margin: 8px 0 12px 0;
+}
+#fullwidth section a, #singlepost section a{
+	text-decoration: underline;
+}
+#fullwidth section ul li, #singlepost section ul li{
+	list-style-type: square;
+	margin-left: 20px;
+}
+#fullwidth section ol li, #singlepost section ol li{
+	list-style-type: decimal;
+	margin-left: 20px;
+}
+.right{
+	float: right;
+	margin-left: 10px;
+}
+.left{
+	float: left;
+	margin-right: 10px;
+}
+.center{
+	display: block;
+	text-align: center;
+	margin: 20px auto;
+}
+
+/************* F O O T E R     S T Y L E *************************/
+
+footer{
+	margin-top: 30px;
+	text-align: center;
+}
+
+/************** MEDIA - QUERIES **********************************/
+
+/* Affichage par défaut : écran pour MOBILE, voir ci-dessus */
+
+/*********************** TABLETTE *****************************/
+/* entre 600px et 1024px */
+
+@media screen and (min-width:600px) and (max-width:1023px) {
+	body {
+		background-color: #121212;
+	}
+
+	#wrapper{
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		grid-template-rows: 80px auto 100px;
+		justify-items: start;
+		align-items: start;
+		grid-template-areas:
+		"logo   logo"
+		"menu   articles"
+		"footer footer";
+	}
+
+	#logo {
+		grid-area: logo;
+		text-align: left;
+		padding-left: 20px;
+	}
+
+	.topnav, #blog .topnav {
+		width: 100%;
+		grid-area: menu;
+		min-height: 150px;
+		margin-top: 40px;
+		/* menu reste en place quand le contenu défile */
+		position: sticky;
+		top:10vh;
+	}
+
+/*	
+	.topnav ul {
+		list-style: none;
+	}
+*/
+
+	.topnav ul li, #blog .topnav ul li {
+		display: block;
+		width:100%;
+	}
+
+	.topnav ul li a, #blog .topnav ul li a {
+		display: block;
+		text-align: center;
+		font-size: 2em;
+		height: 2em;
+	}
+
+	/* pour cacher le bouton hamburger */
+	#menu a, #blog #menu a {
+		display: none;
+	}
+
+	section {
+		margin-top: 40px;
+	}
+
+	#derniers-articles {
+		grid-area: articles;
+
+		margin-top: 0;
+		width: 95%;
+
+		/* placement des trois articles */
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto auto;
+		gap: 20px;
+		grid-template-areas: 
+		"art1  art1"
+		"art2  art3";
+	}
+
+	#derniers-articles article {
+		display: block;
+		width: 100%;
+		height: auto;
+
+		/* effacement des bordures autour des articles */
+		border: none;
+		padding: 0;
+	}
+
+	#art-1 {
+		grid-area: art1;
+	}
+
+	#art-2 {
+		grid-area: art2;
+	}
+
+	#art-3 {
+		grid-area: art3;
+	}
+
+	#art-2 .rm, #art-3 .rm {
+		width:50%;		/* bouton plus large pour articles étroits */
+	}
+
+	#blog #articles {
+		grid-area: articles;
+		margin-top: 0;
+		width: 100%;
+
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		gap: 20px;
+	}
+
+	#blog article{
+		/*width: 580px;*/
+		display: block;
+		width: auto;
+		margin-right: 20px;
+		margin-bottom: 40px;
+	}
+	
+	footer {
+		grid-area: footer;
+		width:100%;
+	}
+}
+
+/*********************** DESKTOP ******************************/
+/* au-dessus de 1024px */
+
+@media screen and (min-width:1024px) {
+	#wrapper{
+		width: 90%;
+		margin: 16px auto;
+		box-shadow: 0 4px 6px #000;
+
+		/* pour annuler les display flex et grid des autres media-queries */
+		display: block;	
+		padding:20px;
+	}
+
+	/* afficher le slider en mode desktop */
+	.slider-wrapper {
+		display:block;
+	}
+
+    /************* LOGO & MENU ********************************/
+	#logo{
+		width: 250px;
+		text-align: left;
+		display: inline-block;
+	}
+	
+	.topnav, #blog .topnav {
+		margin-top: 0;
+		min-height: 100px;
+		max-width: 600px;
+		float:right;
+		position: relative;
+		top:20px;
+	}
+
+	.topnav ul, #blog .topnav ul {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: flex-end;
+	}
+
+	.topnav ul li {
+		width:auto;
+	}
+
+	.topnav ul li a, nav a {
+		color: #fff;
+		font-family: LeagueGothic, sans-serif;
+		text-decoration: none;
+		font-size: 1.5em;
+		margin-left: 25px;
+		text-transform: uppercase;
+		text-shadow: 1px 1px 0px #000;
+	}
+
+	#home .topnav ul li a, #blog .topnav ul li a {
+		display: block;
+	}
+	
+	#menu a, #home #menu a, #blog #menu a {
+		display: none;
+	}
+	
+	#home a#homenav, #blog a#blognav, #fullwidth a#fullwidthnav, #contact a#contactnav{
+		color: #b82924;
+	}
+
+	/************* H O M E    C O N T E N T *******************/
+	#line h1{
+		font-family: LeagueGothic, Impact, sans-serif;
+		font-weight: normal;
+		font-size: 30px;
+		text-transform: uppercase;
+		color: #f8f8f8;
+		text-shadow: 2px 2px 0 #000;
+		text-align:  center;
+
+		/* affichage du titre avec de l'espace autour */
+		min-width: 200px;
+		margin: 0 20px;
+	}
+
+	#line h1, .dline{
+		display: inline-block;
+	}
+
+	#line{
+		/* on aligne le titre et les 2 séparateurs avec flexbox */
+		display: flex;				
+		flex-flow: row nowrap;		/* en horizontal et sur une ligne */
+		justify-content: center;	/* éléments centrés horizontalement */
+		align-items: center;		/* éléments centrés verticalement */
+
+		height:50px;
+	}
+
+	.dline{
+		width: 100%;		/* les 2 traits à gauche et à droite du titre */
+
+		height: 3px;
+		background-color: white;
+	}
+
+	#derniers-articles article{
+		width: 33%;			/* Les 3 articles se partagent toute la largeur */
+		border: none;
+		padding: 0;
+	}
+
+	#derniers-articles article h1, #latestp article h1{
+		font-family: LeagueGothic, sans-serif;
+		font-weight: normal;
+		text-transform: uppercase;
+		font-size: 22px;
+		margin-bottom: 5px;
+	}
+
+	#derniers-articles{
+		width: 100%;
+
+		/* on aligne les 3 articles avec flexbox */
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-around;
+		gap: 20px;
+	}
+
+	#derniers-articles img, #latestp img{
+		margin-bottom: 5px;
+		box-shadow: 0 4px 6px #000;
+		
+		/* les images occupent toute la largeur */
+		width:100%;
+		height:auto;
+	}
+
+	#blog #articles {
+		margin-top: 40px;
+		width: 100%;
+
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 20px;
+	}
+
+	#blog article {
+		width:auto;
+	}
+
+	footer {
+		width:100%;
+	}
+
+}
