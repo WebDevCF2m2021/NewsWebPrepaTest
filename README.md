@@ -200,7 +200,19 @@ Création de la vue homepage :
 
 Contenant
 
+    {% extends 'public/public.template.html.twig' %}
+    {% block title %}{{ parent() }} Accueil {% endblock %}  
     ...
+    {% block body %}
+    <div id="wrapper">
+    {# On va remplir les différentes zones modifiables du template dans le bloc body #}
+        {% block logo %}{% endblock %}
+        {% block nav %}{% endblock %}
+        {% block slider %}{% endblock %}
+        {% block main %}{% endblock %}
+        {% block footer %}{% endblock %}
+    </div>
+    {% endblock %}
 
 Puis un appel de `render` sur ce fichier depuis `public/index.php` :
 
