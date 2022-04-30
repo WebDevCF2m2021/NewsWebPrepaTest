@@ -13,7 +13,7 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [Les vues pour le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#les-vues-pour-le-design-par-d%C3%A9faut-du-client)
   - [La vue publique pour la homepage](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-pour-la-homepage) 
   - 
-
+- Création de notre autoload sur le dossier model
 ## Voici la demande du client (Pierre) :
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
@@ -218,3 +218,5 @@ Puis un appel de `render` sur ce fichier depuis `public/index.php` :
     ...
     // test render Twig
     echo $twig->render('public/homepage.html.twig');
+
+## Création de notre autoload sur le dossier model
