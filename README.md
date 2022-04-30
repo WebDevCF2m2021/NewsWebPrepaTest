@@ -13,7 +13,9 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [Les vues pour le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#les-vues-pour-le-design-par-d%C3%A9faut-du-client)
   - [La vue publique pour la homepage](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-pour-la-homepage) 
   - 
-- Création de notre autoload sur le dossier model
+- [Création de notre autoload sur le dossier model](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-autoload-sur-le-dossier-model)
+- Création de notre connexion PDO
+
 ## Voici la demande du client (Pierre) :
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
@@ -220,3 +222,67 @@ Puis un appel de `render` sur ce fichier depuis `public/index.php` :
     echo $twig->render('public/homepage.html.twig');
 
 ## Création de notre autoload sur le dossier model
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Dans `public/index.php` nous allons créer un autoload permettant de charger nos classes qui se trouveront dans `model`
+
+    spl_autoload_register(function($class){
+      include_once  '../model/'.$class . '.php';
+    });
+
+## Création de notre connexion PDO
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Nous allons créer une connexion PDO personnalisée sous le nom de `MyPDO` dans notre dossier `model`
+
+#### ! Nous donnerons un namespace à nos modèles : `NewsWeb` , et nous l'utiliserons comme nom de dossier pour que l'autoload reste fonctionnel !
+
+    model/NewsWeb/MyPDO.php
+
+contiendra
+
+    namespace NewsWeb;
+
+    use Exception;
+    use PDO;
+    
+    class MyPDO extends PDO
+    {
+    // surcharge du constructeur avec l'ajout de l'argument $production
+    public function __construct(string $dsn, string|null $username, string|null $password, array|null $options, bool $production = true)
+    {
+    // chargement du constructeur parent (qui vient de PDO)
+    parent::__construct($dsn, $username, $password, $options);
+    
+            // si nous sommes en production
+            if ($production) {
+                // nous désactivons l'affichage d'erreur
+                $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+            }
+        }
+    
+        // écrasement du query venant du parent (PDO)
+        public function query($statement, $mode = PDO::ATTR_DEFAULT_FETCH_MODE, ...$fetch_mode_args): Exception
+        {
+            // affichage de l'erreur
+            throw new Exception("Query est désactivé dans MyPDO, veuillez utiliser une requête préparée");
+    
+        }
+    }
+
+Puis sera appelé depuis le contrôleur frontal :
+
+    ...
+    // use NewsWeb MyPDO class
+    use NewsWeb\MyPDO;
+    ...
+    // tentative de connexion à notre DB avec notre classe étendue de PDO : MyPDO
+    try {
+      $connectMyPDO = new MyPDO(DB_TYPE . ':dbname=' . DB_NAME . ';host=' . DB_HOST . ';charset=' . DB_CHARSET . ';port=' . DB_PORT, DB_LOGIN, DB_PWD, null, PROD);
+    } catch (Exception $e) {
+      die($e->getMessage());
+    }
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)

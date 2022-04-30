@@ -1,4 +1,7 @@
 <?php
+// use NewsWeb MyPDO class
+use NewsWeb\MyPDO;
+
 // dependencies
 require_once "../config.php";
 
@@ -10,6 +13,18 @@ $loader = new \Twig\Loader\FilesystemLoader('../view');
 $twig = new \Twig\Environment($loader, [
     //'cache' => '../view/cache',
 ]);
+
+// Personnal autoload
+spl_autoload_register(function ($class) {
+    include_once '../model/' . $class . '.php';
+});
+
+// tentative de connexion à notre DB avec notre classe étendue de PDO : MyPDO
+try {
+    $connectMyPDO = new MyPDO(DB_TYPE . ':dbname=' . DB_NAME . ';host=' . DB_HOST . ';charset=' . DB_CHARSET . ';port=' . DB_PORT, DB_LOGIN, DB_PWD, null, PROD);
+} catch (Exception $e) {
+    die($e->getMessage());
+}
 
 // test render Twig
 echo $twig->render('public/homepage.html.twig');
