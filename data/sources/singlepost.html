@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/nivo-slider.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="css/default/default.css" type="text/css" media="screen" />
+		
+		<!-- Lien vers le CDN (Content Delivery Network) pour le jQuery -->
+		<!-- D'abord la librairie jQuery -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<!-- Ensuite le plugin utilisant jQuery : ici, c'est le slider -->
+		<script src="jquery.nivo.slider.pack.js" type="text/javascript"></script>
+	
+		<!-- Commentaire conditionnel pour les navigateurs Internet Explorer avant la version 9 (par exemple: IE8, IE7,...) c'est-à-dire avant 2011 -->
+		<!--[if lt IE 9]>
+					<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+				<![endif]-->
+	
+		<title>NewsWeb - [Titre de l'article]</title>
+	
+		<!-- Librairie d'icônes -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<body id="blog">
+		<div id="wrapper">
+			<!--__--__--__--__--__--  L O G O   --__--___--__--__--__-->
+			<div id="logo">
+				<h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
+				<div id="tagline">
+					<h2>On a faim d'infos !</h2>
+				</div>
+			</div>
+
+			<!--__--__--__--__--__--  N A V    B A R --__--___--__--__--__-->
+			<nav class="topnav" id="topnav">
+				<ul>
+					<li id="menu">
+						<a href="javascript:void(0);" class="icon" onclick="hamburger()">MENU <i class="fa fa-bars"></i></a>
+					</li>
+					<li><a href="index.html" id="homenav">Accueil</a></li>
+					<li><a href="blog.html" id="blognav">Les articles</a></li>
+					<li><a href="contact.html" id="contact">Contact</a></li>
+					<li><a href="#" id="admin">Admin</a></li>
+				</ul>
+			</nav>
+			
+			<!--__--__--__--__--  M A I N   C O N T E N T  --__--__--__--___--__--__-->
+			<section>
+				<article id="art-1" class="singlepost">
+					<h1><a href="singlepost.html">Mauris Sed Lectus Duieleifend Quis Sem</a></h1>
+					<h2>Posted By: <a href="#">Admin</a> On January 29th, 2013 In <a href="#">Tutorials</a>.</h2>
+					<img src="images/a2.jpg" alt="" />
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet.</p>
+					<span class="left"><img src="images/float2.jpg" alt="example float" /></span>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet.</p>
+					<span class="right"><img src="images/float3.jpg" alt="example float" /></span>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet.</p>
+					</article>
+
+				<!--__--__--__--  S I D E B A R --__--__--__--__-->
+<!--
+				<div id="sidebar">
+					<aside>
+						<h1>Recent Posts</h1>
+						<ul>
+							<li><a href="#">Suspendisse Enim Elit Tempor Acer</a></li>
+							<li><a href="#">Mauris Sed Lectus Duieleifend Quis Sem</a></li>
+							<li><a href="#">Suspendisse Enim Elit Tempor Acer Fermentum Vulputate</a></li>
+							<li><a href="#">Mauris Sed Lectus Duieleifend Quis Sem</a></li>						
+						</ul>
+					</aside>
+					<aside>
+						<div id="cat">
+							<h1>Categories</h1>
+							<ul>
+								<li><a href="#">Webdesign</a>
+								<li><a href="#">Javascript</a>
+								<li><a href="#">Tutorials</a>
+								<li><a href="#">Freebies</a>
+								<li><a href="#">Wordpress</a>
+								<li><a href="#">HTML/CSS</a>
+							</ul>
+						</div>
+						<div id="archives">
+							<h1>Archives</h1>
+							<ul>
+								<li><a href="#">November 2012</a>
+								<li><a href="#">December 2012</a>
+								<li><a href="#">January 2013</a>
+							</ul>
+						</div>
+					</aside>
+				</div>
+-->				
+
+			</section>
+
+			<!--__--__--__--__--  T H E    F O O T E R --__--__--__--___--__--__--__-->
+			<footer>
+				<p>Design modifié pour un exercice de mise en page HTML/CSS</p>
+				<p>Copyright &copy 2013 Source X by Youssef Nassim and Zakariya Lhamri, design from <a href="http://geeksband.com">Geeksband.com</a>. All Rights Reserved.</p>
+			</footer>
+		</div>
+		
+		<!-- Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon -->
+		<script>
+		function hamburger() {
+			var x = document.getElementById("topnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+		}
+		</script>
+	</body>
+</html>

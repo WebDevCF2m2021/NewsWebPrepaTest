@@ -1,2 +1,7 @@
 # PHPStorm
 .idea
+# vendor
+/vendor
+# fichiers de configuration
+config.php
+
