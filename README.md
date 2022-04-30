@@ -175,12 +175,14 @@ Nous allons y charger les dépendances dans les blocs existants (js, css etc... 
     {% extends 'base.html.twig' %}
     ...
     {% block body %}
+      <div id="wrapper">
         {# On va créer les différentes zones modifiables du template dans le bloc body #}
         {% block logo %}{% endblock %}
         {% block nav %}{% endblock %}
         {% block slider %}{% endblock %}
         {% block main %}{% endblock %}
         {% block footer %}{% endblock %}
+      </div>
     {% endblock %}
 
 Puis un appel de `render` sur ce fichier pour le tester depuis `public/index.php` :
@@ -198,21 +200,18 @@ Création de la vue homepage :
 
     view/public/homepage.html.twig
 
-Contenant
+Contenant les tags `Twig` et le code `html` venant du template de Pierre :
 
     {% extends 'public/public.template.html.twig' %}
     {% block title %}{{ parent() }} Accueil {% endblock %}  
     ...
-    {% block body %}
-    <div id="wrapper">
+    
     {# On va remplir les différentes zones modifiables du template dans le bloc body #}
-        {% block logo %}{% endblock %}
-        {% block nav %}{% endblock %}
-        {% block slider %}{% endblock %}
-        {% block main %}{% endblock %}
-        {% block footer %}{% endblock %}
-    </div>
-    {% endblock %}
+        {% block logo %}ici{% endblock %}
+        {% block nav %}et{% endblock %}
+        {% block slider %}aussi{% endblock %}
+        {% block main %}par{% endblock %}
+        {% block footer %}là{% endblock %}
 
 Puis un appel de `render` sur ce fichier depuis `public/index.php` :
 
