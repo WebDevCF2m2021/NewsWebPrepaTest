@@ -14,7 +14,7 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
   - [La vue publique pour la homepage](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-pour-la-homepage) 
   - 
 - [Création de notre autoload sur le dossier model](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-autoload-sur-le-dossier-model)
-- Création de notre connexion PDO
+- [Création de notre connexion PDO](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-connexion-pdo)
 
 ## Voici la demande du client (Pierre) :
 
