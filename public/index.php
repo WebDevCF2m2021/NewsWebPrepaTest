@@ -28,3 +28,6 @@ try {
 
 // Call the router
 require_once "../controller/routerController.php";
+
+// close connection
+$connectMyPDO = null;
