@@ -298,12 +298,20 @@ Puis sera appelé depuis le contrôleur frontal :
 
 Nous allons créer un routeur pour pouvoir passer d'une page à l'autre et le charger depuis le contrôleur frontal
 
-    `public/index.php`
+`public/index.php`
 
     ...
     // Call the router
     require_once "../controller/routerController.php";
 
-    controller/routerController.php
+`controller/routerController.php`
+
+    if(isset($_GET['blog'])):
+      echo $twig->render('public/blog.html.twig');
+    //elseif():
+
+    else:
+      echo $twig->render('public/homepage.html.twig');
+    endif;
 
 
