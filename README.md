@@ -12,7 +12,7 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [Le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#le-design-par-d%C3%A9faut-du-client)
 - [Les vues pour le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#les-vues-pour-le-design-par-d%C3%A9faut-du-client)
   - [La vue publique pour la homepage](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-pour-la-homepage) 
-  - 
+  - La vue publique de la page blog
 - [Création de notre autoload sur le dossier model](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-autoload-sur-le-dossier-model)
 - [Création de notre connexion PDO](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-connexion-pdo)
 
@@ -202,7 +202,7 @@ Création de la vue homepage :
 
     view/public/homepage.html.twig
 
-Contenant les tags `Twig` et le code `html` venant du template de Pierre :
+Contenant les tags `Twig` et le code `html` venant du template de Pierre, tout en mettant le slider en commentaire pour ne pas le voir :
 
     {% extends 'public/public.template.html.twig' %}
     {% block title %}{{ parent() }} Accueil {% endblock %}  
@@ -211,7 +211,7 @@ Contenant les tags `Twig` et le code `html` venant du template de Pierre :
     {# On va remplir les différentes zones modifiables du template dans le bloc body #}
         {% block logo %}ici{% endblock %}
         {% block nav %}et{% endblock %}
-        {% block slider %}aussi{% endblock %}
+        {% block slider %}<!--aussi-->{% endblock %}
         {% block main %}par{% endblock %}
         {% block footer %}là{% endblock %}
 
@@ -220,6 +220,10 @@ Puis un appel de `render` sur ce fichier depuis `public/index.php` :
     ...
     // test render Twig
     echo $twig->render('public/homepage.html.twig');
+
+### La vue publique de la page blog
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
 ## Création de notre autoload sur le dossier model
 

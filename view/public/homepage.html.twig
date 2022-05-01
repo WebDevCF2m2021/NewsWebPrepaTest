@@ -14,19 +14,21 @@
             <a href="javascript:void(0);" class="icon" onclick="hamburger()">MENU <i class="fa fa-bars"></i></a>
         </li>
         <li><a href="./" id="homenav">Accueil</a></li>
-        <li><a href="?blog" id="blognav">Les articles</a></li>
-        <li><a href="?contact" id="contact">Contact</a></li>
-        <li><a href="?connect" id="admin">Admin</a></li>
+        <li><a href="./?blog" id="blognav">Les articles</a></li>
+        <li><a href="./?contact" id="contact">Contact</a></li>
+        <li><a href="./?connect" id="admin">Admin</a></li>
     </ul>
 </nav>{% endblock %}
-{% block slider %}<div class="slider-wrapper theme-default">
+{% block slider %}
+    <!-- Slide mis en commentaire, on peut le garder si nécessaire -->
+    <!--<div class="slider-wrapper theme-default">
     <div id="slider" class="nivoSlider">
         <img src="images/slide1.jpg" alt="" />
         <a href="http://geeksband.com"><img src="images/slide2.jpg" alt="" title="This is an example of a caption with a link" /></a>
         <img src="images/slide3.jpg" alt="" title="This is an example of a caption" />
         <img src="images/slide4.jpg" alt="" />
     </div>
-</div>{% endblock %}
+</div>-->{% endblock %}
 {% block main %}<section>
     <div id="line">
         <div class="dline"></div>
