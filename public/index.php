@@ -14,7 +14,7 @@ $twig = new \Twig\Environment($loader, [
     //'cache' => '../view/cache',
 ]);
 
-// Personnal autoload
+// Personal autoload
 spl_autoload_register(function ($class) {
     include_once '../model/' . $class . '.php';
 });
