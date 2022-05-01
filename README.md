@@ -126,7 +126,7 @@ Nous allons ensuite mettre les fichiers dans les dossiers `css`, `fonts`, `js` e
 
 On va ensuite dézipper ces données dans data pour pouvoir tester le fonctionnement du template par défaut dans
 
-    data/test-default-template
+`data/test-default-template`
 
 Nous constatons que celui-ci diffère du modèle donné par le client consultable à cette adresse :
 
@@ -134,7 +134,7 @@ https://partage2021.webdev-cf2m.be/WEB/NewsWeb/sources/
 
 Nous allons donc prendre la source du client et la mettre dans le dossier : 
 
-    data/sources
+`data/sources`
 
 Nous allons utiliser la base de `index.html` se trouvant dans ce dossier pour structurer notre vue de l'accueil public.
 
@@ -144,7 +144,7 @@ Nous allons utiliser la base de `index.html` se trouvant dans ce dossier pour st
 
 Pour tester le fonctionnement de Twig, nous allons d'abord créer dans `view` la base de toutes nos pages de template :
 
-    view/base.html.twig
+`view/base.html.twig`
 
 Contenant, en partant de la base nécessaire à toutes les pages du modèle :
 
@@ -171,7 +171,7 @@ Puis un appel de `render` sur ce fichier depuis `public/index.php` :
 
 Nous allons l'étendre pour toutes nos vues publiques dans un autre fichier de template:
 
-    view/public/public.template.html.twig
+`view/public/public.template.html.twig`
 
 Nous allons y charger les dépendances dans les blocs existants (js, css etc... ) et créer les bloques nécessaires pour les pages enfants
 
@@ -201,7 +201,7 @@ Puis un appel de `render` sur ce fichier pour le tester depuis `public/index.php
 
 Création de la vue homepage :
 
-    view/public/homepage.html.twig
+`view/public/homepage.html.twig`
 
 Contenant les tags `Twig` et le code `html` venant du template de Pierre, tout en mettant le slider en commentaire pour ne pas le voir :
 
@@ -244,7 +244,7 @@ Nous allons créer une connexion PDO personnalisée sous le nom de `MyPDO` dans 
 
 #### ! Nous donnerons un namespace à nos modèles : `NewsWeb` , et nous l'utiliserons comme nom de dossier pour que l'autoload reste fonctionnel !
 
-    model/NewsWeb/MyPDO.php
+`model/NewsWeb/MyPDO.php`
 
 contiendra
 
