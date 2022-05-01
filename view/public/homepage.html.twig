@@ -2,6 +2,8 @@
 
 {% block title %}{{ parent() }} Accueil {% endblock %}
 
+{% block pagetype %}home{% endblock %}
+
 {% block logo %}<div id="logo">
     <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
     <div id="tagline">
@@ -56,7 +58,3 @@
         </article>
     </div>
 </section>{% endblock %}
-{% block footer %}<footer>
-    <p>Design modifié pour un exercice de mise en page HTML/CSS</p>
-    <p>Copyright &copy 2013 Source X by Youssef Nassim and Zakariya Lhamri, design from <a href="http://geeksband.com" target="_blank">Geeksband.com</a>. All Rights Reserved.</p>
-</footer>{% endblock %}

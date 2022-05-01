@@ -157,7 +157,7 @@ Contenant, en partant de la base nécessaire à toutes les pages du modèle :
         <title>{% block title %}NewsWeb | {% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
-    <body id="home">
+    <body id="{% block pagetype %}{% endblock %}">
     {% block body %}{% endblock %}
     {% block javascripts %}{% endblock %}
     </body>
@@ -184,7 +184,8 @@ Nous allons y charger les dépendances dans les blocs existants (js, css etc... 
         {% block nav %}{% endblock %}
         {% block slider %}{% endblock %}
         {% block main %}{% endblock %}
-        {% block footer %}{% endblock %}
+        {% block footer %}Ici le footer qui
+        restera le même pour tous{% endblock %}
       </div>
     {% endblock %}
 
@@ -206,15 +207,15 @@ Création de la vue homepage :
 Contenant les tags `Twig` et le code `html` venant du template de Pierre, tout en mettant le slider en commentaire pour ne pas le voir :
 
     {% extends 'public/public.template.html.twig' %}
-    {% block title %}{{ parent() }} Accueil {% endblock %}  
+    {% block title %}{{ parent() }} Accueil {% endblock %}
+    {% block pagetype %}home{% endblock %}
     ...
     
     {# On va remplir les différentes zones modifiables du template dans le bloc body #}
         {% block logo %}ici{% endblock %}
         {% block nav %}et{% endblock %}
         {% block slider %}<!--aussi-->{% endblock %}
-        {% block main %}par{% endblock %}
-        {% block footer %}là{% endblock %}
+        {% block main %}ici{% endblock %}
 
 Puis un appel de `render` sur ce fichier depuis `public/index.php` :
 
@@ -225,6 +226,20 @@ Puis un appel de `render` sur ce fichier depuis `public/index.php` :
 ### La vue publique de la page blog
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Création de la vue blog :
+
+`view/public/blog.html.twig`
+
+contenant le reste de la page :
+
+    {% extends 'public/public.template.html.twig' %}
+
+    {% block title %}{{ parent() }} Liste de nos articles {% endblock %}
+
+    {% block pagetype %}blog{% endblock %}
+    ...
+
 
 ## Création de notre autoload sur le dossier model
 
@@ -290,7 +305,7 @@ Puis sera appelé depuis le contrôleur frontal :
       die($e->getMessage());
     }
 
-[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
 
 ## Création du routeur
 
