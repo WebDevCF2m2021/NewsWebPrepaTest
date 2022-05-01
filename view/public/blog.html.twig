@@ -1,0 +1,62 @@
+{% extends 'public/public.template.html.twig' %}
+
+{% block title %}{{ parent() }} Liste de nos articles {% endblock %}
+
+{% block logo %}<div id="logo">
+    <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
+    <div id="tagline">
+        <h2>Liste de nos articles</h2>
+    </div>
+</div>{% endblock %}
+{% block nav %}<nav class="topnav" id="topnav">
+    <ul>
+        <li id="menu">
+            <a href="javascript:void(0);" class="icon" onclick="hamburger()">MENU <i class="fa fa-bars"></i></a>
+        </li>
+        <li><a href="./" id="homenav">Accueil</a></li>
+        <li><a href="./?blog" id="blognav">Les articles</a></li>
+        <li><a href="./?contact" id="contact">Contact</a></li>
+        <li><a href="./?connect" id="admin">Admin</a></li>
+    </ul>
+</nav>{% endblock %}
+{% block slider %}
+    <!-- Slide mis en commentaire, on peut le garder si nécessaire -->
+    <!--<div class="slider-wrapper theme-default">
+    <div id="slider" class="nivoSlider">
+        <img src="images/slide1.jpg" alt="" />
+        <a href="http://geeksband.com"><img src="images/slide2.jpg" alt="" title="This is an example of a caption with a link" /></a>
+        <img src="images/slide3.jpg" alt="" title="This is an example of a caption" />
+        <img src="images/slide4.jpg" alt="" />
+    </div>
+</div>-->{% endblock %}
+{% block main %}<section>
+    <div id="line">
+        <div class="dline"></div>
+        <h1>Tous nos articles</h1>
+        <div class="dline"></div>
+    </div>
+    <div id="derniers-articles">
+        <article id="art-1">
+            <h1>Article 1</h1>
+            <img src="images/1.jpg" alt="" />
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet.</p>
+            <a href="singlepost.html" class="rm">En savoir plus...</a>
+        </article>
+        <article id="art-2">
+            <h1>Article 2</h1>
+            <img src="images/2.jpg" alt="" />
+            <p>Consectetuer adipiscing elit. Suspendisse enim elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit.</p>
+            <a href="singlepost.html" class="rm">En savoir plus...</a>
+        </article>
+        <article id="art-3">
+            <h1>Article 3</h1>
+            <img src="images/3.jpg" alt="" />
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit enim.</p>
+            <a href="singlepost.html" class="rm">En savoir plus...</a>
+        </article>
+    </div>
+</section>{% endblock %}
+{% block footer %}<footer>
+    <p>Design modifié pour un exercice de mise en page HTML/CSS</p>
+    <p>Copyright &copy 2013 Source X by Youssef Nassim and Zakariya Lhamri, design from <a href="http://geeksband.com" target="_blank">Geeksband.com</a>. All Rights Reserved.</p>
+</footer>{% endblock %}

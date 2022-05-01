@@ -12,9 +12,10 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [Le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#le-design-par-d%C3%A9faut-du-client)
 - [Les vues pour le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#les-vues-pour-le-design-par-d%C3%A9faut-du-client)
   - [La vue publique pour la homepage](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-pour-la-homepage) 
-  - La vue publique de la page blog
+  - [La vue publique de la page blog](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-de-la-page-blog)
 - [Création de notre autoload sur le dossier model](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-autoload-sur-le-dossier-model)
 - [Création de notre connexion PDO](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-connexion-pdo)
+- Création du routeur
 
 ## Voici la demande du client (Pierre) :
 
@@ -290,3 +291,18 @@ Puis sera appelé depuis le contrôleur frontal :
     }
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+## Création du routeur
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Nous allons créer un routeur pour pouvoir passer d'une page à l'autre et le charger depuis le contrôleur frontal
+
+    public/index.php
+
+    ...
+    // Call the router
+    require_once "controller/routerController.php";
+
+    controller/routerController.php
+
