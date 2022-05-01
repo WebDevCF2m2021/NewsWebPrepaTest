@@ -27,4 +27,4 @@ try {
 }
 
 // Call the router
-require_once "controller/routerController.php";
+require_once "../controller/routerController.php";
