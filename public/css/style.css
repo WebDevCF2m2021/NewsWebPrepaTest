@@ -171,7 +171,7 @@ body{
 	display: none;
 }
 
-#home a#homenav, #blog a#blognav, #fullwidth a#fullwidthnav, #contact a#contactnav{
+#home a#homenav, #blog a#blognav, #fullwidth a#fullwidthnav, #contact a#contact{
 	color: #b82924;
 }
 
@@ -771,7 +771,7 @@ footer{
 		display: none;
 	}
 	
-	#home a#homenav, #blog a#blognav, #fullwidth a#fullwidthnav, #contact a#contactnav{
+	#home a#homenav, #blog a#blognav, #fullwidth a#fullwidthnav, #contact a#contact{
 		color: #b82924;
 	}
 
