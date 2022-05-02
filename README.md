@@ -12,7 +12,10 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 - [Le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#le-design-par-d%C3%A9faut-du-client)
 - [Les vues pour le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#les-vues-pour-le-design-par-d%C3%A9faut-du-client)
   - [La vue publique pour la homepage](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-pour-la-homepage) 
-  - 
+  - [La vue publique de la page blog](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-de-la-page-blog)
+- [Création de notre autoload sur le dossier model](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-autoload-sur-le-dossier-model)
+- [Création de notre connexion PDO](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-connexion-pdo)
+- [Création du routeur](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-du-routeur)
 
 ## Voici la demande du client (Pierre) :
 
@@ -95,7 +98,15 @@ Ce fichier contient des données sensibles et ne sera pas mis sur github pour de
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
+Importons en MariaDB la base de données avec les datas depuis
+
+`data/newsweb_v1_structure_datas.sql`
+
+![Structure de la base de donnée](https://github.com/mikhawa/NewsWebPrepaTest/raw/main/data/newswebv1.png "EN")
+
 ## Le contrôleur frontal
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
 Ne contient au départ que l'appel des dépendances et l'instanciation de l'environement `Twig`
 
@@ -111,7 +122,7 @@ Ne contient au départ que l'appel des dépendances et l'instanciation de l'envi
         //'cache' => '../view/cache',
     ]);
 
-[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
 
 ## Le design par défaut du client
 
@@ -123,7 +134,7 @@ Nous allons ensuite mettre les fichiers dans les dossiers `css`, `fonts`, `js` e
 
 On va ensuite dézipper ces données dans data pour pouvoir tester le fonctionnement du template par défaut dans
 
-    data/test-default-template
+`data/test-default-template`
 
 Nous constatons que celui-ci diffère du modèle donné par le client consultable à cette adresse :
 
@@ -131,7 +142,7 @@ https://partage2021.webdev-cf2m.be/WEB/NewsWeb/sources/
 
 Nous allons donc prendre la source du client et la mettre dans le dossier : 
 
-    data/sources
+`data/sources`
 
 Nous allons utiliser la base de `index.html` se trouvant dans ce dossier pour structurer notre vue de l'accueil public.
 
@@ -141,7 +152,7 @@ Nous allons utiliser la base de `index.html` se trouvant dans ce dossier pour st
 
 Pour tester le fonctionnement de Twig, nous allons d'abord créer dans `view` la base de toutes nos pages de template :
 
-    view/base.html.twig
+`view/base.html.twig`
 
 Contenant, en partant de la base nécessaire à toutes les pages du modèle :
 
@@ -154,7 +165,7 @@ Contenant, en partant de la base nécessaire à toutes les pages du modèle :
         <title>{% block title %}NewsWeb | {% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
-    <body id="home">
+    <body id="{% block pagetype %}{% endblock %}">
     {% block body %}{% endblock %}
     {% block javascripts %}{% endblock %}
     </body>
@@ -168,7 +179,7 @@ Puis un appel de `render` sur ce fichier depuis `public/index.php` :
 
 Nous allons l'étendre pour toutes nos vues publiques dans un autre fichier de template:
 
-    view/public/public.template.html.twig
+`view/public/public.template.html.twig`
 
 Nous allons y charger les dépendances dans les blocs existants (js, css etc... ) et créer les bloques nécessaires pour les pages enfants
 
@@ -181,7 +192,8 @@ Nous allons y charger les dépendances dans les blocs existants (js, css etc... 
         {% block nav %}{% endblock %}
         {% block slider %}{% endblock %}
         {% block main %}{% endblock %}
-        {% block footer %}{% endblock %}
+        {% block footer %}Ici le footer qui
+        restera le même pour tous{% endblock %}
       </div>
     {% endblock %}
 
@@ -198,23 +210,131 @@ Puis un appel de `render` sur ce fichier pour le tester depuis `public/index.php
 
 Création de la vue homepage :
 
-    view/public/homepage.html.twig
+`view/public/homepage.html.twig`
 
-Contenant les tags `Twig` et le code `html` venant du template de Pierre :
+Contenant les tags `Twig` et le code `html` venant du template de Pierre, tout en mettant le slider en commentaire pour ne pas le voir :
 
     {% extends 'public/public.template.html.twig' %}
-    {% block title %}{{ parent() }} Accueil {% endblock %}  
+    {% block title %}{{ parent() }} Accueil {% endblock %}
+    {% block pagetype %}home{% endblock %}
     ...
     
     {# On va remplir les différentes zones modifiables du template dans le bloc body #}
         {% block logo %}ici{% endblock %}
         {% block nav %}et{% endblock %}
-        {% block slider %}aussi{% endblock %}
-        {% block main %}par{% endblock %}
-        {% block footer %}là{% endblock %}
+        {% block slider %}<!--aussi-->{% endblock %}
+        {% block main %}ici{% endblock %}
 
 Puis un appel de `render` sur ce fichier depuis `public/index.php` :
 
     ...
     // test render Twig
     echo $twig->render('public/homepage.html.twig');
+
+### La vue publique de la page blog
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Création de la vue blog :
+
+`view/public/blog.html.twig`
+
+contenant le reste de la page :
+
+    {% extends 'public/public.template.html.twig' %}
+
+    {% block title %}{{ parent() }} Liste de nos articles {% endblock %}
+
+    {% block pagetype %}blog{% endblock %}
+    ...
+
+
+## Création de notre autoload sur le dossier model
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Dans `public/index.php` nous allons créer un autoload permettant de charger nos classes qui se trouveront dans `model`
+
+    spl_autoload_register(function($class){
+      include_once  '../model/'.$class . '.php';
+    });
+
+## Création de notre connexion PDO
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Nous allons créer une connexion PDO personnalisée sous le nom de `MyPDO` dans notre dossier `model`
+
+#### ! Nous donnerons un namespace à nos modèles : `NewsWeb` , et nous l'utiliserons comme nom de dossier pour que l'autoload reste fonctionnel !
+
+`model/NewsWeb/MyPDO.php`
+
+contiendra
+
+    namespace NewsWeb;
+
+    use Exception;
+    use PDO;
+    
+    class MyPDO extends PDO
+    {
+    // surcharge du constructeur avec l'ajout de l'argument $production
+    public function __construct(string $dsn, string|null $username, string|null $password, array|null $options, bool $production = true)
+    {
+    // chargement du constructeur parent (qui vient de PDO)
+    parent::__construct($dsn, $username, $password, $options);
+    
+            // si nous sommes en production
+            if ($production) {
+                // nous désactivons l'affichage d'erreur
+                $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+            }
+        }
+    
+        // écrasement du query venant du parent (PDO)
+        public function query($statement, $mode = PDO::ATTR_DEFAULT_FETCH_MODE, ...$fetch_mode_args): Exception
+        {
+            // affichage de l'erreur
+            throw new Exception("Query est désactivé dans MyPDO, veuillez utiliser une requête préparée");
+    
+        }
+    }
+
+Puis sera appelé depuis le contrôleur frontal :
+
+    ...
+    // use NewsWeb MyPDO class
+    use NewsWeb\MyPDO;
+    ...
+    // tentative de connexion à notre DB avec notre classe étendue de PDO : MyPDO
+    try {
+      $connectMyPDO = new MyPDO(DB_TYPE . ':dbname=' . DB_NAME . ';host=' . DB_HOST . ';charset=' . DB_CHARSET . ';port=' . DB_PORT, DB_LOGIN, DB_PWD, null, PROD);
+    } catch (Exception $e) {
+      die($e->getMessage());
+    }
+
+
+
+## Création du routeur
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
+Nous allons créer un routeur pour pouvoir passer d'une page à l'autre et le charger depuis le contrôleur frontal
+
+`public/index.php`
+
+    ...
+    // Call the router
+    require_once "../controller/routerController.php";
+
+`controller/routerController.php`
+
+    if(isset($_GET['blog'])):
+      echo $twig->render('public/blog.html.twig');
+    //elseif():
+
+    else:
+      echo $twig->render('public/homepage.html.twig');
+    endif;
+
+

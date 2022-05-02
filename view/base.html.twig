@@ -5,7 +5,7 @@
     <title>{% block title %}Hello {% endblock %}</title>
     {% block stylesheets %}{% endblock %}
 </head>
-<body id="home">
+<body id="{% block pagetype %}{% endblock %}">
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 </body>
