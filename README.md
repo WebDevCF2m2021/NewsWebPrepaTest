@@ -98,7 +98,15 @@ Ce fichier contient des données sensibles et ne sera pas mis sur github pour de
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
+Importons en MariaDB la base de données avec les datas depuis
+
+`data/newsweb_v1_structure_datas.sql`
+
+![Structure de la base de donnée](https://github.com/mikhawa/NewsWebPrepaTest/raw/main/data/newswebv1.png "EN")
+
 ## Le contrôleur frontal
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
 Ne contient au départ que l'appel des dépendances et l'instanciation de l'environement `Twig`
 
@@ -114,7 +122,7 @@ Ne contient au départ que l'appel des dépendances et l'instanciation de l'envi
         //'cache' => '../view/cache',
     ]);
 
-[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
 
 ## Le design par défaut du client
 
