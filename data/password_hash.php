@@ -45,6 +45,6 @@ $mdp_ph = password_hash($mdp, PASSWORD_DEFAULT );
     </form>
 <?php if(isset($mes2)) echo "<p>$mes2</p>"?>
 <h3>Et un id unique</h3>
-<p><?=uniqid()?></p>
+<p><?=uniqid(more_entropy: true)?></p>
 </body>
 </html>
