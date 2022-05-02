@@ -1,0 +1,30 @@
+{% extends 'public/public.template.html.twig' %}
+
+{% block title %}{{ parent() }} Nous contacter {% endblock %}
+
+{% block pagetype %}contact{% endblock %}
+
+{% block logo %}<div id="logo">
+    <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
+    <div id="tagline">
+        <h2>Nous contacter</h2>
+    </div>
+</div>{% endblock %}
+{% block nav %}<nav class="topnav" id="topnav">
+    <ul>
+        <li id="menu">
+            <a href="javascript:void(0);" class="icon" onclick="hamburger()">MENU <i class="fa fa-bars"></i></a>
+        </li>
+        <li><a href="./" id="homenav">Accueil</a></li>
+        <li><a href="./?blog" id="blognav">Les articles</a></li>
+        <li><a href="./?contact" id="contact">Contact</a></li>
+        <li><a href="./?connect" id="admin">Admin</a></li>
+    </ul>
+</nav>{% endblock %}
+{% block main %}<section>
+    <div id="line">
+        <div class="dline"></div>
+        <h1>Nous contacter</h1>
+        <div class="dline"></div>
+    </div>
+</section>{% endblock %}
