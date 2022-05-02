@@ -38,8 +38,7 @@ Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
     Il y a :
     - une page d’accueil affichant les 3 dernières news (les 3 plus récentes).
     - une page affichant tous les extraits d'articles classés par date (du plus récent au plus ancien)
-    Le client a choisi le graphisme :
-    https://www.free-css.com/free-css-templates/page183/sourcexsrt
+    - Le client souhaiterait que ces articles aient un flux RSS
     Il doit être adapté pour être responsive.
 
     Version 1
@@ -324,15 +323,15 @@ Nous allons créer un routeur pour pouvoir passer d'une page à l'autre et le ch
 `public/index.php`
 
     ...
-    // Call the router
-    require_once "../controller/routerController.php";
-
-`controller/routerController.php`
-
+    // blog
     if(isset($_GET['blog'])):
       echo $twig->render('public/blog.html.twig');
-    //elseif():
 
+    // contact
+    elseif(isset($_GET['contact'])):
+    
+        echo $twig->render('public/contact.html.twig');
+    // homepage
     else:
       echo $twig->render('public/homepage.html.twig');
     endif;
