@@ -11,7 +11,10 @@ elseif(isset($_GET['contact'])):
        $message =  userEntryProtection($_POST["message"]);
        if(!empty($name)&&!empty($email)&&!empty($message)){
             $mailToAdmin->from($email)->subject("Message de l'utilisateur $name")->text($message);
+            $mailToCustomer->to($email)->subject("Merci $name pour votre message!")->text("Merci pour votre message sur notre site!
+Nous vous répondrons dans les plus bref délai.");
             $mailer->send($mailToAdmin);
+            $mailer->send($mailToCustomer);
        }
     }
     echo $twig->render('public/contact.html.twig');

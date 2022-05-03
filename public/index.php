@@ -21,6 +21,7 @@ $twig = new \Twig\Environment($loader, [
 $mailer = new Mailer(Transport::fromDsn('smtp:'.SMTP));
 //instanciation de la classe Email pour l'admin
 $mailToAdmin = (new Email())->to(ADMIN_MAIL);
+$mailToCustomer = (new Email())->from(ADMIN_MAIL);
 
 // Personal autoload
 spl_autoload_register(function ($class) {
