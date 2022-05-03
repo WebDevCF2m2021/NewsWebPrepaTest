@@ -1,6 +1,10 @@
 # NewsWebPrepaTest
 Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 
+### Gestion du projet:
+
+https://github.com/WebDevCF2m2021/NewsWebPrepaTest/projects/1
+
 ## Arborescence
 
 - [Demande du client](https://github.com/mikhawa/NewsWebPrepaTest#voici-la-demande-du-client-pierre-)
