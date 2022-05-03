@@ -1,7 +1,10 @@
 <?php
 // use NewsWeb MyPDO class
 use NewsWeb\MyPDO;
-
+// Symfony mailer namespaces
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mime\Email;
 // dependencies
 require_once "../config.php";
 
