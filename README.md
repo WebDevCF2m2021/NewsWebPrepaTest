@@ -20,6 +20,8 @@ https://github.com/WebDevCF2m2021/NewsWebPrepaTest/projects/1
 - [Création de notre autoload sur le dossier model](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-autoload-sur-le-dossier-model)
 - [Création de notre connexion PDO](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-connexion-pdo)
 - [Création du routeur](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-du-routeur)
+- Création des modèles de mapping de tables
+    - La classe abstraite du mapping
 
 ## Voici la demande du client (Pierre) :
 
@@ -340,4 +342,38 @@ Nous allons créer un routeur pour pouvoir passer d'une page à l'autre et le ch
       echo $twig->render('public/homepage.html.twig');
     endif;
 
+## Création des modèles de mapping de tables
 
+Dans le dossier `model/NewsWeb/`
+
+### La classe abstraite du mapping
+
+`model/NewsWeb/AbstractMapping.php`
+
+        namespace NewsWeb;
+
+        class AbstractMapping
+        {
+        // constructeur - Appelé lors de l'instanciation
+            public function __construct(array $tab)
+            {
+                // tentative d'hydration des données de Personnage
+                $this->hydrate($tab);
+
+
+            }
+
+            // création de notre hydratation, en partant d'un tableau associatif et de ses clefs, on va régénérer le nom des setters existants
+            protected function hydrate(array $assoc)
+            {
+                // tant qu'on a des éléments dans le tableau
+                foreach ($assoc as $clef => $valeur) {
+                    // création du nom de la méthode
+                    $methodeName = "set" . ucfirst($clef);
+                    // si la méthode existe
+                    if (method_exists($this, $methodeName)) {
+                        $this->$methodeName($valeur);
+                    }
+                }
+            }
+        }
