@@ -20,8 +20,8 @@ https://github.com/WebDevCF2m2021/NewsWebPrepaTest/projects/1
 - [Création de notre autoload sur le dossier model](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-autoload-sur-le-dossier-model)
 - [Création de notre connexion PDO](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-connexion-pdo)
 - [Création du routeur](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-du-routeur)
-- Création des modèles de mapping de tables
-    - La classe abstraite du mapping
+- [Création des modèles de mapping de tables](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-des-mod%C3%A8les-de-mapping-de-tables)
+    - [La classe abstraite du mapping](https://github.com/mikhawa/NewsWebPrepaTest#la-classe-abstraite-du-mapping)
 
 ## Voici la demande du client (Pierre) :
 
@@ -344,9 +344,13 @@ Nous allons créer un routeur pour pouvoir passer d'une page à l'autre et le ch
 
 ## Création des modèles de mapping de tables
 
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
+
 Dans le dossier `model/NewsWeb/`
 
 ### La classe abstraite du mapping
+
+[Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
 `model/NewsWeb/AbstractMapping.php`
 
