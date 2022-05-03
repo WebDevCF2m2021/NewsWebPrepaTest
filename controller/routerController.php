@@ -10,7 +10,7 @@ elseif(isset($_GET['contact'])):
        $email =  userEntryProtection($_POST["email"]);
        $message =  userEntryProtection($_POST["message"]);
        if(!empty($name)&&!empty($email)&&!empty($message)){
-            $mailToAdmin->from($email)->text("Message de l'utilisateur $name:\n $message");
+            $mailToAdmin->from($email)->subject("Message de l'utilisateur $name")->text($message);
             $mailer->send($mailToAdmin);
        }
     }
