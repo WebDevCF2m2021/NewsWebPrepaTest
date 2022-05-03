@@ -9,7 +9,6 @@ class AbstractMapping
     {
         // tentative d'hydration des données de Personnage
         $this->hydrate($tab);
-
     }
 
     // création de notre hydratation, en partant d'un tableau associatif et de ses clefs, on va régénérer le nom des setters existants
