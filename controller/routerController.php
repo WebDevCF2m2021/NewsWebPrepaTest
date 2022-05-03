@@ -5,7 +5,15 @@ if(isset($_GET['blog'])):
 
 // contact
 elseif(isset($_GET['contact'])):
-
+    if(isset($_POST["name"],$_POST["email"], $_POST["message"])){
+       $name =  userEntryProtection($_POST["name"]);
+       $email =  userEntryProtection($_POST["email"]);
+       $message =  userEntryProtection($_POST["message"]);
+       if(!empty($name)&&!empty($email)&&!empty($message)){
+            $mailToAdmin->from($email)->text("Message de l'utilisateur $name:\n $message");
+            $mailer->send($mailToAdmin);
+       }
+    }
     echo $twig->render('public/contact.html.twig');
 // homepage
 else:
