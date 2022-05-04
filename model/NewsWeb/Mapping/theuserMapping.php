@@ -71,7 +71,7 @@ class theuserMapping extends AbstractMapping
     /**
      * @return int
      */
-    public function getPermissionIdpermission(): int
+    public function getPermission_idpermission(): int
     {
         return $this->permission_idpermission;
     }
@@ -102,6 +102,7 @@ class theuserMapping extends AbstractMapping
     {
         if (strlen($theuserlogin) > 50) {
             trigger_error("L'ID de l'utilisateur ne peut pas dépasser 9999999999", E_USER_NOTICE);
+            return $this;
         } else {
             $this->theuserlogin = $theuserlogin;
             return $this;
@@ -114,7 +115,7 @@ class theuserMapping extends AbstractMapping
      */
     public function setTheuserpwd(string $theuserpwd): TheUserMapping
     {
-        if (strleng($theuserpwd) > 255) {
+        if (strlen($theuserpwd) > 255) {
             trigger_error("Le mot de passe est trop long ! ", E_USER_NOTICE);
             return $this;
         } else {
@@ -157,7 +158,7 @@ class theuserMapping extends AbstractMapping
     /**
      * @param int $permission_idpermission
      */
-    public function setPermissionIdpermission(int $permission_idpermission): void
+    public function setPermission_idpermission(int $permission_idpermission): void
     {
         $this->permission_idpermission = $permission_idpermission;
     }
