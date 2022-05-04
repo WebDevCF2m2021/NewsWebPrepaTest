@@ -5,7 +5,7 @@ namespace NewsWeb\Mapping;
 
 use NewsWeb\AbstractMapping;
 
-class TheuserMapping extends AbstractMapping
+class theuserMapping extends AbstractMapping
 {
 
     // Propriétés

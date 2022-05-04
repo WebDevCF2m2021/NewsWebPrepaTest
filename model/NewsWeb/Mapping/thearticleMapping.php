@@ -2,7 +2,7 @@
 
 namespace NewsWeb\Mapping;
 
-class ArticleMapping extends \NewsWeb\AbstractMapping {
+class thearticleMapping extends \NewsWeb\AbstractMapping {
     
     // Propriétés
     private int $idthearticle;

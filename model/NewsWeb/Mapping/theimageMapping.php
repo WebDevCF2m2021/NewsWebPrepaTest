@@ -2,7 +2,7 @@
 
 namespace NewsWeb\Mapping;
 
-class ImageMapping extends \NewsWeb\AbstractMapping
+class theimageMapping extends \NewsWeb\AbstractMapping
 {
     private int $idtheimage;
     private string $theimagename;
