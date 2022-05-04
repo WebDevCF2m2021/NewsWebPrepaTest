@@ -60,7 +60,7 @@ class thecommentMapping extends \NewsWeb\AbstractMapping{
      */
     public function setIdpermission(int $idpermission): thecommentMapping
     {
-        $this->idthecomment = $idthecomment;
+        $this->idthecomment = $idpermission;
         return $this;
     }
 
@@ -82,24 +82,15 @@ class thecommentMapping extends \NewsWeb\AbstractMapping{
      */
     public function setThecommenttext(int $thecommenttext): thecommentMapping
     {
-        if(strlen($thecommenttext)>850){
+        if(strlen($thecommenttext)>850) {
             trigger_error("Le texte du commentaire ne doit pas dépasser 45 caractères", E_USER_NOTICE);
             return $this;
-        else{
+        }else{
                 $this->thecommenttext = $thecommenttext;
                 return $this;
             }
     }
-    /**
-     * 4
-     * @param string $thecommenttext
-     * @return thecommentMapping
-     */
-    public function setThecommenttext(int $thecommenttext): thecommentMapping
-    {
-        $this->thecommenttext = $thecommenttext;
-        return $this;
-    }
+
     /**
      * 5
      * @param int $thecommentactive
