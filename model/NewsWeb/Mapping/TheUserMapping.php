@@ -4,7 +4,7 @@ namespace NewsWeb\Mapping;
 
 use NewsWeb\AbstractMapping;
 
-class TheUserMapping extends \NewsWeb\AbstractMapping
+class TheuserMapping extends \NewsWeb\AbstractMapping
 {
 
     // Propriétés
@@ -81,7 +81,7 @@ class TheUserMapping extends \NewsWeb\AbstractMapping
      * @param int $idtheuser
      * @return TheUserMapping
      */
-    public function setIdtheuser(int $idtheuser): TheUserMapping
+    public function setIdtheuser(int $idtheuser): TheuserMapping
     {
         // dépasse 45 caractères
         if(strlen($idtheuser)>45){
@@ -91,73 +91,92 @@ class TheUserMapping extends \NewsWeb\AbstractMapping
             $this->idtheuser = $idtheuser;
         }
         return $this;
+
     }
 
     /**
      * @param string $theuserlogin
      * @return TheUserMapping
      */
-    public function setTheuserlogin(string $theuserlogin): TheUserMapping
+    public function setTheuserlogin(string $theuserlogin): TheuserMapping
     {
         if(strlen($theuserlogin) > 50)
         {
             trigger_error("L'ID de l'utilisateur ne peut pas dépasser 9999999999", E_USER_NOTICE);
         } else {
             $this->theuserlogin = $theuserlogin;
-            return $this;
         }
+        return $this;
     }
 
     /**
      * @param string $theuserpwd
      * @return TheUserMapping
      */
-    public function setTheuserpwd(string $theuserpwd): TheUserMapping
+    public function setTheuserpwd(string $theuserpwd): TheuserMapping
     {
-        if(strleng($theuserpwd) > 255){
+        if(strlen($theuserpwd) > 255){
             trigger_error("Le mot de passe est trop long ! ", E_USER_NOTICE);
         } else {
             $this->theuserpwd = $theuserpwd;
-            return $this;
         }
+        return $this;
     }
 
     /**
      * @param string $theusermail
      * @return TheUserMapping
      */
-    public function setTheusermail(string $theusermail): TheUserMapping
+    public function setTheusermail(string $theusermail): TheuserMapping
     {
         if(strlen($theusermail) > 255) {
             trigger_error("L'adresse e-mail est trop longue ! ", E_USER_NOTICE);
         } else {
             $this->theusermail = $theusermail;
-            return $this;
         }
+        return $this;
     }
 
     /**
      * @param string $theuseruniqid
+     * @return TheuserMapping
      */
-    public function setTheuseruniqid(string $theuseruniqid): void
+    public function setTheuseruniqid(string $theuseruniqid): TheuserMapping
     {
-        $this->theuseruniqid = $theuseruniqid;
+        if(strlen($theuseruniqid) > 255) {
+            trigger_error("La clef unique est trop longue ! ");
+        } else {
+            $this->theuseruniqid = $theuseruniqid;
+        }
+        return $this;
     }
 
     /**
      * @param int $theuseracivate
+     * @return TheuserMapping
      */
-    public function setTheuseracivate(int $theuseracivate): void
+    public function setTheuseractivate(int $theuseractivate): TheuserMapping
     {
-        $this->theuseracivate = $theuseracivate;
+        if(!($theuseractivate >= 0 && $theuseractivate < 3)){
+            trigger_error("Identifiant de l'état d'activité invalide !");
+        } else {
+            $this->theuseracivate = $theuseractivate;
+        }
+        return $this;
     }
 
     /**
      * @param int $permission_idpermission
+     * @return TheuserMapping
      */
-    public function setPermissionIdpermission(int $permission_idpermission): void
+    public function setPermissionIdpermission(int $permission_idpermission): TheuserMapping
     {
-        $this->permission_idpermission = $permission_idpermission;
+        if($permission_idpermission < 1 || $permission_idpermission > 3) {
+            trigger_error("La permission introduite n'existe pas !", E_USER_NOTICE);
+        } else {
+            $this->permission_idpermission = $permission_idpermission;
+        }
+        return $this;
     }
 
 
