@@ -5,7 +5,7 @@ spl_autoload_register(function ($class) {
     include_once '../../model/' . $class . '.php';
 });
 
-$a = new NewsWeb\Mapping\TheuserMapping(['idtheuser'=>5,
+$a = new NewsWeb\Mapping\theuserMapping(['idtheuser'=>5,
     'theuserlogin'=>'lulu',
     'theuserpwd'=>"a1a2a3a4",
     'theusermail'=> "toutbidon@hotmail.com",
@@ -16,14 +16,14 @@ $a = new NewsWeb\Mapping\TheuserMapping(['idtheuser'=>5,
 
 
 ]);
-$b = new NewsWeb\Mapping\TheuserMapping([]);
-$c = new NewsWeb\Mapping\TheuserMapping(['idtheuser'=>'999999999999']);
-$d = new NewsWeb\Mapping\TheuserMapping(['theuserlogin'=>'dfgtrsre try  ftgdfg hgjhjg fghgjh bfgjhtyjj gjhghkjl ghjhgjkuhjk sdfgvhgrjh gfhjtra']);
-$e = new NewsWeb\Mapping\TheuserMapping(['theuserpwd'=>'9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999']);
-$f = new NewsWeb\Mapping\TheuserMapping(['theusermail'=>'aaaa@gmail.com']);
-$g = new NewsWeb\Mapping\TheuserMapping(['theuseruniqid'=>'33']);
-$h = new NewsWeb\Mapping\TheuserMapping(['theuseracivate'=>1]);
-$j = new NewsWeb\Mapping\TheuserMapping(['permission_idpermission'=>5]);
+$b = new NewsWeb\Mapping\theuserMapping([]);
+$c = new NewsWeb\Mapping\theuserMapping(['idtheuser'=>'999999999999']);
+$d = new NewsWeb\Mapping\theuserMapping(['theuserlogin'=>'dfgtrsre try  ftgdfg hgjhjg fghgjh bfgjhtyjj gjhghkjl ghjhgjkuhjk sdfgvhgrjh gfhjtra']);
+$e = new NewsWeb\Mapping\theuserMapping(['theuserpwd'=>'9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999']);
+$f = new NewsWeb\Mapping\theuserMapping(['theusermail'=>'aaaa@gmail.com']);
+$g = new NewsWeb\Mapping\theuserMapping(['theuseruniqid'=>'33']);
+$h = new NewsWeb\Mapping\theuserMapping(['theuseracivate'=>1]);
+$j = new NewsWeb\Mapping\theuserMapping(['permission_idpermission'=>5]);
 
 
 
