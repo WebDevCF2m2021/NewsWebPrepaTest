@@ -1,6 +1,7 @@
 <?php
 
 use NewsWeb\Mapping\theuserMapping;
+
 // blog
 if (isset($_GET['blog'])):
     echo $twig->render('public/blog.html.twig');
@@ -19,6 +20,11 @@ Nous vous répondrons dans les plus bref délai.");
                 $mailer->send($mailToAdmin);
                 $mailer->send($mailToCustomer);
             } catch (Symfony\Component\Mailer\Exception\TransportExceptionInterface $e) {
+                if (isset($name, $email, $message)) {
+                    $twig->addGlobal("name", $name);
+                    $twig->addGlobal("email", $email);
+                    $twig->addGlobal("message", $message);
+                }
                 if (!PROD) {
                     echo "<script>alert('Une erreur est survenue! Veuillez réessayer')</script>";
                 }
@@ -27,11 +33,6 @@ Nous vous répondrons dans les plus bref délai.");
                 }
             }
         }
-    }
-    if (isset($name, $email, $message)) {
-        $twig->addGlobal("name", $name);
-        $twig->addGlobal("email", $email);
-        $twig->addGlobal("message", $message);
     }
     echo $twig->render('public/contact.html.twig');
 // homepage
