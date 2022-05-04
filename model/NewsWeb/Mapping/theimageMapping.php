@@ -4,11 +4,11 @@ namespace NewsWeb\Mapping;
 
 class theimageMapping extends \NewsWeb\AbstractMapping
 {
-    private int $idtheimage;
+    private int $theimage;
     private string $theimagename;
     private string $theimagetype;
     private string $theimageurl;
-    private string $theimgetext;
+    private string $theimagetext;
 
     // Getters
 
@@ -17,7 +17,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      */
     public function getIdtheimage(): int
     {
-        return $this->idtheimage;
+        return $this->theimage;
     }
 
     /**
@@ -25,7 +25,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      */
     public function getIdtheimagename(): string
     {
-        return $this->idtheimagename;
+        return $this->theimagename;
     }
 
     /**
@@ -33,7 +33,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      */
     public function getIdtheimagetype(): string
     {
-        return $this->idtheimagetype;
+        return $this->theimagetype;
     }
 
     /**
@@ -41,7 +41,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      */
     public function getIdtheimageurl(): string
     {
-        return $this->idtheimageurl;
+        return $this->theimageurl;
     }
 
     /**
@@ -49,7 +49,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      */
     public function getIdtheimagetext(): string
     {
-        return $this->idtheimagetext;
+        return $this->theimagetext;
     }
 
     // Setters
@@ -58,9 +58,9 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param int $idtheimage
      * @return ImageMapping
      */
-    public function setIdtheimage(int $idtheimage): ImageMapping
+    public function setIdtheimage(int $theimage): theImageMapping
     {
-        $this->idtheimage = $idtheimage;
+        $this->theimage = $theimage;
         return $this;
     }
 
@@ -68,14 +68,14 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimagename
      * @return ImageMapping
      */
-    public function setIdtheimagename(string $theimagename): ImageMapping
+    public function setIdtheimagename(string $theimagename): theImageMapping
     {
         if(strlen($theimagename)>45){
             // affichage de l'erreur
             trigger_error("Le nom de l'image ne doit pas dépasser 45 caractères", E_USER_NOTICE);
             return $this;
         }else {
-            $this->idtheimagename = $theimagename;
+            $this->theimagename = $theimagename;
             return $this;
         }
     }
@@ -84,14 +84,14 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimagetype
      * @return ImageMapping
      */
-    public function setIdtheimagetype(string $theimagetype): ImageMapping
+    public function setIdtheimagetype(string $theimagetype): theImageMapping
     {
         if(strlen($theimagetype)>5){
             // affichage de l'erreur
             trigger_error("Le type de l'image ne doit pas dépasser 5 caractères", E_USER_NOTICE);
             return $this;
         }else {
-            $this->idtheimagetype = $theimagetype;
+            $this->theimagetype = $theimagetype;
             return $this;
         }
     }
@@ -100,14 +100,14 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimageurl
      * @return ImageMapping
      */
-    public function setIdtheimageurl(string $theimageurl): ImageMapping
+    public function setIdtheimageurl(string $theimageurl): theImageMapping
     {
         if(strlen($theimageurl)>100){
             // affichage de l'erreur
             trigger_error("L'URL de l'image ne doit pas dépasser 100 caractères", E_USER_NOTICE);
             return $this;
         }else {
-            $this->idtheimageurl = $theimageurl;
+            $this->theimageurl = $theimageurl;
             return $this;
         }
     }
@@ -116,14 +116,14 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimgetext
      * @return ImageMapping
      */
-    public function setIdtheimagetext(string $theimgetext): ImageMapping
+    public function setIdtheimagetext(string $theimgetext): theImageMapping
     {
         if(strlen($theimgetext)>250){
             // affichage de l'erreur
             trigger_error("Le text de l'image ne doit pas dépasser 250 caractères", E_USER_NOTICE);
             return $this;
         }else {
-            $this->idtheimagetext = $theimgetext;
+            $this->theimagetext = $theimgetext;
             return $this;
         }
     }
