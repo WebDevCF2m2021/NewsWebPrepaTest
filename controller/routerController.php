@@ -13,9 +13,18 @@ elseif(isset($_GET['contact'])):
             $mailToAdmin->from($email)->subject("Message de l'utilisateur $name")->text($message);
             $mailToCustomer->to($email)->subject("Merci $name pour votre message!")->text("Merci pour votre message sur notre site!
 Nous vous répondrons dans les plus bref délai.");
-            $mailer->send($mailToAdmin);
-            $mailer->send($mailToCustomer);
+            try {
+                $mailer->send($mailToAdmin);
+                $mailer->send($mailToCustomer);
+            }catch(Symfony\Component\Mailer\Exception\TransportExceptionInterface $e){
+                echo "<script>alert('Une erreur est survenue! Veuillez réessayer')</script>";
+            }
        }
+    }
+    if(isset($name,$email,$message)){
+        $twig->addGlobal("name",$name);
+        $twig->addGlobal("email",$email);
+        $twig->addGlobal("message",$message);
     }
     echo $twig->render('public/contact.html.twig');
 // homepage
