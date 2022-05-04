@@ -36,6 +36,9 @@ try {
 } catch (Exception $e) {
     die($e->getMessage());
 }
+
+// test thearticleMapping
+
 // Call the router
 require_once "../controller/routerController.php";
 
