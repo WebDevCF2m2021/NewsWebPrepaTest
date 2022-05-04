@@ -2,6 +2,8 @@
 
 namespace NewsWeb\Mapping;
 
+
+
 class thearticleMapping extends \NewsWeb\AbstractMapping {
     
     // Propriétés
@@ -12,6 +14,8 @@ class thearticleMapping extends \NewsWeb\AbstractMapping {
     private string $thearticletext;
     private string $thearticledate;
     private int $thearticleactivate;
+
+    use \NewsWeb\Trait\SlugifyTrait;
 
 // Getters
     /**
@@ -77,7 +81,7 @@ class thearticleMapping extends \NewsWeb\AbstractMapping {
      * @param int $idthearticle
      * @return thearticleMapping
      */
-    public function setIdArticle(int $idthearticle): thearticleMapping
+    public function setIdarticle(int $idthearticle): thearticleMapping
     {
         $this->idthearticle = $idthearticle;
         return $this;
@@ -87,7 +91,7 @@ class thearticleMapping extends \NewsWeb\AbstractMapping {
      * @param string $thearticletitle
      * @return thearticleMapping
      */
-    public function setArticleTitle(string $thearticletitle): thearticleMapping
+    public function setThearticletitle(string $thearticletitle): thearticleMapping
     {
         // dépasse 120 caractères
         if(strlen($thearticletitle)>120){
@@ -105,7 +109,7 @@ class thearticleMapping extends \NewsWeb\AbstractMapping {
      * @param string $thearticleslug
      * @return thearticleMapping
      */
-    public function setArticleSlug(string $thearticleslug): thearticleMapping
+    public function setThearticleslug(string $thearticleslug): thearticleMapping
     {
         // dépasse 120 caractères
         if(strlen($thearticleslug)>120){
@@ -122,7 +126,7 @@ class thearticleMapping extends \NewsWeb\AbstractMapping {
      * @param string $thearticleresume
      * @return thearticleMapping
      */
-    public function setArticleResume(string $thearticleresume): thearticleMapping
+    public function setThearticleresume(string $thearticleresume): thearticleMapping
     {
         // dépasse 120 caractères
         if(strlen($thearticleresume)>250){
@@ -139,7 +143,7 @@ class thearticleMapping extends \NewsWeb\AbstractMapping {
      * @param string $thearticletext
      * @return thearticleMapping
      */
-    public function setArticleText(string $thearticletext): thearticleMapping
+    public function setThearticletext(string $thearticletext): thearticleMapping
     {
         $this->thearticletext = $thearticletext;
         return $this;
@@ -149,7 +153,7 @@ class thearticleMapping extends \NewsWeb\AbstractMapping {
      * @param string $thearticledate
      * @return thearticleMapping
      */
-    public function setArticleDate(string $thearticledate): thearticleMapping
+    public function setThearticledate(string $thearticledate): thearticleMapping
     {
         $this->thearticledate = $thearticledate;
         return $this;
@@ -159,7 +163,7 @@ class thearticleMapping extends \NewsWeb\AbstractMapping {
      * @param int $thearticleactivate
      * @return thearticleMapping
      */
-    public function setArticleActivate(int $thearticleactivate): thearticleMapping
+    public function setThearticleactivate(int $thearticleactivate): thearticleMapping
     {
         $this->thearticleactivate = $thearticleactivate;
         return $this;

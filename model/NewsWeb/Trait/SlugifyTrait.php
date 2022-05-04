@@ -1,7 +1,10 @@
 <?php
 namespace NewsWeb\Trait;
 
+// peut être utiliser dans une classe en utilisant use dans celle-ci
 trait SlugifyTrait {
+
+    // méthode statique, peut être appelée sans instanciation de la classe qui la contient
     public static function slugify($text, string $divider = '-')
     {
         // replace non letter or digits by divider
