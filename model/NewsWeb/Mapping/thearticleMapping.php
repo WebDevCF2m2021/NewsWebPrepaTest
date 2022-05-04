@@ -2,6 +2,8 @@
 
 namespace NewsWeb\Mapping;
 
+
+
 class thearticleMapping extends \NewsWeb\AbstractMapping {
     
     // Propriétés
@@ -12,6 +14,8 @@ class thearticleMapping extends \NewsWeb\AbstractMapping {
     private string $thearticletext;
     private string $thearticledate;
     private int $thearticleactivate;
+
+    use \NewsWeb\Trait\SlugifyTrait;
 
 // Getters
     /**
