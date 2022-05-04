@@ -17,7 +17,11 @@ Nous vous répondrons dans les plus bref délai.");
                 $mailer->send($mailToAdmin);
                 $mailer->send($mailToCustomer);
             }catch(Symfony\Component\Mailer\Exception\TransportExceptionInterface $e){
-                echo "<script>alert('Une erreur est survenue! Veuillez réessayer')</script>";
+                if(!PROD){
+                    echo "<script>alert('Une erreur est survenue! Veuillez réessayer')</script>";
+                }else{
+                    throw new Error($e);
+                }
             }
        }
     }
