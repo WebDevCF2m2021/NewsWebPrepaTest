@@ -4,7 +4,7 @@ namespace NewsWeb\Mapping;
 
 class theimageMapping extends \NewsWeb\AbstractMapping
 {
-    private int $theimage;
+    private int $idtheimage;
     private string $theimagename;
     private string $theimagetype;
     private string $theimageurl;
@@ -17,7 +17,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      */
     public function getIdtheimage(): int
     {
-        return $this->theimage;
+        return $this->idtheimage;
     }
 
     /**
@@ -58,9 +58,9 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param int $idtheimage
      * @return ImageMapping
      */
-    public function setIdtheimage(int $theimage): theImageMapping
+    public function setIdtheimage(int $idtheimage): theImageMapping
     {
-        $this->theimage = $theimage;
+        $this->idtheimage = $idtheimage;
         return $this;
     }
 
