@@ -23,7 +23,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
     /**
      * @return string
      */
-    public function getIdtheimagename(): string
+    public function gettheimagename(): string
     {
         return $this->theimagename;
     }
@@ -31,7 +31,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
     /**
      * @return string
      */
-    public function getIdtheimagetype(): string
+    public function gettheimagetype(): string
     {
         return $this->theimagetype;
     }
@@ -39,7 +39,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
     /**
      * @return string
      */
-    public function getIdtheimageurl(): string
+    public function gettheimageurl(): string
     {
         return $this->theimageurl;
     }
@@ -47,7 +47,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
     /**
      * @return string
      */
-    public function getIdtheimagetext(): string
+    public function gettheimagetext(): string
     {
         return $this->theimagetext;
     }
@@ -68,7 +68,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimagename
      * @return ImageMapping
      */
-    public function setIdtheimagename(string $theimagename): theImageMapping
+    public function settheimagename(string $theimagename): theImageMapping
     {
         if(strlen($theimagename)>45){
             // affichage de l'erreur
@@ -84,7 +84,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimagetype
      * @return ImageMapping
      */
-    public function setIdtheimagetype(string $theimagetype): theImageMapping
+    public function settheimagetype(string $theimagetype): theImageMapping
     {
         if(strlen($theimagetype)>5){
             // affichage de l'erreur
@@ -100,7 +100,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimageurl
      * @return ImageMapping
      */
-    public function setIdtheimageurl(string $theimageurl): theImageMapping
+    public function settheimageurl(string $theimageurl): theImageMapping
     {
         if(strlen($theimageurl)>100){
             // affichage de l'erreur
@@ -116,7 +116,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimgetext
      * @return ImageMapping
      */
-    public function setIdtheimagetext(string $theimgetext): theImageMapping
+    public function settheimagetext(string $theimgetext): theImageMapping
     {
         if(strlen($theimgetext)>250){
             // affichage de l'erreur
