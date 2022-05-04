@@ -1,0 +1,30 @@
+<?php
+
+// Personal autoload
+spl_autoload_register(function ($class) {
+    include_once '../../model/' . $class . '.php';
+});
+
+$a = new NewsWeb\Mapping\TheuserMapping(['idtheuser'=>5,
+    'theuserlogin'=>'lulu',
+    'theuserpwd'=>"a1a2a3a4",
+    'theusermail'=> "toutbidon@hotmail.com",
+    'theuseruniqid'=>33,
+    'theuseracivate'=>1,
+    'permission_idpermission'=>5,
+
+
+
+]);
+$b = new NewsWeb\Mapping\TheuserMapping([]);
+$c = new NewsWeb\Mapping\TheuserMapping(['idtheuser'=>'5']);
+$d = new NewsWeb\Mapping\TheuserMapping(['theuserlogin'=>'dfgtrsre try  ftgdfg hgjhjg fghgjh bfgjhtyjj gjhghkjl ghjhgjkuhjk sdfgvhgrjh gfhjtra']);
+$e = new NewsWeb\Mapping\TheuserMapping(['theuserpwd'=>'a2a3a4a5a6']);
+$f = new NewsWeb\Mapping\TheuserMapping(['theusermail'=>'aaaa@gmail.com']);
+$g = new NewsWeb\Mapping\TheuserMapping(['theuseruniqid'=>'33']);
+$h = new NewsWeb\Mapping\TheuserMapping(['theuseracivate'=>1]);
+$j = new NewsWeb\Mapping\TheuserMapping(['permission_idpermission'=>5]);
+
+
+
+?><pre><?php var_dump($a,$b,$c,$d,$e,$f,$g,$h,$j); ?></pre>
