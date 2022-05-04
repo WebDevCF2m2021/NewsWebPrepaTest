@@ -34,6 +34,11 @@ try {
 } catch (Exception $e) {
     die($e->getMessage());
 }
+
+// test thearticleMapping
+
+
+
 //à changer en méthode static d'une classe relative aux users lorsqu'une telle classe sera implémentée
 function userEntryProtection(
     string $entry,
