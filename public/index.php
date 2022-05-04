@@ -5,6 +5,8 @@ use NewsWeb\MyPDO;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mime\Email;
+
+use NewsWeb\Mapping\theuserMapping;
 // dependencies
 require_once "../config.php";
 
@@ -33,17 +35,6 @@ try {
     $connectMyPDO = new MyPDO(DB_TYPE . ':dbname=' . DB_NAME . ';host=' . DB_HOST . ';charset=' . DB_CHARSET . ';port=' . DB_PORT, DB_LOGIN, DB_PWD, null, PROD);
 } catch (Exception $e) {
     die($e->getMessage());
-}
-//à changer en méthode static d'une classe relative aux users lorsqu'une telle classe sera implémentée
-function userEntryProtection(
-    string $entry,
-    int $flags = ENT_QUOTES,
-    string $characters = " \n\r\t\v\0",
-    $allowed_tags = null,
-    ?string $encoding = "UTF-8",
-    bool $double_encode = true
-): string {
-    return htmlspecialchars(strip_tags(trim($entry, $characters), $allowed_tags), $flags, $encoding, $double_encode);
 }
 // Call the router
 require_once "../controller/routerController.php";
