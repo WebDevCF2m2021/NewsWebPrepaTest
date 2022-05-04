@@ -3,6 +3,7 @@
 namespace NewsWeb\Mapping;
 
 use NewsWeb\AbstractMapping;
+use NewsWeb\Trait\userEntryProtectionTrait;
 
 class theuserMapping extends \NewsWeb\AbstractMapping
 {
@@ -16,6 +17,8 @@ class theuserMapping extends \NewsWeb\AbstractMapping
     private string $theuseruniqid;
     private int $theuseracivate;
     private int $permission_idpermission;
+
+    use userEntryProtectionTrait;
 
     // Getters
 
