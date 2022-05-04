@@ -178,11 +178,4 @@ class TheuserMapping extends \NewsWeb\AbstractMapping
         }
         return $this;
     }
-
-
-
-
-
-
-
 }
