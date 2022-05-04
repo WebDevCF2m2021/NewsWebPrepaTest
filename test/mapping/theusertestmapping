@@ -17,9 +17,9 @@ $a = new NewsWeb\Mapping\TheuserMapping(['idtheuser'=>5,
 
 ]);
 $b = new NewsWeb\Mapping\TheuserMapping([]);
-$c = new NewsWeb\Mapping\TheuserMapping(['idtheuser'=>'5']);
+$c = new NewsWeb\Mapping\TheuserMapping(['idtheuser'=>'999999999999']);
 $d = new NewsWeb\Mapping\TheuserMapping(['theuserlogin'=>'dfgtrsre try  ftgdfg hgjhjg fghgjh bfgjhtyjj gjhghkjl ghjhgjkuhjk sdfgvhgrjh gfhjtra']);
-$e = new NewsWeb\Mapping\TheuserMapping(['theuserpwd'=>'a2a3a4a5a6']);
+$e = new NewsWeb\Mapping\TheuserMapping(['theuserpwd'=>'9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999']);
 $f = new NewsWeb\Mapping\TheuserMapping(['theusermail'=>'aaaa@gmail.com']);
 $g = new NewsWeb\Mapping\TheuserMapping(['theuseruniqid'=>'33']);
 $h = new NewsWeb\Mapping\TheuserMapping(['theuseracivate'=>1]);
