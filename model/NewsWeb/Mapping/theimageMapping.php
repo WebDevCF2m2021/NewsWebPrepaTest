@@ -8,7 +8,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
     private string $theimagename;
     private string $theimagetype;
     private string $theimageurl;
-    private string $theimgetext;
+    private string $theimagetext;
 
     // Getters
 
@@ -23,33 +23,33 @@ class theimageMapping extends \NewsWeb\AbstractMapping
     /**
      * @return string
      */
-    public function getIdtheimagename(): string
+    public function gettheimagename(): string
     {
-        return $this->idtheimagename;
+        return $this->theimagename;
     }
 
     /**
      * @return string
      */
-    public function getIdtheimagetype(): string
+    public function gettheimagetype(): string
     {
-        return $this->idtheimagetype;
+        return $this->theimagetype;
     }
 
     /**
      * @return string
      */
-    public function getIdtheimageurl(): string
+    public function gettheimageurl(): string
     {
-        return $this->idtheimageurl;
+        return $this->theimageurl;
     }
 
     /**
      * @return string
      */
-    public function getIdtheimagetext(): string
+    public function gettheimagetext(): string
     {
-        return $this->idtheimagetext;
+        return $this->theimagetext;
     }
 
     // Setters
@@ -58,7 +58,7 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param int $idtheimage
      * @return ImageMapping
      */
-    public function setIdtheimage(int $idtheimage): ImageMapping
+    public function setIdtheimage(int $idtheimage): theImageMapping
     {
         $this->idtheimage = $idtheimage;
         return $this;
@@ -68,14 +68,14 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimagename
      * @return ImageMapping
      */
-    public function setIdtheimagename(string $theimagename): ImageMapping
+    public function settheimagename(string $theimagename): theImageMapping
     {
         if(strlen($theimagename)>45){
             // affichage de l'erreur
             trigger_error("Le nom de l'image ne doit pas dépasser 45 caractères", E_USER_NOTICE);
             return $this;
         }else {
-            $this->idtheimagename = $theimagename;
+            $this->theimagename = $theimagename;
             return $this;
         }
     }
@@ -84,14 +84,14 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimagetype
      * @return ImageMapping
      */
-    public function setIdtheimagetype(string $theimagetype): ImageMapping
+    public function settheimagetype(string $theimagetype): theImageMapping
     {
         if(strlen($theimagetype)>5){
             // affichage de l'erreur
             trigger_error("Le type de l'image ne doit pas dépasser 5 caractères", E_USER_NOTICE);
             return $this;
         }else {
-            $this->idtheimagetype = $theimagetype;
+            $this->theimagetype = $theimagetype;
             return $this;
         }
     }
@@ -100,14 +100,14 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimageurl
      * @return ImageMapping
      */
-    public function setIdtheimageurl(string $theimageurl): ImageMapping
+    public function settheimageurl(string $theimageurl): theImageMapping
     {
         if(strlen($theimageurl)>100){
             // affichage de l'erreur
             trigger_error("L'URL de l'image ne doit pas dépasser 100 caractères", E_USER_NOTICE);
             return $this;
         }else {
-            $this->idtheimageurl = $theimageurl;
+            $this->theimageurl = $theimageurl;
             return $this;
         }
     }
@@ -116,14 +116,14 @@ class theimageMapping extends \NewsWeb\AbstractMapping
      * @param string $theimgetext
      * @return ImageMapping
      */
-    public function setIdtheimagetext(string $theimgetext): ImageMapping
+    public function settheimagetext(string $theimgetext): theImageMapping
     {
         if(strlen($theimgetext)>250){
             // affichage de l'erreur
             trigger_error("Le text de l'image ne doit pas dépasser 250 caractères", E_USER_NOTICE);
             return $this;
         }else {
-            $this->idtheimagetext = $theimgetext;
+            $this->theimagetext = $theimgetext;
             return $this;
         }
     }

@@ -11,5 +11,5 @@ $a = new NewsWeb\Mapping\thesectionMapping(['idthesection'=>9,
 ]);
 $b = new NewsWeb\Mapping\thesectionMapping([]);
 $c = new NewsWeb\Mapping\thesectionMapping(['idthesection'=>'9']);
-$d = new NewsWeb\Mapping\thesectionMapping(['tehsectiontitle'=>'dfgtrsre try  ftgdfg hgjhjg fghgjh bfgjhtyjj gjhghkjl ghjhgjkuhjk sdfgvhgrjh gfhjtra']);
+$d = new NewsWeb\Mapping\thesectionMapping(['thesectiontitle'=>'dfgtrsre try  ftgdfg hgjhjg fghgjh bfgjhtyjj gjhghkjl ghjhgjkuhjk sdfgvhgrjh gfhjtra ukyiuyiuy juygukyguy iuyiu juyiu iuyuguyguy']);
 ?><pre><?php var_dump($a,$b,$c,$d); ?></pre>
