@@ -5,8 +5,10 @@ use NewsWeb\MyPDO;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mime\Email;
+// Twig namespaces
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
-use NewsWeb\Mapping\theuserMapping;
 // dependencies
 require_once "../config.php";
 
@@ -14,10 +16,12 @@ require_once "../config.php";
 require_once '../vendor/autoload.php';
 
 // Twig loader
-$loader = new \Twig\Loader\FilesystemLoader('../view');
-$twig = new \Twig\Environment($loader, [
+$loader = new FilesystemLoader('../view');
+$twig = new Environment($loader, [
     //'cache' => '../view/cache',
 ]);
+
+
 //instanciation de mailer avec ce que retourne la fonction fromDsn de la class Transport avec la constante
 //SMTP définie dans le config
 $mailer = new Mailer(Transport::fromDsn('smtp:'.SMTP));
@@ -37,7 +41,6 @@ try {
     die($e->getMessage());
 }
 
-// test thearticleMapping
 
 // Call the router
 require_once "../controller/routerController.php";
