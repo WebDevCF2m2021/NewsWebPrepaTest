@@ -1,20 +1,25 @@
 <?php
 
+
+
 // Personal autoload
+
 spl_autoload_register(function ($class) {
+
     include_once '../../model/' . $class . '.php';
+
 });
 
 try{
-$a = new NewsWeb\Mapping\thecommentMapping(['idthecomment'=>5,
-    'theuser_idtheuser'=>'3',
-    'thecommenttext'=>"a1a2a3a4",
-    'thecommentdate'=> date("Y-m-d H:i:s"),
-    'thecommentactive'=>33,]);
-    }catch(Exception $e){
-        echo $e->getMessage();
-    }
-    
+    $a = new NewsWeb\Mapping\thecommentMapping(['idthecomment'=>5,
+        'theuser_idtheuser'=>'3',
+        'thecommenttext'=>"a1a2a3a4",
+        'thecommentdate'=> date("Y-m-d H:i:s"),
+        'thecommentactive'=>33,]);
+}catch(Exception $e){
+    echo $e->getMessage();
+}
+
 
 
 $b = new NewsWeb\Mapping\thecommentMapping([]);
@@ -27,6 +32,39 @@ try {
 }catch(Exception $e){
     echo $e->getMessage();
 }
+
+
+
+?><pre><?php var_dump($a,$b,$c,$d,$e,$f,$g); ?></pre>
+<?php
+$a = new NewsWeb\Mapping\thecommentMapping(['idthecomment'=>5,
+
+    'theuser_idtheuser'=>'lulu',
+
+    'thecommenttext'=>"a1a2a3a4",
+
+    'thecommentdate'=> 'date()',
+
+    'thecommentactive'=>33,
+
+   
+
+
+
+]);
+
+$b = new NewsWeb\Mapping\thecommentMapping([]);
+
+$c = new NewsWeb\Mapping\thecommentMapping(['idthecomment'=>'999999999999']);
+
+$d = new NewsWeb\Mapping\thecommentMapping(['theuser_idtheuser'=>'dfgtrsre try  ftgdfg hgjhjg fghgjh bfgjhtyjj gjhghkjl ghjhgjkuhjk sdfgvhgrjh gfhjtra']);
+
+$e = new NewsWeb\Mapping\thecommentMapping(['thecommenttext'=>'9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999']);
+
+$f = new NewsWeb\Mapping\thecommentMapping(['thecommentdate'=>'aaaa@gmail.com']);
+
+$g = new NewsWeb\Mapping\thecommentMapping(['thecommentactive'=>'aaaa@gmail.com']);
+
 
 
 
