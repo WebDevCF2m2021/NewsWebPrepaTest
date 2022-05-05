@@ -2,10 +2,13 @@
 
 namespace NewsWeb\Mapping;
 
+// utilisation de classes externes
+// classe abstraite
 use NewsWeb\AbstractMapping;
-use NewsWeb\Trait\userEntryProtectionTrait;
+// trait renommé en protection, on doit utiliser le 'use protection' dans la classe
+use NewsWeb\Trait\userEntryProtectionTrait AS protection;
 
-class theuserMapping extends \NewsWeb\AbstractMapping
+class theuserMapping extends AbstractMapping
 {
 
     // Propriétés
@@ -18,7 +21,8 @@ class theuserMapping extends \NewsWeb\AbstractMapping
     private int $theuseracivate;
     private int $permission_idpermission;
 
-    use userEntryProtectionTrait;
+    // importation de la méthode du trait
+    use protection;
 
     // Getters
 
