@@ -10,7 +10,7 @@ if (isset($_GET['blog'])):
 elseif (isset($_GET['contact'])):
     if (isset($_POST["name"], $_POST["email"], $_POST["message"])) {
         $name    = theuserMapping::userEntryProtection($_POST["name"]);
-        $email   = theuserMapping::userEntryProtection($_POST["email"]);
+        $email   = filter_var(theuserMapping::userEntryProtection($_POST["email"]), FILTER_VALIDATE_EMAIL);
         $message = theuserMapping::userEntryProtection($_POST["message"]);
         if (!empty($name) && !empty($email) && !empty($message)) {
             $mailToAdmin->from($email)->subject("Message de l'utilisateur $name")->text($message);
@@ -20,11 +20,9 @@ Nous vous répondrons dans les plus bref délai.");
                 $mailer->send($mailToAdmin);
                 $mailer->send($mailToCustomer);
             } catch (Symfony\Component\Mailer\Exception\TransportExceptionInterface $e) {
-                if (isset($name, $email, $message)) {
-                    $twig->addGlobal("name", $name);
-                    $twig->addGlobal("email", $email);
-                    $twig->addGlobal("message", $message);
-                }
+                $twig->addGlobal("name", $name);
+                $twig->addGlobal("email", $email);
+                $twig->addGlobal("message", $message);
                 if (!PROD) {
                     echo "<script>alert('Une erreur est survenue! Veuillez réessayer')</script>";
                 }
@@ -32,6 +30,11 @@ Nous vous répondrons dans les plus bref délai.");
                     throw new Error($e);
                 }
             }
+        }
+        else {
+            $twig->addGlobal("name", $name);
+            $twig->addGlobal("email", $email);
+            $twig->addGlobal("message", $message);
         }
     }
     echo $twig->render('public/contact.html.twig');

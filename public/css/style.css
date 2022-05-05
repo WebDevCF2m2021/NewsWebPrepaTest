@@ -378,10 +378,25 @@ body {
     margin : 0 0 0 55px;
 }
 
-#articles, #contactpost {
+#articles {
     /*width: 600px;*/
     width  : 95vw;
     margin : 0 0 40px 0;
+}
+
+#contactpost {
+    width  : fit-content;
+    margin : 0 auto;
+}
+
+#contactform {
+    display        : flex;
+    flex-direction : column;
+}
+
+#contactform div {
+    display        : flex;
+    flex-direction : column;
 }
 
 /* blog */
@@ -504,26 +519,27 @@ body {
     margin-bottom : 25px;
 }
 
-input[type="user"] {
+input[type="text"] {
     display      : block;
-    float        : right;
+    /*float        : right;*/
     height       : 20px;
-    width        : 280px;
+    /*width        : 280px;*/
     padding-left : 3px;
 }
 
 input[type="email"] {
     display      : block;
-    float        : right;
+    /*float        : right;*/
     height       : 20px;
-    width        : 280px;
+    /*width        : 280px;*/
     padding-left : 3px;
 }
 
 #message {
     display      : block;
     float        : right;
-    width        : 280px;
+    /*width        : 280px;*/
+    resize       : none;
     height       : 130px;
     padding-left : 3px;
 }
@@ -540,7 +556,7 @@ input[type="submit"] {
 }
 
 input, #message {
-    margin-right     : 180px;
+    /*margin-right     : 180px;*/
     background-color : #f8f8f8;
     border           : 2px inset #000;
     border-radius    : 3px;

@@ -4,13 +4,15 @@
 
 {% block pagetype %}contact{% endblock %}
 
-{% block logo %}<div id="logo">
-    <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
-    <div id="tagline">
-        <h2>Nous contacter</h2>
-    </div>
-</div>{% endblock %}
-{% block main %}<section>
+{% block logo %}
+    <div id="logo">
+        <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
+        <div id="tagline">
+            <h2>Nous contacter</h2>
+        </div>
+    </div>{% endblock %}
+{% block main %}
+    <section>
     <div id="line">
         <div class="dline"></div>
         <h1>Nous contacter</h1>
@@ -18,21 +20,20 @@
     </div>
 
 
-        <div id="contactpost">
-            <h1>Contact Us</h1>
-            <p>Below is an example of how a contact form might look with this template:</p>
-            <form method="post" action="#">
-                <div id="contactform">
-                    <p><label for="name">Name</label><input type="user" name="name" id="name" placeholder="your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'your name'" value="{% if name is defined %}{{ name }}{% endif %}" /></p>
-                    <p><label for="email">Email</label><input type="email" name="email" id="email" placeholder="your@email.com" onfocus="this.placeholder = ''" onblur="this.placeholder = 'your@email.com'" value="{% if email is defined %}{{ email }}{% endif %}"/></p>
-                    <p><label for="message">Message</label><textarea name="message" id="message">{% if message is defined %}{{ message }}{% endif %}</textarea></p>
-                    <p style="padding-top: 105px"><span>&nbsp;</span><input class="submit" type="submit" name="contact_submitted" value="submit" /></p>
-                </div>
-            </form>
-            &nbsp;
-            <p>NOTE: A contact form such as this would require some way of emailing the input<br />
-                to an email address.</p>
-        </div>
+    <div id="contactpost">
+        <h1>Contact Us</h1>
+        <p>Below is an example of how a contact form might look with this template:</p>
+        <form method="post">
+            <div id="contactform">
+                <div><label for="name">Name</label><input type="text" name="name" id="name" placeholder="your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'your name'" value="{% if name is defined %}{{ name }}{% endif %}"/></div>
+                <div><label for="email">Email</label><input type="email" name="email" id="email" placeholder="your@email.com" onfocus="this.placeholder = ''" onblur="this.placeholder = 'your@email.com'" value="{% if email is defined %}{{ email }}{% endif %}"/></div>
+                <div><label for="message">Message</label><textarea name="message" id="message">{% if message is defined %}{{ message }}{% endif %}</textarea></div>
+                <div><input class="submit" type="submit" name="contact_submitted" value="submit"/></div>
+            </div>
+        </form>
+        <p>NOTE: A contact form such as this would require some way of emailing the input<br/>
+            to an email address.</p>
+    </div>
 
 
-</section>{% endblock %}
+    </section>{% endblock %}
