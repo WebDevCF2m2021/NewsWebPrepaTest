@@ -2,10 +2,13 @@
 
 namespace NewsWeb\Mapping;
 
+// utilisation de classes externes
+// classe abstraite
 use NewsWeb\AbstractMapping;
-use NewsWeb\Trait\userEntryProtectionTrait;
+// trait renommé en protection, on doit utiliser le 'use protection' dans la classe
+use NewsWeb\Trait\userEntryProtectionTrait AS protection;
 
-class theuserMapping extends \NewsWeb\AbstractMapping
+class theuserMapping extends AbstractMapping
 {
 
     // Propriétés
@@ -18,7 +21,8 @@ class theuserMapping extends \NewsWeb\AbstractMapping
     private int $theuseracivate;
     private int $permission_idpermission;
 
-    use userEntryProtectionTrait;
+    // importation de la méthode du trait
+    use protection;
 
     // Getters
 
@@ -132,8 +136,9 @@ class theuserMapping extends \NewsWeb\AbstractMapping
      */
     public function setTheusermail(string $theusermail): TheuserMapping
     {
-        if(strlen($theusermail) > 255) {
-            trigger_error("L'adresse e-mail est trop longue ! ", E_USER_NOTICE);
+
+        if((strlen($theusermail) > 255) && (!filter_var(trim($theusermail), FILTER_VALIDATE_EMAIL))){
+            trigger_error("L'adresse e-mail est trop longue  ou le format est invalide ! ", E_USER_NOTICE);
         } else {
             $this->theusermail = $theusermail;
         }
@@ -160,7 +165,7 @@ class theuserMapping extends \NewsWeb\AbstractMapping
      */
     public function setTheuseractivate(int $theuseractivate): TheuserMapping
     {
-        if(!($theuseractivate >= 0 && $theuseractivate < 3)){
+        if(!($theuseractivate >= 0 && $theuseractivate < 3) || (!$theuseractivate)){
             trigger_error("Identifiant de l'état d'activité invalide !");
         } else {
             $this->theuseracivate = $theuseractivate;
