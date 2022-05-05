@@ -132,8 +132,9 @@ class theuserMapping extends \NewsWeb\AbstractMapping
      */
     public function setTheusermail(string $theusermail): TheuserMapping
     {
-        if(strlen($theusermail) > 255) {
-            trigger_error("L'adresse e-mail est trop longue ! ", E_USER_NOTICE);
+
+        if((strlen($theusermail) > 255) && (!filter_var(trim($theusermail), FILTER_VALIDATE_EMAIL))){
+            trigger_error("L'adresse e-mail est trop longue  ou le format est invalide ! ", E_USER_NOTICE);
         } else {
             $this->theusermail = $theusermail;
         }
@@ -160,7 +161,7 @@ class theuserMapping extends \NewsWeb\AbstractMapping
      */
     public function setTheuseractivate(int $theuseractivate): TheuserMapping
     {
-        if(!($theuseractivate >= 0 && $theuseractivate < 3)){
+        if(!($theuseractivate >= 0 && $theuseractivate < 3) || (!$theuseractivate)){
             trigger_error("Identifiant de l'état d'activité invalide !");
         } else {
             $this->theuseracivate = $theuseractivate;
