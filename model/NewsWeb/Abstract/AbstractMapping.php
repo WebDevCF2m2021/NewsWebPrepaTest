@@ -1,6 +1,6 @@
 <?php
 
-namespace NewsWeb;
+namespace NewsWeb\Abstract;
 
 class AbstractMapping
 {

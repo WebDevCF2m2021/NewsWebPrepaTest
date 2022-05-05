@@ -2,7 +2,7 @@
 
 namespace NewsWeb\Mapping;
 
-class permissionMapping extends \NewsWeb\AbstractMapping
+class permissionMapping extends \NewsWeb\Abstract\AbstractMapping
 {
     // Propriétés
     private int $idpermission;

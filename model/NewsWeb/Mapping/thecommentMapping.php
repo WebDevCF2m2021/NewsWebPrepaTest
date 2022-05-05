@@ -1,7 +1,7 @@
 <?php
 namespace NewsWeb\Mapping;
 
-class thecommentMapping extends \NewsWeb\AbstractMapping{
+class thecommentMapping extends \NewsWeb\Abstract\AbstractMapping{
         private int $idthecomment;
         private int $theuser_idtheuser;
         private string $thecommenttext;
