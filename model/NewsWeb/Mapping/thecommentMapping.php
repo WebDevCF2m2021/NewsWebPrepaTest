@@ -80,7 +80,7 @@ class thecommentMapping extends \NewsWeb\AbstractMapping{
      * @param string $thecommenttext
      * @return thecommentMapping
      */
-    public function setThecommenttext(int $thecommenttext): thecommentMapping
+    public function setThecommenttext(string $thecommenttext): thecommentMapping
     {
         if(strlen($thecommenttext)>850) {
             trigger_error("Le texte du commentaire ne doit pas dépasser 45 caractères", E_USER_NOTICE);
