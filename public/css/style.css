@@ -385,7 +385,7 @@ body {
 }
 
 #contactpost {
-    width  : fit-content;
+    width  : 80%;
     margin : 0 auto;
 }
 
@@ -397,6 +397,14 @@ body {
 #contactform div {
     display        : flex;
     flex-direction : column;
+}
+
+#contactform div > * {
+    margin-bottom : 0.5em;
+}
+
+#contactform div:last-child {
+    margin : 2em 0;
 }
 
 /* blog */
@@ -779,6 +787,10 @@ footer {
         margin-bottom : 40px;
     }
 
+    #contactpost {
+        width : 90%;
+    }
+
     footer {
         grid-area : footer;
         width     : 100%;
@@ -977,6 +989,10 @@ footer {
 
     #blog article {
         width : auto;
+    }
+
+    #contactpost {
+        width : fit-content;
     }
 
     footer {
