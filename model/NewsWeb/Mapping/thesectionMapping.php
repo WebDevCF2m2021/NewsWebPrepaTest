@@ -2,7 +2,7 @@
 
 namespace NewsWeb\Mapping;
 
-class thesectionMapping extends \NewsWeb\AbstractMapping
+class thesectionMapping extends \NewsWeb\Abstract\AbstractMapping
 {
     // Propriétés
     private int $idthesection;

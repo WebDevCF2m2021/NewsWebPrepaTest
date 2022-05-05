@@ -4,7 +4,7 @@ namespace NewsWeb\Mapping;
 
 // utilisation de classes externes
 // classe abstraite
-use NewsWeb\AbstractMapping;
+use NewsWeb\Abstract\AbstractMapping;
 // trait renommé en protection, on doit utiliser le 'use protection' dans la classe
 use NewsWeb\Trait\userEntryProtectionTrait AS protection;
 
