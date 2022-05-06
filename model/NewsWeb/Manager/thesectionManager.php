@@ -41,6 +41,7 @@ class thesectionManager implements ManagerInterface
         }catch(\Exception $e){
             return $e->getMessage();
         }
+
     }
 
 

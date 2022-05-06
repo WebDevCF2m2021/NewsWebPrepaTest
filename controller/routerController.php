@@ -22,10 +22,16 @@ elseif(isset($_GET['section'])):
 // si slug trouvé, contient un tableau associatif
 $theSectionDatas = $thesectionManager->SelectOneThesectionBySlug($_GET['section']);
 
-    // sinon ld résultat est un string
+    // sinon le résultat est un string
     if(is_string($theSectionDatas)):
 
+        // si elle est vide (pas de section ou PROD est à true)
+        if(empty($theSectionDatas)) $theSectionDatas = "Rubrique inexistante";
+
         // appel de l'erreur 404
+        echo $twig->render('public/error404.html.twig',[
+            'menu'=>$thesectionMenu,
+            'message'=>$theSectionDatas,]);
     else:
         // affichage de le section
         echo $twig->render('public/section.html.twig',[
@@ -56,7 +62,7 @@ Nous vous répondrons dans les plus bref délai.");
                 $twig->addGlobal("name", $name);
                 $twig->addGlobal("email", $email);
                 $twig->addGlobal("message", $message);
-                if (!PROD) {
+                if (PROD) {
                     echo "<script>alert('Une erreur est survenue! Veuillez réessayer')</script>";
                 }
                 else {
