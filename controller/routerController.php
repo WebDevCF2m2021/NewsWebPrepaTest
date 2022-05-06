@@ -1,10 +1,29 @@
 <?php
+// Use Global Manager
+use NewsWeb\Manager\thesectionManager; // sections
 
 use NewsWeb\Mapping\theuserMapping;
 
+// gestionnaire de la table thesection
+$thesectionManager = new thesectionManager($connectMyPDO);
+
+// sélection de toutes les sections pour le menu
+$thesectionMenu = $thesectionManager->SelectAllThesection();
+
+
 // blog
 if (isset($_GET['blog'])):
-    echo $twig->render('public/blog.html.twig');
+    echo $twig->render('public/blog.html.twig',[
+        'menu'=>$thesectionMenu,
+    ]);
+
+elseif(isset($_GET['section'])):
+$theSectionDatas = $thesectionManager->SelectOneThesectionBySlug($_GET['section']);
+
+
+// ICI
+
+
 
 // contact
 elseif (isset($_GET['contact'])):
@@ -37,8 +56,12 @@ Nous vous répondrons dans les plus bref délai.");
             $twig->addGlobal("message", $message);
         }
     }
-    echo $twig->render('public/contact.html.twig');
+    echo $twig->render('public/contact.html.twig',[
+        'menu'=>$thesectionMenu,
+        ]);
 // homepage
 else:
-    echo $twig->render('public/homepage.html.twig');
+    echo $twig->render('public/homepage.html.twig',[
+        'menu'=>$thesectionMenu,
+        ]);
 endif;
