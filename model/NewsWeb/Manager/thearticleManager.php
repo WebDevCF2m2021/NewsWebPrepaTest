@@ -16,13 +16,18 @@ class thearticleManager implements ManagerInterface
     }
 
     public function thearticleSelectAllFromSection(int $idthesection): array|string {
-        $sql = "SELECT a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate
+        $sql = "SELECT a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate,
+            u.idtheuser, u.theuserlogin
                 FROM thearticle a
+                INNER JOIN theuser u
+                    ON u.idtheuser = a.theuser_idtheuser 
                 INNER JOIN thesection_has_thearticle sha
                     ON sha.thearticle_idthearticle = a.idthearticle
                 # INNER JOIN thesection s
                 #    ON sha.thesection_idthesection = s.idthesection
-                WHERE a.thearticleactivate=1 AND sha.thesection_idthesection=?;
+                WHERE a.thearticleactivate=1 
+                        AND u.theuseractivate=1 
+                        AND sha.thesection_idthesection=?;
         ";
         $prepare = $this->connect->prepare($sql);
 
