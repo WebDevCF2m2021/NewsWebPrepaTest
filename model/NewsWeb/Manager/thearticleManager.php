@@ -19,6 +19,7 @@ class thearticleManager implements ManagerInterface
         $sql = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate,
             u.idtheuser, u.theuserlogin,
+            (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
             GROUP_CONCAT(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
             GROUP_CONCAT(s.thesectionslug SEPARATOR '|||') AS thesectionslug
                 FROM thearticle a
