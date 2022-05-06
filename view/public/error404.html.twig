@@ -1,0 +1,22 @@
+{% extends 'public/public.template.html.twig' %}
+
+{% block title %}{{ parent() }} Error 404 {% endblock %}
+
+{% block pagetype %}blog{% endblock %}
+
+{% block logo %}<div id="logo">
+    <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
+    <div id="tagline">
+        <h2>Error 404</h2>
+    </div>
+</div>{% endblock %}
+{% block main %}<section>
+    <div id="line">
+        <div class="dline"></div>
+        <h1>Error 404</h1>
+        <div class="dline"></div>
+    </div>
+    <div id="articles">
+        <h3>{{ message }}</h3>
+    </div>
+</section>{% endblock %}
