@@ -1,11 +1,14 @@
 <?php
 // Use Global Manager
 use NewsWeb\Manager\thesectionManager; // sections
+use NewsWeb\Manager\thearticleManager; // articles
 
 use NewsWeb\Mapping\theuserMapping;
 
 // gestionnaire de la table thesection
 $thesectionManager = new thesectionManager($connectMyPDO);
+// gestionnaire de la table thesection
+$thearticleManager = new thearticleManager($connectMyPDO);
 
 // sélection de toutes les sections pour le menu
 $thesectionMenu = $thesectionManager->SelectAllThesection();
@@ -33,10 +36,17 @@ $theSectionDatas = $thesectionManager->SelectOneThesectionBySlug($_GET['section'
             'menu'=>$thesectionMenu,
             'message'=>$theSectionDatas,]);
     else:
+
+        // Séléction des articles de la section
+        $articles = $thearticleManager->thearticleSelectAllFromSection($theSectionDatas['idthesection']);
+
+        var_dump($articles);
+
         // affichage de le section
         echo $twig->render('public/section.html.twig',[
             'menu'=>$thesectionMenu,
             'section'=>$theSectionDatas,
+            'articles'=>$articles,
         ]);
 
     endif;
