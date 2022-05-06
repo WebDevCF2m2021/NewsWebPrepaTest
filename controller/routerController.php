@@ -17,9 +17,23 @@ if (isset($_GET['blog'])):
         'menu'=>$thesectionMenu,
     ]);
 
+// section
 elseif(isset($_GET['section'])):
+// si slug trouvé, contient un tableau associatif
 $theSectionDatas = $thesectionManager->SelectOneThesectionBySlug($_GET['section']);
 
+    // sinon ld résultat est un string
+    if(is_string($theSectionDatas)):
+
+        // appel de l'erreur 404
+    else:
+        // affichage de le section
+        echo $twig->render('public/section.html.twig',[
+            'menu'=>$thesectionMenu,
+            'section'=>$theSectionDatas,
+        ]);
+
+    endif;
 
 // ICI
 
