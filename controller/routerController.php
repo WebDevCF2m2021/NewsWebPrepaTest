@@ -1,9 +1,12 @@
 <?php
 // Use Global Manager
-use NewsWeb\Manager\thesectionManager; // sections
-use NewsWeb\Manager\thearticleManager; // articles
-
+use NewsWeb\Manager\thearticleManager;
+use NewsWeb\Manager\thesectionManager;
 use NewsWeb\Mapping\theuserMapping;
+
+// sections
+
+// articles
 
 // gestionnaire de la table thesection
 $thesectionManager = new thesectionManager($connectMyPDO);
@@ -13,47 +16,45 @@ $thearticleManager = new thearticleManager($connectMyPDO);
 // sélection de toutes les sections pour le menu
 $thesectionMenu = $thesectionManager->SelectAllThesection();
 
-
 // blog
 if (isset($_GET['blog'])):
-    echo $twig->render('public/blog.html.twig',[
-        'menu'=>$thesectionMenu,
+    echo $twig->render('public/blog.html.twig', [
+        'menu' => $thesectionMenu,
     ]);
 
 // section
-elseif(isset($_GET['section'])):
-// si slug trouvé, contient un tableau associatif
-$theSectionDatas = $thesectionManager->SelectOneThesectionBySlug($_GET['section']);
+elseif (isset($_GET['section'])):
+    // si slug trouvé, contient un tableau associatif
+    $theSectionDatas = $thesectionManager->SelectOneThesectionBySlug($_GET['section']);
 
     // sinon le résultat est un string
-    if(is_string($theSectionDatas)):
+    if (is_string($theSectionDatas)):
 
         // si elle est vide (pas de section ou PROD est à true)
-        if(empty($theSectionDatas)) $theSectionDatas = "Rubrique inexistante";
+        if (empty($theSectionDatas)) {
+            $theSectionDatas = "Rubrique inexistante";
+        }
 
         // appel de l'erreur 404
-        echo $twig->render('public/error404.html.twig',[
-            'menu'=>$thesectionMenu,
-            'message'=>$theSectionDatas,]);
+        echo $twig->render('public/error404.html.twig', [
+            'menu'    => $thesectionMenu,
+            'message' => $theSectionDatas,
+        ]);
     else:
 
         // Séléction des articles de la section
         $articles = $thearticleManager->thearticleSelectAllFromSection($theSectionDatas['idthesection']);
 
-        var_dump($articles);
-
         // affichage de le section
-        echo $twig->render('public/section.html.twig',[
-            'menu'=>$thesectionMenu,
-            'section'=>$theSectionDatas,
-            'articles'=>$articles,
+        echo $twig->render('public/section.html.twig', [
+            'menu'     => $thesectionMenu,
+            'section'  => $theSectionDatas,
+            'articles' => $articles,
         ]);
 
     endif;
 
 // ICI
-
-
 
 // contact
 elseif (isset($_GET['contact'])):
@@ -86,12 +87,12 @@ Nous vous répondrons dans les plus bref délai.");
             $twig->addGlobal("message", $message);
         }
     }
-    echo $twig->render('public/contact.html.twig',[
-        'menu'=>$thesectionMenu,
-        ]);
+    echo $twig->render('public/contact.html.twig', [
+        'menu' => $thesectionMenu,
+    ]);
 // homepage
 else:
-    echo $twig->render('public/homepage.html.twig',[
-        'menu'=>$thesectionMenu,
-        ]);
+    echo $twig->render('public/homepage.html.twig', [
+        'menu' => $thesectionMenu,
+    ]);
 endif;
