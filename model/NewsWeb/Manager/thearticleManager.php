@@ -68,10 +68,6 @@ class thearticleManager implements ManagerInterface
                 # Jointure MANY to ONE
                 INNER JOIN theuser u
                     ON u.idtheuser = a.theuser_idtheuser 
-                # Many to Many mais avec une condition where qui ne permet
-                # de garder qu'une seule rubrique AND sha.thesection_idthesection=  
-                INNER JOIN thesection_has_thearticle sha
-                    ON sha.thearticle_idthearticle = a.idthearticle
                 # Many to Many sur 2 tables pour garder toutes les rubriques
                 INNER JOIN thesection_has_thearticle sha2
                     ON sha2.thearticle_idthearticle = a.idthearticle
