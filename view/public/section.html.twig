@@ -56,8 +56,9 @@
                     </div>
                     <div id="descArticle">
                         <p>
-                            {{ item.thearticleresume }}
-                            <a class="continue" href="?article={{ item.thearticleslug }}">Continuer la lecture &rarr;</a>
+                            {{ item.thearticleresume }}<br>
+                            <a class="continue" href="?article={{ item.thearticleslug }}">Continuer la lecture &rarr;</a><br>
+                            <h3>Nombre de commentaires : {{ item.nbcomment }}</h3>
                         </p>
                     </div>
                 </article>
