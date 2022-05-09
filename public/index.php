@@ -19,12 +19,16 @@ require_once '../vendor/autoload.php';
 $loader = new FilesystemLoader('../view');
 $twig = new Environment($loader, [
     //'cache' => '../view/cache',
+    // utilisation du débogage: dump()
+    'debug' => true,
 ]);
+// activation du débogage (dump())
+$twig->addExtension(new \Twig\Extension\DebugExtension());
 
 
 //instanciation de mailer avec ce que retourne la fonction fromDsn de la class Transport avec la constante
 //SMTP définie dans le config
-$mailer = new Mailer(Transport::fromDsn('smtp:'.SMTP));
+$mailer = new Mailer(Transport::fromDsn('smtp://'.SMTP.":".SMTP_PORT));
 //instanciation de la classe Email pour l'admin
 $mailToAdmin = (new Email())->to(ADMIN_MAIL);
 $mailToCustomer = (new Email())->from(ADMIN_MAIL);

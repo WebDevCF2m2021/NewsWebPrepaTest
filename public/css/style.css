@@ -180,12 +180,19 @@ body {
     display : none;
 }
 
-#home a#homenav, #blog a#blognav, #fullwidth a#fullwidthnav, #contact a#contact {
+#home a#homenav,
+#blog a#blognav,
+#fullwidth a#fullwidthnav,
+#contact a#contact,
+#section a#sectionnav {
     color : #b82924;
 }
 
 /* pour afficher l'icône du menu hamburger */
-#menu a, #blog #menu a, #contact #menu a {
+#menu a,
+#blog #menu a,
+#contact #menu a,
+#section #menu a {
     display    : block;
     color      : #fff;
     font-size  : 1.5em;
@@ -202,7 +209,10 @@ body {
 }
 
 /* pour afficher les liens du menu hamburger quand on a appuyé sur le bouton */
-.topnav.responsive ul li a, #blog .topnav.responsive ul li a, #contact .topnav.responsive ul li a {
+.topnav.responsive ul li a,
+#blog .topnav.responsive ul li a,
+#contact .topnav.responsive ul li a,
+#section .topnav.responsive ul li a {
     display     : block;
     height      : 2em;
     border      : 2px solid white;
@@ -212,7 +222,10 @@ body {
 }
 
 /* pour masquer la bordure autour du bouton hamburger quand le menu est ouvert */
-.topnav.responsive #menu a, #blog .topnav.responsive #menu a, #contact .topnav.responsive #menu a {
+.topnav.responsive #menu a,
+#blog .topnav.responsive #menu a,
+#contact .topnav.responsive #menu a,
+#section .topnav.responsive ul li a {
     border     : 2px solid transparent;
     margin-top : 10px;
 }
@@ -274,7 +287,8 @@ body {
     padding : 10px;
 }
 
-#derniers-articles article h1, #latestp article h1 {
+#derniers-articles article h1,
+#latestp article h1 {
     font-family    : LeagueGothic, sans-serif;
     font-weight    : normal;
     text-transform : uppercase;
@@ -282,7 +296,8 @@ body {
     margin-bottom  : 5px;
 }
 
-#derniers-articles img, #latestp img {
+#derniers-articles img,
+#latestp img {
     margin-bottom : 5px;
     box-shadow    : 0 4px 6px #000;
 
@@ -373,7 +388,8 @@ body {
     margin-top : 40px;
 }
 
-#sidebar, #contact #sidebar {
+#sidebar,
+#contact #sidebar {
     width  : 280px;
     margin : 0 0 0 55px;
 }
@@ -415,7 +431,8 @@ body {
 }
 */
 
-#blog article {
+#blog article,
+#section article {
     /*width: 580px;*/
     display       : block;
     width         : 95vw;
@@ -424,11 +441,14 @@ body {
     margin-bottom : 40px;
 }
 
-#blog footer, #contact footer {
-    margin-top : 0px;
+#blog footer,
+#contact footer,
+#section footer {
+    margin-top : 0;
 }
 
-#blog article h1 a {
+#blog article h1 a,
+#section article h1 a {
     font-family    : LeagueGothic, sans-serif;
     font-weight    : normal;
     text-transform : uppercase;
@@ -438,7 +458,8 @@ body {
     margin-bottom  : 5px;
 }
 
-#blog article h2 {
+#blog article h2,
+#section article h2 {
     font-size        : 12px;
     font-weight      : normal;
     letter-spacing   : 0.2px;
@@ -449,11 +470,13 @@ body {
     text-transform   : none;
 }
 
-#blog article h2 a:hover {
+#blog article h2 a:hover,
+#section article h2 a:hover {
     text-decoration : underline;
 }
 
-#blog article img {
+#blog article img,
+#section article img {
     box-shadow    : 0 4px 6px #000;
     margin-bottom : 10px;
 
@@ -463,7 +486,8 @@ body {
 
 /* barre latérale */
 
-#sidebar h1, #contact #sidebar h1 {
+#sidebar h1,
+#contact #sidebar h1 {
     font-family    : LeagueGothic, sans-serif;
     font-weight    : normal;
     text-transform : uppercase;
@@ -473,24 +497,32 @@ body {
     margin-bottom  : 4px;
 }
 
-#sidebar li, #contact #sidebar li {
+#sidebar li,
+#contact #sidebar li {
     margin : 0 0 4px 25px;
     color  : #b82924;
 }
 
-#sidebar li:hover, #contact #sidebar li:hover {
+#sidebar li:hover,
+#contact #sidebar li:hover {
     margin-left : 30px;
 }
 
-#sidebar li a:hover, #contact #sidebar li a:hover {
+#sidebar li a:hover,
+#contact #sidebar li a:hover {
     text-decoration : underline;
 }
 
-#blog aside, #contact #sidebar aside {
+#blog aside,
+#section aside,
+#contact #sidebar aside {
     margin : 0 0 20px 0;
 }
 
-#cat, #archives, #contact #sidebar #cat, #contact #sidebar #archives {
+#cat,
+#archives,
+#contact #sidebar #cat,
+#contact #sidebar #archives {
     width          : 130px;
     display        : inline-block;
     vertical-align : top;
@@ -579,13 +611,25 @@ input[type="submit"]:active {
 }
 
 /************* F U L L  W I D T H   &  S I N G L E   P O S T    S T Y L E*********************/
-#fullwidth h1, #fullwidth h2, #fullwidth h3, #fullwidth h4, #fullwidth h5, #fullwidth h6, h1, h2, h3, h4, h5, h6 {
+#fullwidth h1,
+#fullwidth h2,
+#fullwidth h3,
+#fullwidth h4,
+#fullwidth h5,
+#fullwidth h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family    : LeagueGothic, sans-serif;
     text-transform : uppercase;
     font-weight    : normal;
 }
 
-#fullwidth section h2, #singlepost section h2 {
+#fullwidth section h2,
+#singlepost section h2 {
     color : #b82924;
 }
 
@@ -593,16 +637,19 @@ input[type="submit"]:active {
     margin : 8px 0 12px 0;
 }
 
-#fullwidth section a, #singlepost section a {
+#fullwidth section a,
+#singlepost section a {
     text-decoration : underline;
 }
 
-#fullwidth section ul li, #singlepost section ul li {
+#fullwidth section ul li,
+#singlepost section ul li {
     list-style-type : square;
     margin-left     : 20px;
 }
 
-#fullwidth section ol li, #singlepost section ol li {
+#fullwidth section ol li,
+#singlepost section ol li {
     list-style-type : decimal;
     margin-left     : 20px;
 }
@@ -628,6 +675,26 @@ input[type="submit"]:active {
 footer {
     margin-top : 30px;
     text-align : center;
+}
+
+.sectionDesc {
+    border-bottom : 1px solid white;
+    width         : fit-content;
+    margin        : 0 auto;
+}
+
+.sectionDesc p {
+    text-align  : center;
+    margin      : 1em auto;
+    display     : block;
+    width       : fit-content;
+    font-weight : bolder;
+    font-size   : larger;
+}
+
+#section #articles {
+    margin : 0;
+    width  : 100%;
 }
 
 /************** MEDIA - QUERIES **********************************/
@@ -660,7 +727,10 @@ footer {
         padding-left : 20px;
     }
 
-    .topnav, #blog .topnav, #contact .topnav {
+    .topnav,
+    #blog .topnav,
+    #contact .topnav,
+    #section .topnav {
         width      : 100%;
         grid-area  : menu;
         min-height : 150px;
@@ -705,12 +775,18 @@ footer {
         color            : white;
     }
 
-    .topnav ul li, #blog .topnav ul li, #contact .topnav ul li {
+    .topnav ul li,
+    #blog .topnav ul li,
+    #section .topnav ul li,
+    #contact .topnav ul li {
         display : block;
         width   : 100%;
     }
 
-    .topnav ul li a, #blog .topnav ul li a, #contact .topnav ul li a {
+    .topnav ul li a,
+    #blog .topnav ul li a,
+    #section .topnav ul li a,
+    #contact .topnav ul li a {
         display    : block;
         text-align : center;
         font-size  : 2em;
@@ -718,13 +794,17 @@ footer {
     }
 
     /* pour cacher le bouton hamburger */
-    #menu a, #blog #menu a, #contact #menu a {
+    #menu a,
+    #blog #menu a,
+    #section #menu a,
+    #contact #menu a {
         display : none;
     }
 
     section {
-        margin-top : 40px;
+        padding : 2em;
     }
+
 
     #derniers-articles {
         grid-area             : articles;
@@ -768,7 +848,8 @@ footer {
         width : 50%; /* bouton plus large pour articles étroits */
     }
 
-    #blog #articles {
+    #blog #articles,
+    #section #articles {
         grid-area             : articles;
         margin-top            : 0;
         width                 : 100%;
@@ -779,7 +860,8 @@ footer {
         gap                   : 20px;
     }
 
-    #blog article {
+    #blog article,
+    #section article {
         /*width: 580px;*/
         display       : block;
         width         : auto;
@@ -794,6 +876,14 @@ footer {
     footer {
         grid-area : footer;
         width     : 100%;
+    }
+
+    .sectionDesc {
+        margin-bottom : 3em;
+    }
+
+    .sectionDesc p {
+        margin : 0 0 8px 0;
     }
 }
 
@@ -823,7 +913,10 @@ footer {
         display    : inline-block;
     }
 
-    .topnav, #blog .topnav, #contact .topnav {
+    .topnav,
+    #blog .topnav,
+    #section .topnav,
+    #contact .topnav {
         margin-top : 0;
         min-height : 100px;
         max-width  : 600px;
@@ -832,7 +925,10 @@ footer {
         top        : 20px;
     }
 
-    .topnav ul, #blog .topnav ul, #contact .topnav ul {
+    .topnav ul,
+    #blog .topnav ul,
+    #section .topnav ul,
+    #contact .topnav ul {
         display         : flex;
         flex-flow       : row nowrap;
         justify-content : flex-end;
@@ -858,6 +954,7 @@ footer {
 
     #home .topnav ul li a,
     #blog .topnav ul li a,
+    #section .topnav ul li a,
     #contact .topnav ul li a {
         display : block;
     }
@@ -865,11 +962,16 @@ footer {
     #menu a,
     #home #menu a,
     #blog #menu a,
-    #contact #menu a {
+    #contact #menu a,
+    #section #menu a {
         display : none;
     }
 
-    #home a#homenav, #blog a#blognav, #fullwidth a#fullwidthnav, #contact a#contact {
+    #home a#homenav,
+    #blog a#blognav,
+    #fullwidth a#fullwidthnav,
+    #section a#sectionnav,
+    #contact a#contact {
         color : #b82924;
     }
 
@@ -936,6 +1038,7 @@ footer {
         align-items     : center; /* éléments centrés verticalement */
         width           : 100%;
         height          : 50px;
+        margin          : 2em 0;
     }
 
     .dline {
@@ -978,17 +1081,44 @@ footer {
         height        : auto;
     }
 
-    #blog #articles {
-        margin-top            : 40px;
-        width                 : 100%;
-
-        display               : grid;
-        grid-template-columns : 1fr 1fr;
-        gap                   : 20px;
+    #blog #articles,
+    #section #articles {
+        margin-top : 40px;
+        width      : 100%;
+        display    : grid;
+        gap        : 20px;
     }
 
-    #blog article {
+    #blog #articles {
+        grid-template-columns : 1fr 1fr;
+    }
+
+    #blog article,
+    #section article {
         width : auto;
+    }
+
+    .notHighlighted {
+        display        : flex;
+        flex-direction : column;
+    }
+
+    #articles .notHighlighted article {
+        display       : flex;
+        width         : 60%;
+        gap           : 2em;
+        border-bottom : 1px solid white;
+        padding       : 1em;
+    }
+
+    #articles .notHighlighted article #descArticle {
+        width         : 40%;
+        align-self    : center;
+        justify-items : center;
+    }
+
+    #articles .notHighlighted article #displayArticle {
+        width : 60%;
     }
 
     #contactpost {
