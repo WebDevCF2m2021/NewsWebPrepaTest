@@ -42,7 +42,7 @@ elseif (isset($_GET['section'])):
         ]);
     else:
 
-        // Séléction des articles de la section
+        // Selection des articles de la section
         $articles = $thearticleManager->thearticleSelectAllFromSection($theSectionDatas['idthesection']);
 
         // affichage de le section
