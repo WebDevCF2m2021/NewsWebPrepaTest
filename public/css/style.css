@@ -697,14 +697,6 @@ footer {
     width  : 100%;
 }
 
-#section #articles .articleLists {
-    color           : #b82924;
-    text-decoration : underline;
-    text-align      : center;
-    margin          : 1em;
-    font-size       : xx-large;
-}
-
 /************** MEDIA - QUERIES **********************************/
 
 /* Affichage par défaut : écran pour MOBILE, voir ci-dessus */
@@ -1104,18 +1096,6 @@ footer {
     #blog article,
     #section article {
         width : auto;
-    }
-
-    #articles .highlight article {
-        width : 30%;
-    }
-
-    .highlight {
-        display       : flex;
-        gap           : 2em;
-        width         : 90%;
-        margin        : 0 auto;
-        border-bottom : 1px solid white;
     }
 
     .notHighlighted {
