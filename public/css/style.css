@@ -697,6 +697,14 @@ footer {
     width  : 100%;
 }
 
+#section #articles .articleLists {
+    color           : #b82924;
+    text-decoration : underline;
+    text-align      : center;
+    margin          : 1em;
+    font-size       : xx-large;
+}
+
 /************** MEDIA - QUERIES **********************************/
 
 /* Affichage par défaut : écran pour MOBILE, voir ci-dessus */
