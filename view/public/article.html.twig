@@ -1,0 +1,78 @@
+{% extends 'public/public.template.html.twig' %}
+
+{% block title %}{{ parent() }} Article : {{ section.thesectiontitle }} {% endblock %}
+
+{% block pagetype %}article{% endblock %}
+
+{% block logo %}
+    <div id="logo">
+        <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
+        <div id="tagline">
+            <h2>Article : {{ section.thesectiontitle }}</h2>
+        </div>
+    </div>
+{% endblock %}
+{% block main %}
+    <section>
+        <div id="line">
+            <div class="dline"></div>
+            <h1>Section : {{ section.thesectiontitle }}</h1>
+            <div class="dline"></div>
+        </div>
+        <div class="sectionDesc">
+            <p>{{ section.thesectiondesc }}</p>
+            {# Pour activer le var_dump de twig : https://twig.symfony.com/doc/3.x/functions/dump.html #}
+            {{ dump(articles) }}
+        </div>
+        <div id="articles">
+
+            <div class="notHighlighted">
+                <article>
+                    <div id="displayArticle">
+                        <h1><a href="singlepost.html">Suspendisse Enim Elit Tempor Acer</a></h1>
+                        <h2>Posted By: <a href="#">Admin</a> On January 29th, 2013 In <a href="#">Freebies</a>.</h2>
+                        <img src="images/a1.jpg" alt=""/>
+                    </div>
+                    <div id="descArticle">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis
+                            ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris
+                            sed lectus dui.
+                            <a class="continue" href="singlepost.html">Continue Reading &rarr;</a>
+                        </p>
+                    </div>
+                </article>
+                <article>
+                    <div id="displayArticle">
+                        <h1><a href="singlepost.html">Mauris Sed Lectus Duieleifend Quis Sem</a></h1>
+                        <h2>Posted By: <a href="#">Admin</a> On January 29th, 2013 In <a href="#">Tutorials</a>.</h2>
+                        <img src="images/a2.jpg" alt=""/>
+                    </div>
+                    <div id="descArticle">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis
+                            ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris
+                            sed lectus dui. Eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus
+                            posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui.
+                            <a class="continue" href="singlepost.html">Continue Reading &rarr;</a>
+                        </p>
+                    </div>
+                </article>
+                <article>
+                    <div id="displayArticle">
+                        <h1><a href="singlepost.html">Mauris Sed Lectus Duieleifend Quis Sem</a></h1>
+                        <h2>Posted By: <a href="#">Admin</a> On January 29th, 2013 In <a href="#">Tutorials</a>.</h2>
+                        <img src="images/a3.jpg" alt=""/>
+                    </div>
+                    <div id="descArticle">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis
+                            ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet.
+                            <a class="continue" href="singlepost.html">Continue Reading &rarr;</a>
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+{% endblock %}

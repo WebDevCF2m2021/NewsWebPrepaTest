@@ -6,16 +6,15 @@
         <li><a href="./" id="homenav">Accueil</a></li>
         <li><a href="./?blog" id="blognav">Les articles</a></li>
         <li class="listMenu">
-            <a>Sections</a>
+            <a id="sectionnav">Sections</a>
             <ul class="subMenu">
-                <li><a href="?section=html">HTML</a></li>
-                <li><a href="?section=css">CSS</a></li>
-                <li><a href="?section=php">PHP</a></li>
-                <li><a href="?section=javascript">Javascript</a></li>
-                <li><a href="?section=sql">SQL</a></li>
-                <li><a href="?section=algorithmie-general">algorithmie-general</a></li>
-                <li><a href="?section=programmation">programmation</a></li>
-                <li><a href="?section=autre">autre</a></li>
+                {# Affichage du menu depuis la table thesection #}
+                {% for itemSection in menu %}
+                    <li><a href="?section={{ itemSection.thesectionslug }}">{{ itemSection.thesectiontitle }}</a></li>
+                {% else %}
+                    <li>PAS ENCORE DE SECTION !</li>
+                {% endfor %}
+
             </ul>
         </li>
         <li><a href="./?contact" id="contact">Contact</a></li>

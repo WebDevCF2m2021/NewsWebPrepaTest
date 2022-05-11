@@ -1,0 +1,72 @@
+{% extends 'public/public.template.html.twig' %}
+
+{% block title %}{{ parent() }} Section : {{ section.thesectiontitle }} {% endblock %}
+
+{% block pagetype %}section{% endblock %}
+
+{% block logo %}
+    <div id="logo">
+        <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
+        <div id="tagline">
+            <h2>Section : {{ section.thesectiontitle }}</h2>
+        </div>
+    </div>
+{% endblock %}
+{% block main %}
+    <section>
+        <div id="line">
+            <div class="dline"></div>
+            <h1>Section : {{ section.thesectiontitle }}</h1>
+            <div class="dline"></div>
+        </div>
+        <div class="sectionDesc">
+            <p>{{ section.thesectiondesc }}</p>
+            {# Pour activer le var_dump de twig : https://twig.symfony.com/doc/3.x/functions/dump.html #}
+            {# dump(articles)  #}
+        </div>
+        <div id="articles">
+            <div class="notHighlighted">
+
+                {% for item in articles %}
+
+                <article>
+                    <div id="displayArticle">
+                        <h1><a href="?article={{ item.thearticleslug }}">{{ item.thearticletitle }}</a></h1>
+                        <h2>Posté par : <a href="?user={{ item.idtheuser }}">{{ item.theuserlogin }}</a> le {{ item.thearticledate|date('d/m/Y') }}<br>
+{# Nous avons plusieures sections possibles, il faut les séparer (|||) avant de les afficher en tant que lien, tant qu'il y en a, sinon affichons "Pas de section pour cet article" #}
+
+                            {# on coupe nos 2 variables avec le séparateur #}
+                            {% set slugs = item.thesectionslug|split('|||') %}
+                            {% set titles = item.thesectiontitle|split('|||') %}
+
+                            {# ensuite, tant qu'on a récupéré des éléments, on fait une boucle sur un des 2 (ils ont le même nombre d'éléments)  #}
+                            {% for slug in slugs %}
+                                {# on récupère le slug grâce à son alias dans la boucle #}
+                                <a href="?section={{ slug }}">{{ titles[loop.index0] }}</a>
+                                {# On récupère le titre en utilisant l'index du tableau commençant par  #}
+                                {# Si nous ne sommes pas au dernier tour #}
+                                {% if not loop.last %} | {% endif %}
+                            {% else %}
+                            Pas de section pour cette article
+                            {% endfor %}
+                        </h2>
+
+
+                        <img src="images/a1.jpg" alt=""/>
+                    </div>
+                    <div id="descArticle">
+                        <p>
+                            {{ item.thearticleresume }}<br>
+                            <a class="continue" href="?article={{ item.thearticleslug }}">Continuer la lecture &rarr;</a><br>
+                            <h3>Nombre de commentaires : {{ item.nbcomment }}</h3>
+                        </p>
+                    </div>
+                </article>
+               {# si pas encore d'article #}
+               {% else %}
+                <h2 style="text-align: center;">Pas encore d'articles</h2>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
