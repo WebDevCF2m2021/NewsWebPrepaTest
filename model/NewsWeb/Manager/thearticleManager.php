@@ -59,7 +59,7 @@ class thearticleManager implements ManagerInterface
     // Récupération de tous les articles du site
     public function thearticleSelectAll(): array|string {
         $sql = "SELECT 
-            a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate,
+            a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticledate,
             u.idtheuser, u.theuserlogin,
             (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
             GROUP_CONCAT(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
@@ -73,8 +73,7 @@ class thearticleManager implements ManagerInterface
                     ON sha2.thearticle_idthearticle = a.idthearticle
                 INNER JOIN thesection s
                     ON sha2.thesection_idthesection = s.idthesection
-                # conditions : article validé, utilisateur actif et 
-                # se trouver dans la section choisie
+                # conditions : article validé, utilisateur actif
                 WHERE a.thearticleactivate=1 
                         AND u.theuseractivate=1 
                 GROUP BY a.idthearticle
