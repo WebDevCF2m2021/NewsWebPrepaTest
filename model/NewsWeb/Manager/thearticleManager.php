@@ -77,7 +77,8 @@ class thearticleManager implements ManagerInterface
                 WHERE a.thearticleactivate=1 
                         AND u.theuseractivate=1 
                 GROUP BY a.idthearticle
-                ORDER BY a.thearticledate DESC;
+                ORDER BY a.thearticledate DESC;git push
+                
         ";
         $prepare = $this->connect->prepare($sql);
 
