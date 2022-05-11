@@ -381,3 +381,7 @@ Dans le dossier `model/NewsWeb/`
                 }
             }
         }
+
+twig extension
+
+    composer require twig/string-extra

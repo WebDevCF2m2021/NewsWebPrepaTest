@@ -16,9 +16,8 @@
         <h1>Tous nos articles</h1>
         <div class="dline"></div>
     </div>
-    <hr>
-    <h1>Affichez les données dans l'html/css correspondant (voir http://newsweb/?section=programmation)</h1><hr>
-    {{ dump(articles) }}
+
+    {# dump(articles) #}
     <div id="articles">
 
         {% for item in articles %}
@@ -45,7 +44,7 @@
         </h2>
         <img src="images/a1.jpg" alt="" />
         <p>
-            {{ item.thearticletext }}<br>
+            {{ item.thearticletext|u.truncate(750, '...', false) }}<br>
             <a class="continue" href="?article={{ item.thearticleslug }}">Continuer la lecture &rarr;</a><br>
         <h3>Nombre de commentaires : {{ item.nbcomment }}</h3>
         </p>
