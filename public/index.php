@@ -8,6 +8,8 @@ use Symfony\Component\Mime\Email;
 // Twig namespaces
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
+// Twig string extension
+use Twig\Extra\String\StringExtension;
 
 // dependencies
 require_once "../config.php";
@@ -24,6 +26,8 @@ $twig = new Environment($loader, [
 ]);
 // activation du débogage (dump())
 $twig->addExtension(new \Twig\Extension\DebugExtension());
+// activation de l'extension u. (traitement du texte)
+$twig->addExtension(new StringExtension());
 
 
 //instanciation de mailer avec ce que retourne la fonction fromDsn de la class Transport avec la constante

@@ -16,30 +16,44 @@
         <h1>Tous nos articles</h1>
         <div class="dline"></div>
     </div>
+
+    {# dump(articles) #}
     <div id="articles">
+
+        {% for item in articles %}
+
     <article>
-        <h1><a href="singlepost.html">Suspendisse Enim Elit Tempor Acer</a></h1>
-        <h2>Posted By: <a href="#">Admin</a> On January 29th, 2013 In <a href="#">Freebies</a>.</h2>
+        <h1><a href="?article={{ item.thearticleslug }}">{{ item.thearticletitle }}</a></h1>
+        <h2>Posté par : <a href="?user={{ item.idtheuser }}">{{ item.theuserlogin }}</a> le {{ item.thearticledate|date('d/m/Y') }}<br>
+            {# Nous avons plusieures sections possibles, il faut les séparer (|||) avant de les afficher en tant que lien, tant qu'il y en a, sinon affichons "Pas de section pour cet article" #}
+
+            {# on coupe nos 2 variables avec le séparateur #}
+            {% set slugs = item.thesectionslug|split('|||') %}
+            {% set titles = item.thesectiontitle|split('|||') %}
+
+            {# ensuite, tant qu'on a récupéré des éléments, on fait une boucle sur un des 2 (ils ont le même nombre d'éléments)  #}
+            {% for slug in slugs %}
+                {# on récupère le slug grâce à son alias dans la boucle #}
+                <a href="?section={{ slug }}">{{ titles[loop.index0] }}</a>
+                {# On récupère le titre en utilisant l'index du tableau commençant par  #}
+                {# Si nous ne sommes pas au dernier tour #}
+                {% if not loop.last %} | {% endif %}
+            {% else %}
+                Pas de section pour cette article
+            {% endfor %}
+        </h2>
         <img src="images/a1.jpg" alt="" />
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. <a class="continue" href="singlepost.html">Continue Reading &rarr;</a></p>
+        <p>
+            {{ item.thearticletext|u.truncate(750, '...', false) }}<br>
+            <a class="continue" href="?article={{ item.thearticleslug }}">Continuer la lecture &rarr;</a><br>
+        <h3>Nombre de commentaires : {{ item.nbcomment }}</h3>
+        </p>
+
     </article>
-    <article>
-        <h1><a href="singlepost.html">Mauris Sed Lectus Duieleifend Quis Sem</a></h1>
-        <h2>Posted By: <a href="#">Admin</a> On January 29th, 2013 In <a href="#">Tutorials</a>.</h2>
-        <img src="images/a2.jpg" alt="" />
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. <a class="continue" href="singlepost.html">Continue Reading &rarr;</a></p>
-    </article>
-    <article>
-        <h1><a href="singlepost.html">Mauris Sed Lectus Duieleifend Quis Sem</a></h1>
-        <h2>Posted By: <a href="#">Admin</a> On January 29th, 2013 In <a href="#">Tutorials</a>.</h2>
-        <img src="images/a3.jpg" alt="" />
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet. <a class="continue" href="singlepost.html">Continue Reading &rarr;</a></p>
-    </article>
-    <article>
-        <h1><a href="singlepost.html">Mauris Sed Lectus Duieleifend Quis Sem</a></h1>
-        <h2>Posted By: <a href="#">Admin</a> On January 29th, 2013 In <a href="#">Photography</a>.</h2>
-        <img src="images/a4.jpg" alt="" />
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Suspendisse enim elit, tempor ac ullamcorper et, eleifend quis sem. Sed euismod sagittis ligula, a imperdiet sapien molestie nec. Curabitur ut eros a justo fermentum vulputate ac sit amet metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor, tortor at vulputate blandit, magna risus posuere turpis, nec cursus ipsum arcu nec felis. Mauris sed lectus dui. Eleifend quis sem. <a class="continue" href="singlepost.html">Continue Reading &rarr;</a></p>
-    </article>
+        {# Pas d'articles #}
+        {% else %}
+        <h3 style="text-align: center">Pas encore d'article sur le site</h3>
+        {% endfor %}
+
     </div>
 </section>{% endblock %}

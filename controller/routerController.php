@@ -18,8 +18,10 @@ $thesectionMenu = $thesectionManager->SelectAllThesection();
 
 // blog
 if (isset($_GET['blog'])):
+    $articles = $thearticleManager->thearticleSelectAll();
     echo $twig->render('public/blog.html.twig', [
         'menu' => $thesectionMenu,
+        'articles' => $articles,
     ]);
 
 // section
