@@ -58,16 +58,20 @@ elseif (isset($_GET['section'])):
 
 // Détail d'un article
 elseif (isset($_GET['article'])):
-    /* si slug trouvé, contient un tableau associatif
-    $theSectionDatas = $thesectionManager->SelectOneThesectionBySlug($_GET['section']);
+   // si slug trouvé, contient un tableau associatif
+    $theArticleDatas = $thearticleManager->thearticleSelectOneBySlug($_GET['article']);
+    var_dump($theArticleDatas);
+    if(!$theArticleDatas):
+        // appel de l'erreur 404
+        echo $twig->render('public/error404.html.twig', [
+            'menu'    => $thesectionMenu,
+            'message' => "Cet article n'existe plus !",
+        ]);
+    else:
 
-    // sinon le résultat est un string
-    if (is_string($theSectionDatas)):
+    endif;
+/*
 
-        // si elle est vide (pas de section ou PROD est à true)
-        if (empty($theSectionDatas)) {
-            $theSectionDatas = "Rubrique inexistante";
-        }
 
         // appel de l'erreur 404
         echo $twig->render('public/error404.html.twig', [
