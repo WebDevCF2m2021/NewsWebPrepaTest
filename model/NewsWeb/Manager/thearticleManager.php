@@ -55,6 +55,13 @@ class thearticleManager implements ManagerInterface
 
     }
 
+    // Récupération de l'article (idthearticle, thearticletitle, thearticletext, thearticleresume, thearticledate ) avec toutes les rubriques avec le lien, l'auteur et le lien vers celui-ci, via son slug
+    public function thearticleSelectOneBySlug(string $slug): array|bool{
+        $query = $this->connect->prepare("SELECT * FROM thearticle WHERE thearticleslug=?");
+        $query->execute([$slug]);
+        return $query->fetch(\PDO::FETCH_ASSOC);
+    }
+
 
     // Récupération de tous les articles du site
     public function thearticleSelectAll(): array|string {
@@ -77,7 +84,7 @@ class thearticleManager implements ManagerInterface
                 WHERE a.thearticleactivate=1 
                         AND u.theuseractivate=1 
                 GROUP BY a.idthearticle
-                ORDER BY a.thearticledate DESC;git push
+                ORDER BY a.thearticledate DESC;
                 
         ";
         $prepare = $this->connect->prepare($sql);
