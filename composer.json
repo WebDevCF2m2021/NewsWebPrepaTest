@@ -2,6 +2,7 @@
     "require": {
         "twig/twig": "^3.0",
         "symfony/mailer": "^6.0",
-        "twig/string-extra": "^3.3"
+        "twig/string-extra": "^3.3",
+        "verot/class.upload.php": "^2.1"
     }
 }
