@@ -385,3 +385,11 @@ Dans le dossier `model/NewsWeb/`
 twig extension
 
     composer require twig/string-extra
+
+class.upload
+
+    composer require verot/class.upload.php
+
+pour éviter de faire le travail des web 2019 :
+
+https://github.com/WebDevCF2019/intranetCF2m/blob/master/model/uploadDoc.php
