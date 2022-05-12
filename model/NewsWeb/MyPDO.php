@@ -2,7 +2,7 @@
 
 namespace NewsWeb;
 
-use Exception;
+use \Exception;
 use \PDO;
 
 class MyPDO extends PDO

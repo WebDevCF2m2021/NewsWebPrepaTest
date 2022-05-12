@@ -393,3 +393,11 @@ class.upload
 pour éviter de faire le travail des web 2019 :
 
 https://github.com/WebDevCF2019/intranetCF2m/blob/master/model/uploadDoc.php
+
+### Exe
+
+dans `thearticleManager.php` faire la partie MySQL :
+
+// Récupération de l'article (idthearticle, thearticletitle, thearticletext, thearticleresume, thearticledate ) avec toutes les rubriques avec le lien, l'auteur et le lien vers celui-ci, via son slug
+
+Modifiez la vue publique nommée 'article.html.twig' qui l'affiche
