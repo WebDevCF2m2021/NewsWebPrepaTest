@@ -25,7 +25,16 @@ if (isset($_GET['blog'])):
     ]);
 
 // section
-elseif (isset($_GET['section'])):
+elseif (isset($_GET['connect'])):
+
+   
+        echo $twig->render('public/connexion.html.twig', [
+            'menu' => $thesectionMenu,
+           
+        ]);
+    
+    // section
+    elseif (isset($_GET['section'])):
     // si slug trouvé, contient un tableau associatif
     $theSectionDatas = $thesectionManager->SelectOneThesectionBySlug($_GET['section']);
 

@@ -1125,6 +1125,10 @@ footer {
         width : fit-content;
     }
 
+    .connectform {width: 400px}
+    #signin {width: 100px;
+    }
+
     footer {
         width : 100%;
     }
