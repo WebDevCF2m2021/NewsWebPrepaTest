@@ -39,7 +39,7 @@ elseif (isset($_GET['section'])):
 
         // appel de l'erreur 404
         echo $twig->render('public/error404.html.twig', [
-            'menu'    => $thesectionMenu,
+            'menu' => $thesectionMenu,
             'message' => $theSectionDatas,
         ]);
     else:
@@ -49,8 +49,8 @@ elseif (isset($_GET['section'])):
 
         // affichage de le section
         echo $twig->render('public/section.html.twig', [
-            'menu'     => $thesectionMenu,
-            'section'  => $theSectionDatas,
+            'menu' => $thesectionMenu,
+            'section' => $theSectionDatas,
             'articles' => $articles,
         ]);
 
@@ -58,16 +58,20 @@ elseif (isset($_GET['section'])):
 
 // Détail d'un article
 elseif (isset($_GET['article'])):
-   // si slug trouvé, contient un tableau associatif
+    // si slug trouvé, contient un tableau associatif
     $theArticleDatas = $thearticleManager->thearticleSelectOneBySlug($_GET['article']);
-    var_dump($theArticleDatas);
-    if(!$theArticleDatas):
+    //var_dump($theArticleDatas);
+    if (!$theArticleDatas):
         // appel de l'erreur 404
         echo $twig->render('public/error404.html.twig', [
-            'menu'    => $thesectionMenu,
+            'menu' => $thesectionMenu,
             'message' => "Cet article n'existe plus !",
         ]);
     else:
+        echo $twig->render('public/article.html.twig', [
+            'menu' => $thesectionMenu,
+            'article' => $theArticleDatas,
+        ]);
 
     endif;
 /*
@@ -95,8 +99,8 @@ elseif (isset($_GET['article'])):
 // contact
 elseif (isset($_GET['contact'])):
     if (isset($_POST["name"], $_POST["email"], $_POST["message"])) {
-        $name    = theuserMapping::userEntryProtection($_POST["name"]);
-        $email   = filter_var(theuserMapping::userEntryProtection($_POST["email"]), FILTER_VALIDATE_EMAIL);
+        $name = theuserMapping::userEntryProtection($_POST["name"]);
+        $email = filter_var(theuserMapping::userEntryProtection($_POST["email"]), FILTER_VALIDATE_EMAIL);
         $message = theuserMapping::userEntryProtection($_POST["message"]);
         if (!empty($name) && !empty($email) && !empty($message)) {
             $mailToAdmin->from($email)->subject("Message de l'utilisateur $name")->text($message);
@@ -111,13 +115,11 @@ Nous vous répondrons dans les plus bref délai.");
                 $twig->addGlobal("message", $message);
                 if (PROD) {
                     echo "<script>alert('Une erreur est survenue! Veuillez réessayer')</script>";
-                }
-                else {
+                } else {
                     throw new Error($e);
                 }
             }
-        }
-        else {
+        } else {
             $twig->addGlobal("name", $name);
             $twig->addGlobal("email", $email);
             $twig->addGlobal("message", $message);
