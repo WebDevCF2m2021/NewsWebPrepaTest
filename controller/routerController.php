@@ -60,7 +60,7 @@ elseif (isset($_GET['section'])):
 elseif (isset($_GET['article'])):
     // si slug trouvé, contient un tableau associatif
     $theArticleDatas = $thearticleManager->thearticleSelectOneBySlug($_GET['article']);
-    var_dump($theArticleDatas);
+    //var_dump($theArticleDatas);
     if (!$theArticleDatas):
         // appel de l'erreur 404
         echo $twig->render('public/error404.html.twig', [
