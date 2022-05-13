@@ -15,6 +15,12 @@ class thearticleManager implements ManagerInterface
         $this->connect = $db;
     }
 
+    // Récupération de tous les articles d'une section (même champs que thearticleSelectAll() sauf l'affichage de l'utilisateur déjà pris par une autre requête) lorsque l'id de l'utilisateur correspond à $iduser (de 0 à X résultats)
+    public function thearticleSelectAllByIdUser(int $iduser): array
+    {
+
+    }
+
     // Récupération de tous les articles d'une section
     public function thearticleSelectAllFromSection(int $idthesection): array|string
     {

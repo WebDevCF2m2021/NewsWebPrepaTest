@@ -61,12 +61,14 @@ elseif (isset($_GET['article'])):
     // si slug trouvé, contient un tableau associatif
     $theArticleDatas = $thearticleManager->thearticleSelectOneBySlug($_GET['article']);
     //var_dump($theArticleDatas);
+    // si on reçoit false (pas d'article)
     if (!$theArticleDatas):
         // appel de l'erreur 404
         echo $twig->render('public/error404.html.twig', [
             'menu' => $thesectionMenu,
             'message' => "Cet article n'existe plus !",
         ]);
+    // on a récupéré un article
     else:
         echo $twig->render('public/article.html.twig', [
             'menu' => $thesectionMenu,
