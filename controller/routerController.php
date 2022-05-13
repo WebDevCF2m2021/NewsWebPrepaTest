@@ -74,6 +74,24 @@ elseif (isset($_GET['article'])):
         ]);
 
     endif;
+
+// Articles par utilisateur    
+elseif (isset($_GET['user'])):
+
+    $theUserDatas = $thearticleManager->thearticleSelectById ($_GET['article']);
+
+    if(!$theUserDatas):
+        echo $twig->render('public/error404.html.twig', [
+            'menu' => $thesectionMenu,
+            'message' => "Ces articles n'existent plus !",
+        ]);
+    else:
+        echo $twig->render('public/user.html.twig', [
+            'menu' => $thesectionMenu,
+            'articles' => $theUserDatas,
+        ]);
+
+    endif;
 /*
 
 
