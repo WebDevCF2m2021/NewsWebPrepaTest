@@ -1,0 +1,50 @@
+{% extends 'public/public.template.html.twig' %}
+
+{% block title %}{{ parent() }} Veuillez vous connecter à votre compte {% endblock %}
+
+{% block pagetype %}blog{% endblock %}
+
+{% block logo %}
+    <div id="logo">
+        <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
+        <div id="tagline">
+            <h2>Bienvenue, veuillez-vous connecter à votre compte</h2>
+        </div>
+    </div>{% endblock %}
+{% block main %}
+    <section>
+        <div id="line">
+            <div class="dline"></div>
+            <h1>Connexion</h1>
+            <div class="dline"></div>
+        </div>
+
+
+        <div id="connectpost">
+            <h1>Connectez-vous à votre compte</h1> </br>
+            <!-- <p>Below is an example of how a contact form might look with this template:</p>-->
+            <form method="post">
+                <div id="connectform">
+                    <div><label for="login">your user name</label><input type="text" name="login" id="login"
+                                                                         placeholder="your login"
+                                                                         onfocus="this.placeholder = ''"
+                                                                         onblur="this.placeholder = 'your name'"
+                                                                         value=""/></div>
+
+                    <div><label for="pass">Your password</label></br><input type="pass" name="pwd" id="pass"
+                                                                            placeholder="your password"
+                                                                            onfocus="this.placeholder = ''"
+                                                                            onblur="this.placeholder = 'your password'"
+                                                                            value=""/></div>
+
+
+                    <div><input class="signin" type="submit" name="connect_submitted" value="sign In"/></div>
+                </div>
+            </form>
+            <!--<p>NOTE: A contact form such as this would require some way of emailing the input<br/>
+                to an email address.</p>-->
+        </div>
+
+
+    </section>
+{% endblock %}
