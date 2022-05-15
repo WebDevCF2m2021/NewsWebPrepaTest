@@ -137,14 +137,16 @@ Nous vous répondrons dans les plus bref délai.");
     ]);
 elseif (isset($_GET['connect'])):
 
-    var_dump($_POST);
     if (isset($_POST["login"], $_POST["pwd"])) {
         $login = userEntryProtectionTrait::userEntryProtection($_POST["login"]);
         if (!empty($login) && $theuserManager->theuserConnectByLoginAndPwd($login, $_POST["pwd"])) {
             header("Location: ./");
         }
         else {
-            echo $twig->render("public/connexion.html.twig", ['menu' => $thesectionMenu,]);
+            echo $twig->render("public/connexion.html.twig", [
+                'menu'  => $thesectionMenu,
+                "error" => "Wrong Login or Password!"
+            ]);
         }
     }
     else {

@@ -48,3 +48,9 @@
 
     </section>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if error is defined %}
+        <script>alert("{{ error }}")</script>
+    {% endif %}
+{% endblock %}
