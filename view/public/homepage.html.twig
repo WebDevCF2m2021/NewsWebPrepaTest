@@ -4,46 +4,41 @@
 
 {% block pagetype %}home{% endblock %}
 
-{% block logo %}<div id="logo">
-    <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
-    <div id="tagline">
-        <h2>Accueil</h2>
-    </div>
-</div>{% endblock %}
+{% block logo %}
+    <div id="logo">
+        <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
+        <div id="tagline">
+            <h2>Accueil</h2>
+        </div>
+    </div>{% endblock %}
 {% block slider %}
     <!-- Slide mis en commentaire, on peut le garder si nécessaire -->
     <div class="slider-wrapper theme-default">
-    <div id="slider" class="nivoSlider">
-        <img src="images/slide1.jpg" alt="" />
-        <a href="http://geeksband.com"><img src="images/slide2.jpg" alt="" title="This is an example of a caption with a link" /></a>
-        <img src="images/slide3.jpg" alt="" title="This is an example of a caption" />
-        <img src="images/slide4.jpg" alt="" />
-    </div>
-</div>{% endblock %}
-{% block main %}<section>
+        <div id="slider" class="nivoSlider">
+            <img src="images/slide1.jpg" alt=""/>
+            <a href="http://geeksband.com"><img src="images/slide2.jpg" alt="" title="This is an example of a caption with a link"/></a>
+            <img src="images/slide3.jpg" alt="" title="This is an example of a caption"/>
+            <img src="images/slide4.jpg" alt=""/>
+        </div>
+    </div>{% endblock %}
+{% block main %}
+    <section>
     <div id="line">
         <div class="dline"></div>
         <h1>Nos derniers articles</h1>
         <div class="dline"></div>
     </div>
     <div id="derniers-articles">
-        <article id="art-1">
-            <h1>Article 1</h1>
-            <img src="images/1.jpg" alt="" />
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet.</p>
-            <a href="singlepost.html" class="rm">En savoir plus...</a>
-        </article>
-        <article id="art-2">
-            <h1>Article 2</h1>
-            <img src="images/2.jpg" alt="" />
-            <p>Consectetuer adipiscing elit. Suspendisse enim elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit.</p>
-            <a href="singlepost.html" class="rm">En savoir plus...</a>
-        </article>
-        <article id="art-3">
-            <h1>Article 3</h1>
-            <img src="images/3.jpg" alt="" />
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit enim.</p>
-            <a href="singlepost.html" class="rm">En savoir plus...</a>
-        </article>
+        {% for article in lastArticles %}
+            <article id="art-1">
+                <h1><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></h1>
+                <img src="images/1.jpg" alt=""/>
+                <p>{{ article.thearticleresume }}</p>
+                <p>Nombre de commentaires : {{ article.nbcomment }}</p>
+                <a href="?article={{ article.thearticleslug }}" class="rm">En savoir plus...</a>
+                <p>Posté par : <a href="?user={{ article.idtheuser }}">{{ article.theuserlogin }}</a> le {{ article.thearticledate|date('d/m/Y') }}</p>
+
+            </article>
+        {% endfor %}
     </div>
-</section>{% endblock %}
+    </section>{% endblock %}
