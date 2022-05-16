@@ -1,15 +1,21 @@
 <?php
+session_start();
+
 // use NewsWeb MyPDO class
 use NewsWeb\MyPDO;
-// Symfony mailer namespaces
-use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Email;
-// Twig namespaces
-use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
-// Twig string extension
+use Twig\Extension\DebugExtension;
 use Twig\Extra\String\StringExtension;
+use Twig\Loader\FilesystemLoader;
+
+// Symfony mailer namespaces
+
+// Twig namespaces
+
+// Twig string extension
 
 // dependencies
 require_once "../config.php";
@@ -19,29 +25,27 @@ require_once '../vendor/autoload.php';
 
 // Twig loader
 $loader = new FilesystemLoader('../view');
-$twig = new Environment($loader, [
+$twig   = new Environment($loader, [
     //'cache' => '../view/cache',
     // utilisation du débogage: dump()
     'debug' => true,
 ]);
 // activation du débogage (dump())
-$twig->addExtension(new \Twig\Extension\DebugExtension());
+$twig->addExtension(new DebugExtension());
 // activation de l'extension u. (traitement du texte)
 $twig->addExtension(new StringExtension());
 
-
 //instanciation de mailer avec ce que retourne la fonction fromDsn de la class Transport avec la constante
 //SMTP définie dans le config
-$mailer = new Mailer(Transport::fromDsn('smtp://'.SMTP.":".SMTP_PORT));
+$mailer = new Mailer(Transport::fromDsn('smtp://' . SMTP . ":" . SMTP_PORT));
 //instanciation de la classe Email pour l'admin
-$mailToAdmin = (new Email())->to(ADMIN_MAIL);
+$mailToAdmin    = (new Email())->to(ADMIN_MAIL);
 $mailToCustomer = (new Email())->from(ADMIN_MAIL);
 
 // Personal autoload
-spl_autoload_register(function ($class) {
+spl_autoload_register(function($class) {
     include_once '../model/' . $class . '.php';
 });
-
 
 // connect with MyPDO
 try {
@@ -50,9 +54,13 @@ try {
     die($e->getMessage());
 }
 
-
 // Call the router
-require_once "../controller/routerController.php";
-
+// gestionnaire de la table theuser
+if (isset($_SESSION["idSession"]) && $_SESSION["idSession"] === session_id()) {
+    require_once "../controller/private/privateRouterController.php";
+}
+else {
+    require_once "../controller/routerController.php";
+}
 // close connection
 $connectMyPDO = null;
