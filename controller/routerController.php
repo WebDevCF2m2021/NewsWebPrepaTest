@@ -2,7 +2,9 @@
 // Use Global Manager
 use NewsWeb\Manager\thearticleManager;
 use NewsWeb\Manager\thesectionManager;
+use NewsWeb\Manager\theuserManager;
 use NewsWeb\Mapping\theuserMapping;
+use NewsWeb\Trait\userEntryProtectionTrait;
 
 // sections
 
@@ -12,7 +14,8 @@ use NewsWeb\Mapping\theuserMapping;
 $thesectionManager = new thesectionManager($connectMyPDO);
 // gestionnaire de la table thesection
 $thearticleManager = new thearticleManager($connectMyPDO);
-
+// gestionnaire de la table theuser
+$theuserManager = new theuserManager($connectMyPDO);
 // sélection de toutes les sections pour le menu
 $thesectionMenu = $thesectionManager->SelectAllThesection();
 
@@ -25,16 +28,7 @@ if (isset($_GET['blog'])):
     ]);
 
 // section
-elseif (isset($_GET['connect'])):
-
-   
-        echo $twig->render('public/connexion.html.twig', [
-            'menu' => $thesectionMenu,
-           
-        ]);
-    
-    // section
-    elseif (isset($_GET['section'])):
+elseif (isset($_GET['section'])):
     // si slug trouvé, contient un tableau associatif
     $theSectionDatas = $thesectionManager->SelectOneThesectionBySlug($_GET['section']);
 
@@ -158,7 +152,22 @@ Nous vous répondrons dans les plus bref délai.");
     echo $twig->render('public/contact.html.twig', [
         'menu' => $thesectionMenu,
     ]);
-// homepage
+elseif (isset($_GET['connect'])):
+
+    if (isset($_POST["theuserlogin"], $_POST["theuserpwd"])) {
+        $instanceTheuser = new theuserMapping($_POST);
+
+        if ($theuserManager->theuserConnectByLoginAndPwd($instanceTheuser)) {
+            header("Location: ./");
+        } else {
+            echo $twig->render("public/connexion.html.twig", [
+                'menu' => $thesectionMenu,
+                "error" => "Wrong Login or Password!"
+            ]);
+        }
+    } else {
+        echo $twig->render("public/connexion.html.twig", ['menu' => $thesectionMenu,]);
+    }
 else:
     echo $twig->render('public/homepage.html.twig', [
         'menu' => $thesectionMenu,
