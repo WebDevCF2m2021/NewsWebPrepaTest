@@ -16,7 +16,7 @@ class thearticleManager implements ManagerInterface
     }
 
     // Récupération de tous les articles d'une section (même champs que thearticleSelectAll() sauf l'affichage de l'utilisateur déjà pris par une autre requête) lorsque l'id de l'utilisateur correspond à $iduser (de 0 à X résultats)
-    public function thearticleSelectAllByIdUser(int $iduser) : array
+    public function thearticleSelectAllByIdUser(int $iduser): array
     {
         $sql = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate,
@@ -27,10 +27,6 @@ class thearticleManager implements ManagerInterface
                 # Jointure MANY to ONE
                 INNER JOIN theuser u
                     ON u.idtheuser = a.theuser_idtheuser 
-                # Many to Many mais avec une condition where qui ne permet
-                # de garder qu'une seule rubrique AND sha.thesection_idthesection=  
-                INNER JOIN thesection_has_thearticle sha
-                    ON sha.thearticle_idthearticle = a.idthearticle
                 # Many to Many sur 2 tables pour garder toutes les rubriques
                 INNER JOIN thesection_has_thearticle sha2
                     ON sha2.thearticle_idthearticle = a.idthearticle
@@ -56,9 +52,9 @@ class thearticleManager implements ManagerInterface
     }
 
     // Récupération de tous les articles d'une section
-    public function thearticleSelectAllFromSection(int $idthesection) : array|string
+    public function thearticleSelectAllFromSection(int $idthesection): array|string
     {
-        $sql     = "SELECT 
+        $sql = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate,
             u.idtheuser, u.theuserlogin,
             (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
@@ -96,7 +92,7 @@ class thearticleManager implements ManagerInterface
     }
 
     // Récupération de l'article (idthearticle, thearticletitle, thearticletext, thearticleresume, thearticledate ) avec toutes les rubriques avec le lien, l'auteur et le lien vers celui-ci, via son slug
-    public function thearticleSelectOneBySlug(string $slug) : array|bool
+    public function thearticleSelectOneBySlug(string $slug): array|bool
     {
         $query = $this->connect->prepare("SELECT a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticletext, a.thearticledate,
             u.idtheuser, u.theuserlogin,
@@ -125,9 +121,9 @@ class thearticleManager implements ManagerInterface
     }
 
     // Récupération de tous les articles du site
-    public function thearticleSelectAll(int $limit = 1000000000000000, int $offset = 0) : array|string
+    public function thearticleSelectAll(int $limit = 1000000000000000, int $offset = 0): array|string
     {
-        $sql     = "SELECT 
+        $sql = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate,
             u.idtheuser, u.theuserlogin,
             (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
