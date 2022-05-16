@@ -87,9 +87,10 @@ elseif (isset($_GET['article'])):
     endif;
 
 // Articles par utilisateur    
-elseif (isset($_GET['user'])):
+elseif (isset($_GET['user']) && ctype_digit($_GET['user'])):
+    $idUser = (int)$_GET['user'];
 
-    $theUserDatas = $thearticleManager->thearticleSelectById ($_GET['article']);
+    $theUserDatas = $thearticleManager->thearticleSelectById ($idUser);
 
     if(!$theUserDatas):
         echo $twig->render('public/error404.html.twig', [
