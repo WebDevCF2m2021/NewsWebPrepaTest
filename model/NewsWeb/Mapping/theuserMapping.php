@@ -104,8 +104,9 @@ class theuserMapping extends AbstractMapping
     public function setTheuserlogin(string $theuserlogin): TheuserMapping
     {
         if (strlen($theuserlogin) > 50) {
-            trigger_error("L'ID de l'utilisateur ne peut pas dépasser 9999999999", E_USER_NOTICE);
+            trigger_error("L'ID de l'utilisateur ne peut pas dépasser 50 caractères", E_USER_NOTICE);
         } else {
+            $theuserlogin = protection::userEntryProtection($theuserlogin);
             $this->theuserlogin = $theuserlogin;
         }
         return $this;

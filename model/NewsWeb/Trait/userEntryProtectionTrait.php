@@ -11,8 +11,8 @@ trait userEntryProtectionTrait
         array|string|null $allowed_tags = null,
         ?string           $encoding = "UTF-8",
         bool              $double_encode = true
-    ) : string
+    ): string
     {
-        return htmlspecialchars(strip_tags(trim($entry, $characters), $allowed_tags), $flags, $encoding, $double_encode);
+        return trim(htmlspecialchars(strip_tags($entry, $allowed_tags), $flags, $encoding, $double_encode), $characters);
     }
 }
