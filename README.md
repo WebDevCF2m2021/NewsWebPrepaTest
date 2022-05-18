@@ -401,3 +401,11 @@ dans `thearticleManager.php` faire la partie MySQL :
 // Récupération de l'article (idthearticle, thearticletitle, thearticletext, thearticleresume, thearticledate ) avec toutes les rubriques avec le lien, l'auteur et le lien vers celui-ci, via son slug
 
 Modifiez la vue publique nommée 'article.html.twig' qui l'affiche
+
+## Exercice Twig
+
+En partant du modèle se trouvant
+
+`NewsWebPrepaTest/data/template_admin1/startbootstrap-sb-admin-2-gh-pages/tables.html`
+
+Créez le template de base ET une page d'accueil lors de la connexion dans `view/private`
