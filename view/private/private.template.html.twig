@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{# on écrase le block meta DEJA existant dans base.html.twig #}
+{% block meta %}
+    {# je récupère l'UTF8 qui se trouve déjà dans son parent en utilisant le code ci-dessous, en réalité on étend le block #}
+    {{ parent() }}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Administration">
+    <meta name="author" content="admin">{% endblock %}
+
+{% block title %}Admin NewsWeb | {% endblock %}
+
+{% block stylesheets %}
+    <link href="css/admin/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="css/admin/sb-admin-2.min.css" rel="stylesheet">{% endblock %}
+
+{% block pagetype %}page-top{% endblock %}
+
+{% block body %}body
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        {% block sidebar %}sidebar{% endblock %}
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            {% block content %}content
+                {% block topbar %}topbar{% endblock %}
+                {% block pagecontent %}pagecontent{% endblock %}
+            {% endblock %}
+
+            // on est ici
+
+            {% block footer %}
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website {{ now|date('Y') }}</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+            {% endblock %}
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+    </div>
+    <!-- End of Content Wrapper -->
+{% endblock %}
