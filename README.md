@@ -1,8 +1,9 @@
-#2022-05-18
+# 2022-05-18
 
 - [Exercice d'adapation d'un design en twig](https://github.com/WebDevCF2m2021/NewsWebPrepaTest#exercice-twig)
 
 # NewsWebPrepaTest
+
 Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 
 ### Gestion du projet:
@@ -19,8 +20,8 @@ https://github.com/WebDevCF2m2021/NewsWebPrepaTest/projects/1
 - [Le contrôleur frontal](https://github.com/mikhawa/NewsWebPrepaTest#le-contr%C3%B4leur-frontal)
 - [Le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#le-design-par-d%C3%A9faut-du-client)
 - [Les vues pour le design par défaut du client](https://github.com/mikhawa/NewsWebPrepaTest#les-vues-pour-le-design-par-d%C3%A9faut-du-client)
-  - [La vue publique pour la homepage](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-pour-la-homepage) 
-  - [La vue publique de la page blog](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-de-la-page-blog)
+    - [La vue publique pour la homepage](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-pour-la-homepage)
+    - [La vue publique de la page blog](https://github.com/mikhawa/NewsWebPrepaTest#la-vue-publique-de-la-page-blog)
 - [Création de notre autoload sur le dossier model](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-autoload-sur-le-dossier-model)
 - [Création de notre connexion PDO](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-de-notre-connexion-pdo)
 - [Création du routeur](https://github.com/mikhawa/NewsWebPrepaTest#cr%C3%A9ation-du-routeur)
@@ -87,11 +88,13 @@ Et pour l'installer depuis `composer.json` :
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
-- `public` Le dossier où se trouveront le contrôleur frontal et les fichiers publics dans des sous-dossiers (css, js, images etc ...)
+- `public` Le dossier où se trouveront le contrôleur frontal et les fichiers publics dans des sous-dossiers (css, js,
+  images etc ...)
 - `controller` Le dossier contenant nos contrôleurs
 - `model` Le dossier contenant nos classes personnelles
 - `view` Le dossier contenant nos vues `twig`
-- `data` Le dossier contenant les fichiers utiles pour la création du site, les fichiers sql seront modifiés lors de la mise en production pour éviter le piratage du site.
+- `data` Le dossier contenant les fichiers utiles pour la création du site, les fichiers sql seront modifiés lors de la
+  mise en production pour éviter le piratage du site.
 
 La racine contiendra les fichiers de configurations.
 
@@ -131,15 +134,14 @@ Ne contient au départ que l'appel des dépendances et l'instanciation de l'envi
         //'cache' => '../view/cache',
     ]);
 
-
-
 ## Le design par défaut du client
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
 
 Dans `data` nous avons mis le zip contenant le template par défaut proposé par le client.
 
-Nous allons ensuite mettre les fichiers dans les dossiers `css`, `fonts`, `js` et `images` de ce design dans le dossier `public`, car c'est le seul accès frontend au site.
+Nous allons ensuite mettre les fichiers dans les dossiers `css`, `fonts`, `js` et `images` de ce design dans le
+dossier `public`, car c'est le seul accès frontend au site.
 
 On va ensuite dézipper ces données dans data pour pouvoir tester le fonctionnement du template par défaut dans
 
@@ -149,7 +151,7 @@ Nous constatons que celui-ci diffère du modèle donné par le client consultabl
 
 https://partage2021.webdev-cf2m.be/WEB/NewsWeb/sources/
 
-Nous allons donc prendre la source du client et la mettre dans le dossier : 
+Nous allons donc prendre la source du client et la mettre dans le dossier :
 
 `data/sources`
 
@@ -190,7 +192,8 @@ Nous allons l'étendre pour toutes nos vues publiques dans un autre fichier de t
 
 `view/public/public.template.html.twig`
 
-Nous allons y charger les dépendances dans les blocs existants (js, css etc... ) et créer les bloques nécessaires pour les pages enfants
+Nous allons y charger les dépendances dans les blocs existants (js, css etc... ) et créer les bloques nécessaires pour
+les pages enfants
 
     {% extends 'base.html.twig' %}
     ...
@@ -212,7 +215,6 @@ Puis un appel de `render` sur ce fichier pour le tester depuis `public/index.php
     // test render Twig
     echo $twig->render('public/public.template.html.twig');
 
-
 ### La vue publique pour la homepage
 
 [Retour au menu](https://github.com/mikhawa/NewsWebPrepaTest#arborescence)
@@ -221,7 +223,8 @@ Création de la vue homepage :
 
 `view/public/homepage.html.twig`
 
-Contenant les tags `Twig` et le code `html` venant du template de Pierre, tout en mettant le slider en commentaire pour ne pas le voir :
+Contenant les tags `Twig` et le code `html` venant du template de Pierre, tout en mettant le slider en commentaire pour
+ne pas le voir :
 
     {% extends 'public/public.template.html.twig' %}
     {% block title %}{{ parent() }} Accueil {% endblock %}
@@ -256,7 +259,6 @@ contenant le reste de la page :
 
     {% block pagetype %}blog{% endblock %}
     ...
-
 
 ## Création de notre autoload sur le dossier model
 
@@ -321,8 +323,6 @@ Puis sera appelé depuis le contrôleur frontal :
     } catch (Exception $e) {
       die($e->getMessage());
     }
-
-
 
 ## Création du routeur
 
@@ -402,7 +402,8 @@ https://github.com/WebDevCF2019/intranetCF2m/blob/master/model/uploadDoc.php
 
 dans `thearticleManager.php` faire la partie MySQL :
 
-// Récupération de l'article (idthearticle, thearticletitle, thearticletext, thearticleresume, thearticledate ) avec toutes les rubriques avec le lien, l'auteur et le lien vers celui-ci, via son slug
+// Récupération de l'article (idthearticle, thearticletitle, thearticletext, thearticleresume, thearticledate ) avec
+toutes les rubriques avec le lien, l'auteur et le lien vers celui-ci, via son slug
 
 Modifiez la vue publique nommée 'article.html.twig' qui l'affiche
 
@@ -412,11 +413,17 @@ En partant du modèle se trouvant
 
 `NewsWebPrepaTest/data/template_admin1/startbootstrap-sb-admin-2-gh-pages/blank.html`
 
+Créez le template de base ET une page d'accueil lors de la connexion dans l'admin, et ce en se connectant avec `pierre`
+et `sandron` comme mot de passe :
 
-Créez le template de base ET une page d'accueil lors de la connexion dans l'admin, et ce en se connectant avec `pierre` et `sandron` comme mot de passe :
-
-- view/private/private.template.html.twig - enfant de `view/base.html.twig` et contenant la structure commune à toutes les autres pages, avec l'utilisation des blocs
+- view/private/private.template.html.twig - enfant de `view/base.html.twig` et contenant la structure commune à toutes
+  les autres pages (jss, css etc...), avec l'utilisation des blocs (blocs libres)
 
 et
 
-- view/private/homepage.template.html.twig - enfant de `view/private/private.template.html.twig` qui contiendra le titre, le nom de l'utilisateur connecté et son rôle, et la possibilité de se déconnecter !
+- view/private/homepage.template.html.twig - enfant de `view/private/private.template.html.twig` qui contiendra le
+  titre, le nom de l'utilisateur connecté et son rôle, et la possibilité de se déconnecter ! Faîtes un dump de la
+  session dans le partie contenu de la page homepage.
+
+Cette vue sera appelée en Twig depuis `controller/private/privateRouterController.php` - Il faut donc être connecté pour
+la voir
