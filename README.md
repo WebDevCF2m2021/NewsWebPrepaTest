@@ -1,3 +1,7 @@
+#2022-05-18
+
+- [Exercice d'adapation d'un design en twig](https://github.com/WebDevCF2m2021/NewsWebPrepaTest#exercice-twig)
+
 # NewsWebPrepaTest
 Préparation de la base du test sur l'OO dans un modèle MVC en PHP 8
 
@@ -406,6 +410,13 @@ Modifiez la vue publique nommée 'article.html.twig' qui l'affiche
 
 En partant du modèle se trouvant
 
-`NewsWebPrepaTest/data/template_admin1/startbootstrap-sb-admin-2-gh-pages/tables.html`
+`NewsWebPrepaTest/data/template_admin1/startbootstrap-sb-admin-2-gh-pages/blank.html`
 
-Créez le template de base ET une page d'accueil lors de la connexion dans `view/private`
+
+Créez le template de base ET une page d'accueil lors de la connexion dans l'admin, et ce en se connectant avec `pierre` et `sandron` comme mot de passe :
+
+- view/private/private.template.html.twig - enfant de `view/base.html.twig` et contenant la structure commune à toutes les autres pages, avec l'utilisation des blocs
+
+et
+
+- view/private/homepage.template.html.twig - enfant de `view/private/private.template.html.twig` qui contiendra le titre, le nom de l'utilisateur connecté et son rôle, et la possibilité de se déconnecter !
