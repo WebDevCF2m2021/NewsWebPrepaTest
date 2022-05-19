@@ -13,5 +13,9 @@ if (isset($_GET["disconnect"]) || $_SESSION["idSession"] !== session_id()) {
     echo "</pre><p><a href='?disconnect'>Logout?</a></p>";
     // ici l'appel de la vue Twig (private homepage)
     */
-    echo $twig->render("private/private.template.html.twig");
+    //var_dump($_SESSION);
+    echo $twig->render("private/homepage.template.html.twig", [
+        'username' => $_SESSION['userLogin'],
+        'session' => $_SESSION,
+    ]);
 }

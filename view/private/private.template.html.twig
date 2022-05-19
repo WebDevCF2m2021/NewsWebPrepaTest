@@ -36,7 +36,9 @@
                         {# Appel de la vue de la topbar avec un include #}
                         {% include 'private/private.topbar.html.twig' %}
                     {% endblock %}
-                    {% block pagecontent %}pagecontent{% endblock %}
+                    {% block pagecontent %}
+                        {% if username %}  {{ username }} {% else %}Douglas{% endif %}
+                    {% endblock %}
                 {% endblock %}
 
             </div>
