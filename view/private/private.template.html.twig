@@ -35,10 +35,13 @@
                     {% block topbar %}
                         {# Appel de la vue de la topbar avec un include #}
                         {% include 'private/private.topbar.html.twig' %}
+
                     {% endblock %}
-                    {% block pagecontent %}
-                        {% if username %}  {{ username }} {% else %}Douglas{% endif %}
-                    {% endblock %}
+                    <div class="container-fluid">
+                        {% block pagecontent %}
+                            {% if username %}  {{ username }} {% else %}Douglas{% endif %}
+                        {% endblock %}
+                    </div>
                 {% endblock %}
 
             </div>
@@ -48,7 +51,9 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website {{ now|date('Y') }}</span>
+                            <span>Copyright &copy; NewsWebPrepaTest {{ now|date('Y') }} - <a
+                                        href="https://github.com/WebDevCF2m2021/NewsWebPrepaTest"
+                                        target="_blank">github</a></span>
                         </div>
                     </div>
                 </footer>
@@ -73,15 +78,15 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Prêt à quitter?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-body">Choisissez déconnexion pour retourner au site</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="?disconnect">Logout</a>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                        <a class="btn btn-primary" href="?disconnect">Déconnexion</a>
                     </div>
                 </div>
             </div>
