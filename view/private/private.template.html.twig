@@ -20,20 +20,25 @@
 
 {% block pagetype %}page-top{% endblock %}
 
-{% block body %}body
+{% block body %}
     <!-- Page Wrapper -->
     <div id="wrapper">
-        {% block sidebar %}sidebar{% endblock %}
+        {% block sidebar %}
+            {# Appel de la vue de la sidebar avec un include #}
+            {% include 'private/private.sidebar.html.twig' %}
+        {% endblock %}
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                {% block content %}content
-                    {% block topbar %}topbar{% endblock %}
+                {% block content %}
+                    {% block topbar %}
+                        {# Appel de la vue de la topbar avec un include #}
+                        {% include 'private/private.topbar.html.twig' %}
+                    {% endblock %}
                     {% block pagecontent %}pagecontent{% endblock %}
                 {% endblock %}
 
-                // on est ici
             </div>
             <!-- End of Main Content -->
             {% block footer %}
@@ -84,7 +89,7 @@
 {% block javascripts %}
     <!-- Bootstrap core JavaScript-->
     <script src="js/admin/jquery.min.js"></script>
-    <script src="js/admin/bootstrap.bundle.min.js"></script>
+    <script src="js/admin/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="js/admin/jquery.easing.min.js"></script>
