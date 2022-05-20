@@ -13,7 +13,7 @@ if (isset($_GET["addArticle"])) {
             'thearticletext'  => \NewsWeb\Trait\userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"]),
             'thesections'     => $_POST["sections"],
         ], true);
-        echo $articleManager->insertArticle($article, $_POST["sections"], $_SESSION);
+        $articleManager->insertArticle($article, $_POST["sections"], $_SESSION);
     }
     echo $twig->render("private/articleForm.html.twig", [
         'username' => $_SESSION['userLogin'],
