@@ -25,7 +25,7 @@ require_once '../vendor/autoload.php';
 
 // Twig loader
 $loader = new FilesystemLoader('../view');
-$twig   = new Environment($loader, [
+$twig = new Environment($loader, [
     //'cache' => '../view/cache',
     // utilisation du débogage: dump()
     'debug' => true,
@@ -39,11 +39,11 @@ $twig->addExtension(new StringExtension());
 //SMTP définie dans le config
 $mailer = new Mailer(Transport::fromDsn('smtp://' . SMTP . ":" . SMTP_PORT));
 //instanciation de la classe Email pour l'admin
-$mailToAdmin    = (new Email())->to(ADMIN_MAIL);
+$mailToAdmin = (new Email())->to(ADMIN_MAIL);
 $mailToCustomer = (new Email())->from(ADMIN_MAIL);
 
 // Personal autoload
-spl_autoload_register(function($class) {
+spl_autoload_register(function ($class) {
     include_once '../model/' . $class . '.php';
 });
 
@@ -55,10 +55,17 @@ try {
 }
 
 // Call the router
-// gestionnaire de la table theuser
+// Si on est connecté
 if (isset($_SESSION["idSession"]) && $_SESSION["idSession"] === session_id()) {
-    require_once "../controller/private/privateRouterController.php";
-}
+    // si nous sommes un simple utilisateur
+    if ($_SESSION['permissionRole'] == 2) {
+
+        require_once "../controller/routerController.php";
+        // nous sommes admin ou rédacteurs
+    } else {
+        require_once "../controller/private/privateRouterController.php";
+    }
+} // Si nous ne sommes pas connectés
 else {
     require_once "../controller/routerController.php";
 }
