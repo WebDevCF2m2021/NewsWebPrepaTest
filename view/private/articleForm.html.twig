@@ -5,7 +5,7 @@
 
 {% block pagecontent %}
     <h3 class="mb-1 pb-2 text-gray-800">Veuillez rédiger votre article</h3>
-    <form method="GET">
+    <form method="POST">
         <div class="row">
             <div class="col-lg-8">
                 <div class="card shadow mb-4">
@@ -13,7 +13,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Article</h6>
                         <div class="card-body">
                             <div class="form-group">
-                                <input class="form-control form-control-lg" id="title" type="text" name="thearticletitle" placeholder="Votre titre">
+                                <input class="form-control form-control-lg" type="text" name="thearticletitle" placeholder="Votre titre">
                             </div>
                             <div class="form-group">
                                 <textarea class="form-control" style="resize: none" rows="20" placeholder="Votre article" name="thearticletext"></textarea>
@@ -32,23 +32,21 @@
                                 <input class="form-control" id="auteur" type="text" placeholder="{{ username }}" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="slug">Slug</label>
+                                <label>Slug</label>
                                 <input class="form-control" id="slug" type="text" placeholder="" readonly>
                             </div>
                             <div class="form-group">
+                                <label>Article resume</label>
+                                <textarea class="form-control" style="resize: none" rows="5" placeholder="" id="resume" disabled></textarea>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-12 p-0">Sections</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="section1" value="1">
-                                    <label class="form-check-label" for="section1">1</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="section2" value="2">
-                                    <label class="form-check-label" for="section2">2</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="section3" value="3">
-                                    <label class="form-check-label" for="section3">3</label>
-                                </div>
+                                {% for section in sections %}
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="{{ section.thesectionslug }}" name="sections[{{ section.thesectionslug }}]" value="{{ section.idthesection }}">
+                                        <label class="form-check-label" for="{{ section.thesectionslug }}">{{ section.thesectionslug }}</label>
+                                    </div>
+                                {% endfor %}
                             </div>
                             <div class="form-group">
                                 <label for="image">Images</label>
@@ -68,13 +66,17 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        function slugify(text) {
-            return text.toString().normalize('NFKD').toLowerCase().trim().replace(/\s+/g, '-').replace(/[\u0300-\u036f]/g, "").replace(/[^\w\-]+/g, '-').replace(/\-\-+/g, '-');
+        function slugify(str) {
+            return str.toString().normalize('NFKD').toLowerCase().trim().replace(/\s+/g, '-').replace(/[\u0300-\u036f]/g, "").replace(/[^\w\-]+/g, '-').replace(/\-\-+/g, '-');
         }
 
         let title = $("input[name=thearticletitle]");
         title.keyup(() => {
             $("#slug").val(slugify(title.val()));
+        })
+        let text = $("textarea[name=thearticletext]");
+        text.keyup(() => {
+            $("#resume").val(text.val().substr(0, 250));
         })
     </script>
 {% endblock %}
