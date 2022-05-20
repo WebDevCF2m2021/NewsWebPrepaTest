@@ -1,0 +1,80 @@
+{% extends 'private/private.template.html.twig' %}
+
+{% block title %}{{ parent() }} Création d'un article{% endblock %}
+
+
+{% block pagecontent %}
+    <h3 class="mb-1 pb-2 text-gray-800">Veuillez rédiger votre article</h3>
+    <form method="GET">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Article</h6>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input class="form-control form-control-lg" id="title" type="text" name="thearticletitle" placeholder="Votre titre">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" style="resize: none" rows="20" placeholder="Votre article" name="thearticletext"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Informations</h6>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="auteur">Auteur</label>
+                                <input class="form-control" id="auteur" type="text" placeholder="{{ username }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="slug">Slug</label>
+                                <input class="form-control" id="slug" type="text" placeholder="" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-12 p-0">Sections</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="section1" value="1">
+                                    <label class="form-check-label" for="section1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="section2" value="2">
+                                    <label class="form-check-label" for="section2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="section3" value="3">
+                                    <label class="form-check-label" for="section3">3</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Images</label>
+                                <input type="file" class="form-control-file" id="image">
+                            </div>
+                            <hr>
+                            <div class="form-group m-0">
+                                <button type="submit" class="col-lg-12 btn btn-primary">Poster</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function slugify(text) {
+            return text.toString().normalize('NFKD').toLowerCase().trim().replace(/\s+/g, '-').replace(/[\u0300-\u036f]/g, "").replace(/[^\w\-]+/g, '-').replace(/\-\-+/g, '-');
+        }
+
+        let title = $("input[name=thearticletitle]");
+        title.keyup(() => {
+            $("#slug").val(slugify(title.val()));
+        })
+    </script>
+{% endblock %}
