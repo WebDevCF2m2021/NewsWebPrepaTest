@@ -22,27 +22,28 @@
         <div class="sectionDesc">
             <p>{{ article.thearticledesc }}</p>
             {# Pour activer le var_dump de twig : https://twig.symfony.com/doc/3.x/functions/dump.html #}
-            {# dump(articles)#}
+            {# dump(articles) #}
         </div>
         <div id="articles">
 
-                <article>
-                    <div id="displayArticle">
-                        <h1><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></h1>
-                        <h2>Posté par : <a href="?user={{ article.idtheuser }}">{{ article.theuserlogin }}</a> le {{ article.thearticledate|date('d/m/Y') }}</h2>
-                        <img src="images/a1.jpg" alt=""/>
+            <article>
+                <div id="displayArticle">
+                    <h1><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></h1>
+                    <h2>Posté par : <a href="?user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
+                        le {{ article.thearticledate|date('d/m/Y') }}</h2>
+                    <img src="images/a1.jpg" alt=""/>
 
-                        <div id="descArticle">
+                    <div id="descArticle">
                         <h4>
                             {{ article.thearticleresume }}
                         </h4>
-                        </div>
+                    </div>
 
-                        </div>
-                    <div>{{ article.thearticletext|raw|nl2br }}</div>
-                </article>
+                </div>
+                <div>{{ article.thearticletext|raw|nl2br }}</div>
+            </article>
 
-            </div>
+        </div>
 
     </section>
 {% endblock %}
