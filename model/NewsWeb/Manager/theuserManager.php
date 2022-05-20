@@ -43,16 +43,15 @@ class theuserManager implements ManagerInterface
     {
         $query = "SELECT u.idtheuser, u.theuserlogin
                     FROM theuser u
-                    INNER JOIN article a
-                    ON a.theuser_idtheuser = u.idtheuser
                     WHERE u.idtheuser = ?;";
-        $prepare = $this->connect->prepare($$query);
+        $prepare = $this->connect->prepare($query);
         try {
-            $result = $prepare->fetch(\PDO::FETCH_ASSOC);
+            $prepare->execute([$id]);
+            return  $prepare->fetch(\PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            die($e);
+            die($e->getMessage());
         }
-        return $result;
+    
         
     }
 
