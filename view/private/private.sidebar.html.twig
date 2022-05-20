@@ -75,7 +75,21 @@
             </div>
         </div>
     </li>
-
+    <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+                    aria-controls="collapsePages">
+                    <i class="fa fa-comments"></i>
+                    <span>Commentaires</span>
+                </a>
+    <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">CRUD Commentaire:</h6>
+                        <a class="collapse-item" href="?addComment">Ajouter un commentaire</a>
+                        <a class="collapse-item" href="?viewComment">Lister les commentaires</a>
+                    </div>
+                </div>
+            </li>
 
     {#
     <!-- Divider -->
