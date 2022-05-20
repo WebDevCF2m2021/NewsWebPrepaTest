@@ -16,10 +16,10 @@ class thearticleManager implements ManagerInterface
     }
 
     // Récupération de tous les articles d'une section (même champs que thearticleSelectAll() sauf l'affichage de l'utilisateur déjà pris par une autre requête) lorsque l'id de l'utilisateur correspond à $iduser (de 0 à X résultats)
-    public function thearticleSelectAllByIdUser(int $iduser): array
+    public function thearticleSelectAllByIdUser(int $iduser): array|string
     {
         $sql = "SELECT 
-            a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate,
+            a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate, LEFT(a.thearticletext,800) AS thearticletext,
             u.idtheuser, u.theuserlogin,
             GROUP_CONCAT(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
             GROUP_CONCAT(s.thesectionslug SEPARATOR '|||') AS thesectionslug

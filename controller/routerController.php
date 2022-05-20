@@ -83,9 +83,10 @@ elseif (isset($_GET['article'])):
 elseif (isset($_GET['user']) && ctype_digit($_GET['user'])):
     $idUser = (int)$_GET['user'];
 
-    $theUserDatas = $thearticleManager->thearticleSelectAllByIdUser($idUser);
+    $theArticleDatas = $thearticleManager->thearticleSelectAllByIdUser($idUser);
+    // $theUserDatas = $theuserManager->theuserSelectOneById($idUser);
 
-    if (!$theUserDatas):
+    if (!$theArticleDatas):
         echo $twig->render('public/error404.html.twig', [
             'menu' => $thesectionMenu,
             'message' => "Ces articles n'existent plus !",
@@ -93,7 +94,8 @@ elseif (isset($_GET['user']) && ctype_digit($_GET['user'])):
     else:
         echo $twig->render('public/user.html.twig', [
             'menu' => $thesectionMenu,
-            'articles' => $theUserDatas,
+            'articles' => $theArticleDatas,
+            // 'utilisatuer' => $theUserDatas,
         ]);
 
     endif;

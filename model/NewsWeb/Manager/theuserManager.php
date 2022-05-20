@@ -37,12 +37,26 @@ class theuserManager implements ManagerInterface
         session_destroy();
     }
 
-    // se connecter et vérifier la validité du login/pwd, renvoie un tableau contenant les information de theuser et de permission, (sans mots de passes ni infos dangereuses), ou false
+    
 
     public function theuserSelectOneById(int $id): array|bool
     {
-
+        $query = "SELECT u.idtheuser, u.theuserlogin
+                    FROM theuser u
+                    INNER JOIN article a
+                    ON a.theuser_idtheuser = u.idtheuser
+                    WHERE u.idtheuser = ?;";
+        $prepare = $this->connect->prepare($$query);
+        try {
+            $result = $prepare->fetch(\PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die($e);
+        }
+        return $result;
+        
     }
+
+    // se connecter et vérifier la validité du login/pwd, renvoie un tableau contenant les information de theuser et de permission, (sans mots de passes ni infos dangereuses), ou false
 
     public function theuserConnectByLoginAndPwd(theuserMapping $user): bool
     {
