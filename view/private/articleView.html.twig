@@ -1,5 +1,13 @@
 {% extends "private/private.template.html.twig" %}
 {% block title %}{{ parent() ~ article.thearticletitle }} {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #wrap-text {
+            min-height : 60vh;
+        }
+    </style>
+{% endblock %}
 {% block pagecontent %}
     <h3 class="mb-1 pb-2 text-gray-800">Article</h3>
     <div class="row row-eq">
