@@ -2,9 +2,11 @@
 
 namespace NewsWeb\Manager;
 
+use Exception;
 use NewsWeb\Interface\ManagerInterface;
 use NewsWeb\Mapping\thearticleMapping;
 use NewsWeb\MyPDO;
+use PDO;
 
 class thearticleManager implements ManagerInterface
 {
@@ -45,8 +47,8 @@ class thearticleManager implements ManagerInterface
 
         try {
             $prepare->execute([$iduser]);
-            return $prepare->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\Exception $e) {
+            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
@@ -85,8 +87,8 @@ class thearticleManager implements ManagerInterface
 
         try {
             $prepare->execute([$idthesection]);
-            return $prepare->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\Exception $e) {
+            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
@@ -114,8 +116,8 @@ class thearticleManager implements ManagerInterface
                 GROUP BY a.idthearticle  ");
         try {
             $query->execute([$slug]);
-            return $query->fetch(\PDO::FETCH_ASSOC);
-        } catch (\Exception $e) {
+            return $query->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
             die($e->getMessage());
         }
     }
@@ -147,11 +149,11 @@ class thearticleManager implements ManagerInterface
         $prepare = $this->connect->prepare($sql);
 
         try {
-            $prepare->bindParam(1, $limit, \PDO::PARAM_INT);
-            $prepare->bindParam(2, $offset, \PDO::PARAM_INT);
+            $prepare->bindParam(1, $limit, PDO::PARAM_INT);
+            $prepare->bindParam(2, $offset, PDO::PARAM_INT);
             $prepare->execute();
-            return $prepare->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\Exception $e) {
+            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
             return $e->getMessage();
         }
     }
@@ -170,7 +172,7 @@ class thearticleManager implements ManagerInterface
             $prepare->bindValue(3, $article->getArticleResume());
             $prepare->bindValue(4, $article->getArticleText());
             $prepare->bindParam(5, $userInfos["idUser"]);
-            $prepare->bindValue(6, ($userInfos["permissionRole"] === "0" ? 1 : 0), \PDO::PARAM_STR);
+            $prepare->bindValue(6, ($userInfos["permissionRole"] === "0" ? 1 : 0), PDO::PARAM_STR);
             $prepare->execute();
             $lastId = $this->connect->lastInsertId();
             foreach ($sections as $section) {
@@ -178,14 +180,63 @@ class thearticleManager implements ManagerInterface
                                             (thearticle_idthearticle, thesection_idthesection) 
                                          VALUES
                                             (?,?);");
-                $prepare->bindParam(1, $lastId, \PDO::PARAM_INT);
-                $prepare->bindParam(2, $section, \PDO::PARAM_INT);
+                $prepare->bindParam(1, $lastId, PDO::PARAM_INT);
+                $prepare->bindParam(2, $section, PDO::PARAM_INT);
                 $prepare->execute();
             }
             $result = $this->connect->commit();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $result = $e->getMessage();
         }
         return $result;
+    }
+
+    public function thearticleAdminSelectAll(array $user, int $limit = 1000000000000000, int $offset = 0) : array|string
+    {
+        $sql     = "SELECT 
+            a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate, a.thearticleactivate,
+            u.idtheuser, u.theuserlogin,
+            (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
+            GROUP_CONCAT(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
+            GROUP_CONCAT(s.thesectionslug SEPARATOR '|||') AS thesectionslug
+                FROM thearticle a
+                # Jointure MANY TO ONE
+                INNER JOIN theuser u
+                    ON u.idtheuser = a.theuser_idtheuser 
+                # Many TO Many sur 2 tables pour garder toutes les rubriques
+                INNER JOIN thesection_has_thearticle sha2
+                    ON sha2.thearticle_idthearticle = a.idthearticle
+                INNER JOIN thesection s
+                    ON sha2.thesection_idthesection = s.idthesection
+                # conditions : article validé, utilisateur actif
+                WHERE a.thearticleactivate = 1 OR (a.theuser_idtheuser = ? && a.thearticleactivate != 2)
+                GROUP BY a.idthearticle
+                ORDER BY a.thearticledate DESC
+                LIMIT ? OFFSET ?;";
+        $prepare = $this->connect->prepare($sql);
+
+        try {
+            $prepare->bindParam(1, $user["idUser"], PDO::PARAM_INT);
+            $prepare->bindParam(2, $limit, PDO::PARAM_INT);
+            $prepare->bindParam(3, $offset, PDO::PARAM_INT);
+            $prepare->execute();
+            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function thearticleActivate(string $slug, bool $state) : ?string
+    {
+        $sql     = "UPDATE thearticle SET thearticleactivate = ? WHERE thearticleslug = ?";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $prepare->bindParam(1, $state, PDO::PARAM_INT);
+            $prepare->bindParam(2, $slug, PDO::PARAM_STR);
+            $prepare->execute();
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result ?? null;
     }
 }

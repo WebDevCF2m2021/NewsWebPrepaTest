@@ -15,6 +15,7 @@ if (isset($_GET["addArticle"])) {
             'thesections'     => $_POST["sections"],
         ], true);
         $articleManager->insertArticle($article, $_POST["sections"], $_SESSION);
+        header("Location: ./?viewArticles");
     }
     echo $twig->render("private/articleForm.html.twig", [
         'username' => $_SESSION['userLogin'],
@@ -23,10 +24,18 @@ if (isset($_GET["addArticle"])) {
     ]);
 }
 elseif (isset($_GET["viewArticles"])) {
+    $articles = $articleManager->thearticleAdminSelectAll($_SESSION);
     echo $twig->render("private/articlesList.html.twig", [
         'username' => $_SESSION['userLogin'],
         'session'  => $_SESSION,
+        'articles' => $articles,
     ]);
+}
+elseif (isset($_GET["articleActivate"])) {
+    $state = !(bool) $_GET["state"];
+    $slug  = userEntryProtectionTrait::userEntryProtection($_GET["articleActivate"]);
+    $articleManager->thearticleActivate($slug, $state);
+    header("Location: ./?viewArticles");
 }
 else {
     echo $twig->render("private/homepage.template.html.twig", [
