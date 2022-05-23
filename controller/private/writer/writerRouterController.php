@@ -43,7 +43,12 @@ elseif (isset($_GET["article"])) {
 elseif (isset($_GET["articleSearch"])) {
     $type = $_GET["articleSearch"] === "thesection" ? "s" : "u";
     if ($type === "s") {
-        $mod = userEntryProtectionTrait::userEntryProtection($_GET["section"]) ?? null;
+        if (isset($_GET["section"])) {
+            $mod = userEntryProtectionTrait::userEntryProtection($_GET["section"]);
+        }
+        else {
+            $mod = "";
+        }
     }
     else {
         $mod = (int) ($_GET["user"] ?? null);
