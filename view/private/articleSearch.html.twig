@@ -70,7 +70,7 @@
                                 <th scope="row" class="align-middle">{{ article.idthearticle }}</th>
                                 <td class="align-middle">{{ article.thearticledate }}</td>
                                 <td class="align-middle">
-                                    {% if session.permissionName is same as "Administrateur" %}
+                                    {% if session.userLogin is same as article.theuserlogin or session.permissionName is same as "Administrateur" %}
                                         <a href="?articleActivate={{ article.thearticleslug }}&state={{ article.thearticleactivate }}">{{ (article.thearticleactivate is same as "1") ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>' }}</a>
                                     {% else %}
                                         {{ (article.thearticleactivate is same as "1") ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>' }}
