@@ -3,14 +3,15 @@
 use NewsWeb\Manager\thearticleManager;
 use NewsWeb\Manager\thesectionManager;
 use NewsWeb\Mapping\thearticleMapping;
+use NewsWeb\Trait\userEntryProtectionTrait;
 
 $sectionManager = new thesectionManager($connectMyPDO);
 $articleManager = new thearticleManager($connectMyPDO);
 if (isset($_GET["addArticle"])) {
     if (isset($_POST["thearticletitle"], $_POST["thearticletext"], $_POST["sections"])) {
         $article = new thearticleMapping([
-            'thearticletitle' => \NewsWeb\Trait\userEntryProtectionTrait::userEntryProtection($_POST["thearticletitle"]),
-            'thearticletext'  => \NewsWeb\Trait\userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"]),
+            'thearticletitle' => userEntryProtectionTrait::userEntryProtection($_POST["thearticletitle"]),
+            'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"]),
             'thesections'     => $_POST["sections"],
         ], true);
         $articleManager->insertArticle($article, $_POST["sections"], $_SESSION);
@@ -19,6 +20,12 @@ if (isset($_GET["addArticle"])) {
         'username' => $_SESSION['userLogin'],
         'session'  => $_SESSION,
         "sections" => $sectionManager->SelectAllThesection(),
+    ]);
+}
+elseif (isset($_GET["viewArticles"])) {
+    echo $twig->render("private/articlesList.html.twig", [
+        'username' => $_SESSION['userLogin'],
+        'session'  => $_SESSION,
     ]);
 }
 else {
