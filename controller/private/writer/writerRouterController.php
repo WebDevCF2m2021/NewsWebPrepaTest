@@ -31,12 +31,14 @@ elseif (isset($_GET["viewArticles"])) {
         'articles' => $articles,
     ]);
 }
+/*
+// A retirer du routeur des Rédacteur pour mettre dans le router de l'admin
 elseif (isset($_GET["articleActivate"])) {
     $state = !(bool) $_GET["state"];
     $slug  = userEntryProtectionTrait::userEntryProtection($_GET["articleActivate"]);
     $articleManager->thearticleActivate($slug, $state);
     header("Location: ./?viewArticles");
-}
+}*/
 else {
     echo $twig->render("private/homepage.template.html.twig", [
         'username' => $_SESSION['userLogin'],

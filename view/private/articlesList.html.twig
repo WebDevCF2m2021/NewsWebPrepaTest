@@ -1,61 +1,93 @@
 {% extends "private/private.template.html.twig " %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="js/admin/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+{% endblock %}
 {% block title %}{{ parent() }} Liste des articles{% endblock %}
 
 {% block pagecontent %}
     <h3 class="mb-1 pb-2 text-gray-800">Liste des articles</h3>
-    <table class="text-center table table-striped">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col" class="align-middle">id</th>
-            <th scope="col" class="align-middle">Date</th>
-            <th scope="col" class="align-middle">Visibilité</th>
-            <th scope="col" class="align-middle">Titre</th>
-            <th scope="col" class="align-middle">Résumé</th>
-            <th scope="col" class="align-middle">Auteur</th>
-            <th scope="col" class="align-middle">Sections</th>
-            <th scope="col" class="align-middle">Nb de commentaires</th>
-            <th scope="col" class="align-middle">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for article in articles %}
-            <tr>
-                <th scope="row" class="align-middle">{{ article.idthearticle }}</th>
-                <td class="align-middle">{{ article.thearticledate }}</td>
-                <td class="align-middle"><a href="?articleActivate={{ article.thearticleslug }}&state={{ article.thearticleactivate }}">{{ (article.thearticleactivate is same as "1") ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>' }}</a></td>
-                <td class="align-middle"><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></td>
-                <td class="align-middle">{{ article.thearticleresume }}</td>
-                <td class="align-middle">{{ article.theuserlogin }}</td>
-                <td class="align-middle">{% for section in article.thesectiontitle|split("|||") %}{{ section }}{% if not loop.last %} / {% endif %}{% endfor %}</td>
-                <td class="align-middle">{{ article.nbcomment }}</td>
-                <td class="align-middle">
-                    <a href="?update={{ article.thearticleslug }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                        </svg>
-                    </a>
-                    <span> | </span>
-                    <a href="?delete={{ article.thearticleslug }}" style="text-decoration: none">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col" class="align-middle">id</th>
-            <th scope="col" class="align-middle">Date</th>
-            <th scope="col" class="align-middle">Visibilité</th>
-            <th scope="col" class="align-middle">Titre</th>
-            <th scope="col" class="align-middle">Résumé</th>
-            <th scope="col" class="align-middle">Auteur</th>
-            <th scope="col" class="align-middle">Sections</th>
-            <th scope="col" class="align-middle">Nb de commentaires</th>
-            <th scope="col" class="align-middle">Actions</th>
-        </tr>
-        </thead>
-    </table>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Articles</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="text-center table table-striped table-bordered" id="dataTable">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" class="align-middle">id</th>
+                        <th scope="col" class="align-middle">Date</th>
+                        <th scope="col" class="align-middle">Visibilité</th>
+                        <th scope="col" class="align-middle">Titre</th>
+                        <th scope="col" class="align-middle">Résumé</th>
+                        <th scope="col" class="align-middle">Auteur</th>
+                        <th scope="col" class="align-middle">Sections</th>
+                        <th scope="col" class="align-middle">Nb de commentaires</th>
+                        <th scope="col" class="align-middle">Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot class="thead-dark">
+                    <tr>
+                        <th scope="col" class="align-middle">id</th>
+                        <th scope="col" class="align-middle">Date</th>
+                        <th scope="col" class="align-middle">Visibilité</th>
+                        <th scope="col" class="align-middle">Titre</th>
+                        <th scope="col" class="align-middle">Résumé</th>
+                        <th scope="col" class="align-middle">Auteur</th>
+                        <th scope="col" class="align-middle">Sections</th>
+                        <th scope="col" class="align-middle">Nb de commentaires</th>
+                        <th scope="col" class="align-middle">Actions</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for article in articles %}
+                        <tr>
+                            <th scope="row" class="align-middle">{{ article.idthearticle }}</th>
+                            <td class="align-middle">{{ article.thearticledate }}</td>
+                            <td class="align-middle">
+                                {% if session.permissionName is same as "Administrateur" %}
+                                    <a href="?articleActivate={{ article.thearticleslug }}&state={{ article.thearticleactivate }}">{{ (article.thearticleactivate is same as "1") ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>' }}</a>
+                                {% else %}
+                                    <i class="fa fa-eye"></i>
+                                {% endif %}
+                            </td>
+                            <td class="align-middle"><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></td>
+                            <td class="align-middle">{{ article.thearticleresume }}</td>
+                            <td class="align-middle">{{ article.theuserlogin }}</td>
+                            <td class="align-middle">{% for section in article.thesectiontitle|split("|||") %}{{ section }}{% if not loop.last %} / {% endif %}{% endfor %}</td>
+                            <td class="align-middle">{{ article.nbcomment }}</td>
+                            <td class="align-middle">
+                                {% if article.idtheuser is same as session.idUser %}
+                                    <a href="?update={{ article.thearticleslug }}" style="text-decoration: none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                        </svg>
+                                    </a>
+                                    <span> | </span>
+                                    <a href="?delete={{ article.thearticleslug }}" style="text-decoration: none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                        </svg>
+                                    </a>
+                                {% else %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="js/admin/datatables/jquery.dataTables.min.js"></script>
+    <script src="js/admin/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="js/demo/datatables-demo.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({order: [1, "desc"]});
+        });
+    </script>
 {% endblock %}
