@@ -8,7 +8,7 @@ if (isset($_GET["disconnect"]) || $_SESSION["idSession"] !== session_id()) {
     die();
 }
 else {
-    if ($_SESSION["permissionRole"] !== 1) {
+    if ($_SESSION["permissionRole"] === "1") {
         require_once "../controller/private/writer/writerRouterController.php";
     }
     else {
