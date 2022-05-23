@@ -31,6 +31,32 @@ elseif (isset($_GET["viewArticles"])) {
         'articles' => $articles,
     ]);
 }
+elseif (isset($_GET["article"])) {
+    $slug    = userEntryProtectionTrait::userEntryProtection($_GET["article"]);
+    $article = $articleManager->thearticleSelectOneBySlug($slug);
+    echo $twig->render("private/articleView.html.twig", [
+        'username' => $_SESSION['userLogin'],
+        'session'  => $_SESSION,
+        'article'  => $article,
+    ]);
+}
+elseif (isset($_GET["articleSearch"])) {
+    $type = $_GET["articleSearch"] === "thesection" ? "s" : "u";
+    if ($type === "s") {
+        $mod = userEntryProtectionTrait::userEntryProtection($_GET["section"]) ?? null;
+    }
+    else {
+        $mod = (int) ($_GET["user"] ?? null);
+    }
+    $articles = $articleManager->thearticleSelectAllByMod($type, $mod, $_SESSION);
+    echo $twig->render("private/articleSearch.html.twig", [
+        'username' => $_SESSION['userLogin'],
+        'session'  => $_SESSION,
+        'articles' => $articles,
+        "type"     => $type,
+        "mod"      => $mod,
+    ]);
+}
 /*
 // A retirer du routeur des Rédacteur pour mettre dans le router de l'admin
 elseif (isset($_GET["articleActivate"])) {

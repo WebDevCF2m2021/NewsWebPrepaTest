@@ -1,0 +1,3 @@
+{% extends "private/private.template.html.twig" %}
+{% block title %}{{ parent() ~ article.thearticletitle }} {% endblock %}
+{% block pagecontent %}{{ dump(article) }}{% endblock %}

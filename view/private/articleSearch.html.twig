@@ -6,10 +6,10 @@
 {% block title %}{{ parent() }} Liste des articles{% endblock %}
 
 {% block pagecontent %}
-    <h3 class="mb-1 pb-2 text-gray-800">Liste des articles</h3>
+    <h3 class="mb-1 pb-2 text-gray-800">Liste des articles filtrés par {{ (type is same as "s") ? "section" : "utilisateur" }}</h3>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Articles</h6>
+            <h6 class="m-0 font-weight-bold text-primary">{{ (type is same as "s") ? "Section:  "~mod : "Utilisateur: "~articles[0].theuserlogin }}</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -88,7 +88,7 @@
                         {% endfor %}
                     </table>
                 {% else %}
-                    <h1>Il n'y a pas encore d'article{{ (session.permissionRole is not same as "Administrateur")?" ou l'administrateur ne l'a pas encore validé":"" }}!</h1>
+                    <h1>Il n'y a pas d'articles écrit {{ (type is same as "s") ? "dans cette section ou cette section n'existe pas!" : "par cet utilisateur ou cet utilisateur n'existe pas!" }}</h1>
                 {% endif %}
             </div>
         </div>
