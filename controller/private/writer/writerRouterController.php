@@ -1,12 +1,14 @@
 <?php
 
 use NewsWeb\Manager\thearticleManager;
+use NewsWeb\Manager\thecommentManager;
 use NewsWeb\Manager\thesectionManager;
 use NewsWeb\Mapping\thearticleMapping;
 use NewsWeb\Trait\userEntryProtectionTrait;
 
 $sectionManager = new thesectionManager($connectMyPDO);
 $articleManager = new thearticleManager($connectMyPDO);
+$commentManager = new thecommentManager($connectMyPDO);
 if (isset($_GET["addArticle"])) {
     if (isset($_POST["thearticletitle"], $_POST["thearticletext"], $_POST["sections"])) {
         $article = new thearticleMapping([
@@ -32,12 +34,14 @@ elseif (isset($_GET["viewArticles"])) {
     ]);
 }
 elseif (isset($_GET["article"])) {
-    $slug    = userEntryProtectionTrait::userEntryProtection($_GET["article"]);
-    $article = $articleManager->thearticleSelectOneBySlug($slug);
+    $slug     = userEntryProtectionTrait::userEntryProtection($_GET["article"]);
+    $article  = $articleManager->thearticleforAdminSelectOneBySlug($slug);
+    $comments = $commentManager->thecommentSelectAllByIdArticle($article["idthearticle"]);
     echo $twig->render("private/articleView.html.twig", [
         'username' => $_SESSION['userLogin'],
         'session'  => $_SESSION,
         'article'  => $article,
+        "comments" => $comments,
     ]);
 }
 elseif (isset($_GET["articleSearch"])) {

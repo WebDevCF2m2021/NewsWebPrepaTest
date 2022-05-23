@@ -279,4 +279,31 @@ class thearticleManager implements ManagerInterface
             return $e->getMessage();
         }
     }
+
+    public function thearticleForAdminSelectOneBySlug(string $slug) : array|bool
+    {
+        $query = $this->connect->prepare("SELECT a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticletext, a.thearticledate,
+            u.idtheuser, u.theuserlogin,
+            group_concat(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
+            group_concat(s.thesectionslug SEPARATOR '|||') AS thesectionslug
+                FROM thearticle a
+                # Jointure MANY TO ONE
+                INNER JOIN theuser u
+                    ON u.idtheuser = a.theuser_idtheuser 
+                # Many TO Many sur 2 tables pour garder toutes les rubriques
+                INNER JOIN thesection_has_thearticle sha2
+                    ON sha2.thearticle_idthearticle = a.idthearticle
+                INNER JOIN thesection s
+                    ON sha2.thesection_idthesection = s.idthesection
+                # conditions : article validé, utilisateur actif
+                WHERE thearticleslug=?
+                GROUP BY a.idthearticle  ");
+        try {
+            $query->execute([$slug]);
+            return $query->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 }

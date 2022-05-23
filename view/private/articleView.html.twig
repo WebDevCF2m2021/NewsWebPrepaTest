@@ -1,3 +1,83 @@
 {% extends "private/private.template.html.twig" %}
 {% block title %}{{ parent() ~ article.thearticletitle }} {% endblock %}
-{% block pagecontent %}{{ dump(article) }}{% endblock %}
+{% block pagecontent %}
+    <h3 class="mb-1 pb-2 text-gray-800">Article</h3>
+    <div class="row row-eq">
+        <div class="col-lg-7">
+            <div id="wrap-text" class="card shadow mb-4">
+                <div class="card-header  bg-primary py-3">
+                    <h3 class="m-1 font-weight-bold text-white">{{ article.thearticletitle }}</h3>
+                    <h5 class="m-1 font-weight-bold text-white">Écrit par <a class="text-white" href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a> le {{ article.thearticledate|date("d-m-y à H:i") }}</h5>
+                    <h6 class="m-1 font-weight-bold text-white">
+                        Sections:
+                        {% set sections = article.thesectiontitle|split("|||") %}
+                        {% set slugs = article.thesectionslug|split("|||") %}
+                        {% for section in sections %}
+                            <a class="text-white" href="?articleSearch=thesection&section={{ slugs[loop.index0] }}">{{ section }}</a>
+                            {% if not loop.last %}
+                                /
+                            {% endif %}
+                        {% else %}
+                        {% endfor %}
+                    </h6>
+                </div>
+                <div class="card-body">
+                    {{ article.thearticletext|raw|nl2br }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow mb-4" id="actions">
+                <div class="card-header bg-info py-3">
+                    <h4 class="m-0 font-weight-bold text-white text-center">Actions</h4>
+                </div>
+                <div class="card-body text-center">
+                    <a href="?update={{ article.thearticleslug }}" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+                        <span class="text">Modifier</span>
+                    </a>
+                    <a href="?delete={{ article.thearticleslug }}" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                        <span class="text">Supprimer</span>
+                    </a>
+                </div>
+            </div>
+            <div class="card shadow m-0" id="comments" style="overflow-y: scroll">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Commentaires</h6>
+                </div>
+                <div class="card-body">
+                    {% for comment in comments %}
+                        <div class="card shadow mb-4">
+                            <div class="card-header {{ (loop.index0 is even) ? "bg-warning":"bg-success" }} py-3">
+                                <h6 class="m-0 font-weight-bold text-white">{{ comment.theuserlogin }}</h6>
+                                <p class="m-0 font-weight-bold text-white">{{ comment.thecommentdate|date("d-m-y à H:i") }}</p>
+                            </div>
+                            <div class="card-body">
+                                {{ comment.thecommenttext }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(() => {
+            let max         = $("#wrap-text").height();
+            let maxOut      = $("#wrap-text").outerHeight(false);
+            let maxOut2     = $("#wrap-text").outerHeight(true)
+            let extra       = $("#actions").height();
+            let elWMarABor  = $("#actions").outerHeight(true)
+            let elWoMarABor = $("#actions").outerHeight(false)
+            $("#comments").height(((max + (maxOut2 - maxOut)) - extra - (2 * (elWMarABor - elWoMarABor))) - 2)
+        })
+    </script>
+{% endblock %}
