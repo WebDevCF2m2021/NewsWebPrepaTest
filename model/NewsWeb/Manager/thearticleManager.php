@@ -196,7 +196,7 @@ class thearticleManager implements ManagerInterface
         $sql     = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate, a.thearticleactivate,
             u.idtheuser, u.theuserlogin,
-            (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
+            (SELECT COUNT(thecomment_idthecomment) FROM thecomment INNER JOIN thearticle_has_thecomment ON idthecomment = thearticle_has_thecomment.thecomment_idthecomment WHERE thearticle_idthearticle = a.idthearticle AND thecommentactive = 1) AS nbcomment,
             GROUP_CONCAT(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
             GROUP_CONCAT(s.thesectionslug SEPARATOR '|||') AS thesectionslug
                 FROM thearticle a
@@ -242,7 +242,7 @@ class thearticleManager implements ManagerInterface
         $sql     = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate, a.thearticleactivate,
             u.idtheuser, u.theuserlogin,
-            (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
+            (SELECT COUNT(thecomment_idthecomment) FROM thecomment INNER JOIN thearticle_has_thecomment ON idthecomment = thearticle_has_thecomment.thecomment_idthecomment WHERE thearticle_idthearticle = a.idthearticle AND thecommentactive = 1) AS nbcomment,
             GROUP_CONCAT(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
             GROUP_CONCAT(s.thesectionslug SEPARATOR '|||') AS thesectionslug
                 FROM thearticle a
