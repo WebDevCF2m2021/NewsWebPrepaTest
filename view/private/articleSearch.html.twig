@@ -55,13 +55,23 @@
                                 </td>
                                 <td class="align-middle"><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></td>
                                 <td class="align-middle">{{ article.thearticleresume }}</td>
-                                <td class="align-middle"><a href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a></td>
+                                <td class="align-middle">
+                                    {% if mod != article.idtheuser %}
+                                        <a href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
+                                    {% else %}
+                                        {{ article.theuserlogin }}
+                                    {% endif %}
+                                </td>
                                 <td class="align-middle">
                                     {% set slugs = article.thesectionslug|split("|||") %}
                                     {% set sections = article.thesectionslug|split("|||") %}
                                     {% for section in sections %}
-                                        <a href="?articleSearch=thesection&section={{ slugs[loop.index0] }}">
-                                            {{ section }}</a>
+                                        {% if mod != slugs[loop.index0] %}
+                                            <a href="?articleSearch=thesection&section={{ slugs[loop.index0] }}">
+                                                {{ section }}</a>
+                                        {% else %}
+                                            {{ section }}
+                                        {% endif %}
                                         {% if not loop.last %}
                                             /
                                         {% endif %}
