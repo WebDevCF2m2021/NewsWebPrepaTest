@@ -32,7 +32,7 @@
     <h3 class="mb-1 pb-2 text-gray-800">Liste des articles filtrés par {{ (type is same as "s") ? "section" : "utilisateur" }}</h3>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">{{ (type is same as "s") ? "Section:  "~mod : "Utilisateur: "~articles[0].theuserlogin }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary"><a href="?viewArticles"><i class="fas fa-times-circle" style="color:red"></i></a> {{ (type is same as "s") ? "Section:  "~mod : "Utilisateur: "~articles[0].theuserlogin }}</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
