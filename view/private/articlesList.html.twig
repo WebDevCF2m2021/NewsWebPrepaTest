@@ -1,0 +1,125 @@
+{% extends "private/private.template.html.twig " %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="js/admin/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <style>
+        table.dataTable > thead .sorting::before,
+        table.dataTable > thead .sorting_asc::before,
+        table.dataTable > thead .sorting_desc::before,
+        table.dataTable > thead .sorting_asc_disabled::before,
+        table.dataTable > thead .sorting_desc_disabled::before {
+            right   : 0;
+            content : "";
+        }
+
+        table.dataTable > thead .sorting:after,
+        table.dataTable > thead .sorting_asc:after,
+        table.dataTable > thead .sorting_desc:after,
+        table.dataTable > thead .sorting_asc_disabled:after,
+        table.dataTable > thead .sorting_desc_disabled:after {
+            right   : 0;
+            content : "";
+        }
+
+        table.dataTable > thead > tr > th:not(.sorting_disabled), table.dataTable > thead > tr > td:not(.sorting_disabled) {
+            padding-right : 0.75em;
+        }
+    </style>
+{% endblock %}
+{% block title %}{{ parent() }} Liste des articles{% endblock %}
+
+{% block pagecontent %}
+    <h3 class="mb-1 pb-2 text-gray-800">Liste des articles</h3>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Articles</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {% if articles is not empty %}
+                    <table class="text-center table table-striped table-bordered" id="dataTable">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" class="align-middle">id</th>
+                            <th scope="col" class="align-middle">Date</th>
+                            <th scope="col" class="align-middle">Visibilité</th>
+                            <th scope="col" class="align-middle">Titre</th>
+                            <th scope="col" class="align-middle">Résumé</th>
+                            <th scope="col" class="align-middle">Auteur</th>
+                            <th scope="col" class="align-middle">Sections</th>
+                            <th scope="col" class="align-middle">Nb de commentaires</th>
+                            <th scope="col" class="align-middle">Actions</th>
+                        </tr>
+                        </thead>
+                        <tfoot class="thead-dark">
+                        <tr>
+                            <th scope="col" class="align-middle">id</th>
+                            <th scope="col" class="align-middle">Date</th>
+                            <th scope="col" class="align-middle">Visibilité</th>
+                            <th scope="col" class="align-middle">Titre</th>
+                            <th scope="col" class="align-middle">Résumé</th>
+                            <th scope="col" class="align-middle">Auteur</th>
+                            <th scope="col" class="align-middle">Sections</th>
+                            <th scope="col" class="align-middle">Nb de commentaires</th>
+                            <th scope="col" class="align-middle">Actions</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <th scope="row" class="align-middle">{{ article.idthearticle }}</th>
+                                <td class="align-middle">{{ article.thearticledate }}</td>
+                                <td class="align-middle">
+                                    {% if session.userLogin is same as article.theuserlogin or session.permissionName is same as "Administrateur" %}
+                                        <a href="?articleActivate={{ article.thearticleslug }}&state={{ article.thearticleactivate }}">{{ (article.thearticleactivate is same as "1") ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>' }}</a>
+                                    {% else %}
+                                        {{ (article.thearticleactivate is same as "1") ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>' }}
+                                    {% endif %}
+                                </td>
+                                <td class="align-middle"><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></td>
+                                <td class="align-middle">{{ article.thearticleresume }}</td>
+                                <td class="align-middle"><a href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a></td>
+                                <td class="align-middle">
+                                    {% set slugs = article.thesectionslug|split("|||") %}
+                                    {% set sections = article.thesectionslug|split("|||") %}
+                                    {% for section in sections %}
+                                        <a href="?articleSearch=thesection&section={{ slugs[loop.index0] }}">
+                                            {{ section }}</a>
+                                        {% if not loop.last %}
+                                            /
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td class="align-middle">{{ article.nbcomment }}</td>
+                                <td class="align-middle">
+                                    {% if article.idtheuser is same as session.idUser %}
+                                        <a href="?update={{ article.thearticleslug }}" style="text-decoration: none">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <span> | </span>
+                                        <a href="?delete={{ article.thearticleslug }}" style="text-decoration: none">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    {% else %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <h1>Il n'y a pas encore d'article{{ (session.permissionRole is not same as "Administrateur")?" ou l'administrateur ne l'a pas encore validé":"" }}!</h1>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="js/admin/datatables/jquery.dataTables.min.js"></script>
+    <script src="js/admin/datatables/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({order: [1, "desc"]});
+        });
+    </script>
+{% endblock %}
