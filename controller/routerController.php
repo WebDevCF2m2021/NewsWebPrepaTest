@@ -99,7 +99,7 @@ elseif (isset($_GET['user']) && ctype_digit($_GET['user'])):
     if (!$theArticleDatas):
         echo $twig->render('public/error404.html.twig', [
             'menu'    => $thesectionMenu,
-            'message' => "Ces articles n'existent plus !",
+            'message' => "Cet utilisateur n'existe pas !",
             'membre'  => $_SESSION,
         ]);
     else:
