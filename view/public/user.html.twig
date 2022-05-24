@@ -3,24 +3,23 @@
 
 {% block title %}
 
-{{ parent() }} Liste de nos articles
+{{ parent() }} Articles de {{utilisateur.theuserlogin}}
 
 {% endblock %}
 
 {% block pagetype %}blog{% endblock %}
 
 {% block logo %}<div id="logo">
-{{dump(utilisateur)}}
     <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
     <div id="tagline">
-        <h2>Liste de nos articles</h2>
+        <h2>Articles de {{utilisateur.theuserlogin}}</h2>
     </div>
 </div>{% endblock %}
 {% block main %}<section>
     <div id="line">
         <div class="dline"></div>
 
-        <h1> Articles de </h1>
+        <h1> Articles de {{utilisateur.theuserlogin}} </h1>
 
         <div class="dline"></div>
     </div>

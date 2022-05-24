@@ -96,7 +96,7 @@ elseif (isset($_GET['user']) && ctype_digit($_GET['user'])):
     $idUser = (int)$_GET['user'];
 
     $theArticleDatas = $thearticleManager->thearticleSelectAllByIdUser($idUser);
-    // $theUserDatas = $theuserManager->theuserSelectOneById($idUser);
+    $theUserDatas = $theuserManager->theuserSelectOneById($idUser);
 
     if (!$theArticleDatas):
         echo $twig->render('public/error404.html.twig', [
@@ -109,6 +109,8 @@ elseif (isset($_GET['user']) && ctype_digit($_GET['user'])):
             'menu' => $thesectionMenu,
 
             'articles' => $theArticleDatas,
+
+            'utilisateur' => $theUserDatas,
 
             'membre' => $_SESSION,
 
