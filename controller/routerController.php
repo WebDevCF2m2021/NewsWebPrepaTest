@@ -18,12 +18,20 @@ $theuserManager = new theuserManager($connectMyPDO);
 // sélection de toutes les sections pour le menu
 $thesectionMenu = $thesectionManager->SelectAllThesection();
 
-// blog
-if (isset($_GET['blog'])):
+
+// si nous sommes membres, nous devons pouvoir nous déconnecter
+if (isset($_GET["disconnect"])) :
+    theuserManager::disconnect();
+    header("Location: ./");
+    die();
+
+// page blog
+elseif (isset($_GET['blog'])):
     $articles = $thearticleManager->thearticleSelectAll();
     echo $twig->render('public/blog.html.twig', [
         'menu' => $thesectionMenu,
         'articles' => $articles,
+        'membre' => $_SESSION,
     ]);
 
 // section
@@ -43,6 +51,7 @@ elseif (isset($_GET['section'])):
         echo $twig->render('public/error404.html.twig', [
             'menu' => $thesectionMenu,
             'message' => $theSectionDatas,
+            'membre' => $_SESSION,
         ]);
     else:
 
@@ -54,6 +63,7 @@ elseif (isset($_GET['section'])):
             'menu' => $thesectionMenu,
             'section' => $theSectionDatas,
             'articles' => $articles,
+            'membre' => $_SESSION,
         ]);
 
     endif;
@@ -69,12 +79,14 @@ elseif (isset($_GET['article'])):
         echo $twig->render('public/error404.html.twig', [
             'menu' => $thesectionMenu,
             'message' => "Cet article n'existe plus !",
+            'membre' => $_SESSION,
         ]);
     // on a récupéré un article
     else:
         echo $twig->render('public/article.html.twig', [
             'menu' => $thesectionMenu,
             'article' => $theArticleDatas,
+            'membre' => $_SESSION,
         ]);
 
     endif;
@@ -90,12 +102,18 @@ elseif (isset($_GET['user']) && ctype_digit($_GET['user'])):
         echo $twig->render('public/error404.html.twig', [
             'menu' => $thesectionMenu,
             'message' => "Ces articles n'existent plus !",
+            'membre' => $_SESSION,
         ]);
     else:
         echo $twig->render('public/user.html.twig', [
             'menu' => $thesectionMenu,
+
             'articles' => $theArticleDatas,
+
             'utilisateur' => $theUserDatas,
+
+            'membre' => $_SESSION,
+
         ]);
 
     endif;
@@ -131,8 +149,9 @@ Nous vous répondrons dans les plus bref délai.");
     }
     echo $twig->render('public/contact.html.twig', [
         'menu' => $thesectionMenu,
+        'membre' => $_SESSION,
     ]);
-elseif (isset($_GET['connect'])):
+elseif (isset($_GET['connect']) && !isset($_SESSION["idSession"])):
 
     if (isset($_POST["theuserlogin"], $_POST["theuserpwd"])) {
         $instanceTheuser = new theuserMapping($_POST);
@@ -143,15 +162,17 @@ elseif (isset($_GET['connect'])):
             echo $twig->render("public/connexion.html.twig", [
                 'menu' => $thesectionMenu,
                 "error" => "Wrong Login or Password!",
+                'membre' => $_SESSION,
             ]);
         }
     } else {
-        echo $twig->render("public/connexion.html.twig", ['menu' => $thesectionMenu,]);
+        echo $twig->render("public/connexion.html.twig", ['menu' => $thesectionMenu, 'membre' => $_SESSION,]);
     }
 else:
     $lastArticles = $thearticleManager->thearticleSelectAll(3, 0);
     echo $twig->render('public/homepage.html.twig', [
         'menu' => $thesectionMenu,
         "lastArticles" => $lastArticles,
+        'membre' => $_SESSION,
     ]);
 endif;

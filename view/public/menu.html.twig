@@ -18,6 +18,12 @@
             </ul>
         </li>
         <li><a href="./?contact" id="contact">Contact</a></li>
-        <li><a href="./?connect" id="admin">Admin</a></li>
+        {% if membre is empty %}
+            <li><a href="./?connect" id="admin">Connexion</a></li>
+        {% else %}
+
+            <li><a href="./?disconnect" id="admin">{{ membre.userLogin }} : Déconnexion</a></li>
+        {% endif %}
+
     </ul>
 </nav>

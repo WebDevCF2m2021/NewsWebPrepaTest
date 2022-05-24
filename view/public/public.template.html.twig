@@ -6,23 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% endblock %}
-{% block stylesheets %}<link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/nivo-slider.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="css/default/default.css" type="text/css" media="screen" />
+{% block stylesheets %}
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/nivo-slider.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/default/default.css" type="text/css" media="screen"/>
     <!-- Librairie d'icônes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">{% endblock %}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">{% endblock %}
 
 {% block body %}
     <div id="wrapper">
-    {# On va créer les différentes zones modifiables du template dans le bloc body #}
-    {% block logo %}{% endblock %}
-    {% block nav %} {% include "menu.html.twig" %} {% endblock %}
-    {% block slider %}{% endblock %}
-    {% block main %}{% endblock %}
-    {% block footer %}<footer>
-        <p>Design modifié pour un exercice de mise en page HTML/CSS</p>
-        <p>Copyright &copy 2013 Source X by Youssef Nassim and Zakariya Lhamri, design from <a href="http://geeksband.com" target="_blank">Geeksband.com</a>. All Rights Reserved.</p>
-    </footer>{% endblock %}
+        {# On va créer les différentes zones modifiables du template dans le bloc body #}
+        {% block logo %}{% endblock %}
+        {% block nav %} {% include "public/menu.html.twig" %} {% endblock %}
+        {% block slider %}{% endblock %}
+        {% block main %}{% endblock %}
+        {% block footer %}
+            <footer>
+                <p>Design modifié pour un exercice de mise en page HTML/CSS</p>
+                <p>Copyright &copy 2013 Source X by Youssef Nassim and Zakariya Lhamri, design from <a
+                            href="http://geeksband.com" target="_blank">Geeksband.com</a>. All Rights Reserved.</p>
+            </footer>{% endblock %}
     </div>
 {% endblock %}
 
@@ -39,7 +43,7 @@
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script>
-        $(window).load(function() {
+        $(window).load(function () {
             $('#slider').nivoSlider({pauseTime: 6000,});
         });
     </script>
