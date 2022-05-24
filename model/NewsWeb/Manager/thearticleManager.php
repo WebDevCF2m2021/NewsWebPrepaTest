@@ -306,4 +306,27 @@ class thearticleManager implements ManagerInterface
         }
     }
 
+    public function updateArticle(thearticleMapping $article, array $sections, array $userInfos) : string|bool
+    {
+        $sql = "UPDATE thearticle SET thearticletitle = ? , thearticleslug = ?, thearticleresume = ? , thearticletext = ?, thearticleactivate=0, where idthearticle = ?";
+        /*$prepare = $this->connect->prepare($sql);
+        try {
+            $this->connect->beginTransaction();
+            $prepare->execute();
+            $lastId = $this->connect->lastInsertId();
+            foreach ($sections as $section) {
+                $prepare = $this->connect->prepare("INSERT INTO thesection_has_thearticle
+                                            (thearticle_idthearticle, thesection_idthesection) 
+                                         VALUES
+                                            (?,?);");
+                $prepare->bindParam(1, $lastId, PDO::PARAM_INT);
+                $prepare->bindParam(2, $section, PDO::PARAM_INT);
+                $prepare->execute();
+            }
+            $result = $this->connect->commit();
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result;*/
+    }
 }
