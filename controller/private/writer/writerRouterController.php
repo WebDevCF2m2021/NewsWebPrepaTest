@@ -13,8 +13,7 @@ if (isset($_GET["addArticle"])) {
     if (isset($_POST["thearticletitle"], $_POST["thearticletext"], $_POST["sections"])) {
         $article = new thearticleMapping([
             'thearticletitle' => userEntryProtectionTrait::userEntryProtection($_POST["thearticletitle"]),
-            'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"]),
-            'thesections'     => $_POST["sections"],
+            'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"], allowed_tags: ["<pre>", "</pre>", "</br>", "<br/>"]),
         ], true);
         $articleManager->insertArticle($article, $_POST["sections"], $_SESSION);
         header("Location: ./?viewArticles");
@@ -67,6 +66,27 @@ elseif (isset($_GET["articleActivate"])) {
     $slug  = userEntryProtectionTrait::userEntryProtection($_GET["articleActivate"]);
     $articleManager->thearticleActivate($slug, $state);
     header("Location: ./?viewArticles");
+}
+elseif (isset($_GET["update"])) {
+    $slug    = userEntryProtectionTrait::userEntryProtection($_GET["update"]);
+    $article = $articleManager->thearticleSelectOneBySlug($slug);
+    if (isset($_POST["thearticletitle"], $_POST["thearticletext"], $_POST["sections"])) {
+        $id = (int) $_POST["idthearticle"];
+        if ($article->getIdthearticle() === $id) {
+            $articleUpdate = new thearticleMapping([
+                "idthearticle"    => $id,
+                'thearticletitle' => userEntryProtectionTrait::userEntryProtection($_POST["thearticletitle"]),
+                'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"], allowed_tags: ["<pre>", "</pre>", "</br>", "<br/>"]),
+            ], true);
+            $articleManager->updateArticle($articleUpdate, $_POST["sections"], $_SESSION);
+        }
+    }
+    echo $twig->render("private/articleUpdate.html.twig", [
+        'username' => $_SESSION['userLogin'],
+        'session'  => $_SESSION,
+        "article"  => $article,
+        "sections" => $sectionManager->SelectAllThesection(),
+    ]);
 }
 else {
     echo $twig->render("private/homepage.template.html.twig", [
