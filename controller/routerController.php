@@ -17,8 +17,6 @@ $thearticleManager = new thearticleManager($connectMyPDO);
 $theuserManager = new theuserManager($connectMyPDO);
 // sélection de toutes les sections pour le menu
 $thesectionMenu = $thesectionManager->SelectAllThesection();
-
-
 // si nous sommes membres, nous devons pouvoir nous déconnecter
 if (isset($_GET["disconnect"])) :
     theuserManager::disconnect();
@@ -29,9 +27,9 @@ if (isset($_GET["disconnect"])) :
 elseif (isset($_GET['blog'])):
     $articles = $thearticleManager->thearticleSelectAll();
     echo $twig->render('public/blog.html.twig', [
-        'menu' => $thesectionMenu,
+        'menu'     => $thesectionMenu,
         'articles' => $articles,
-        'membre' => $_SESSION,
+        'membre'   => $_SESSION,
     ]);
 
 // section
@@ -49,9 +47,9 @@ elseif (isset($_GET['section'])):
 
         // appel de l'erreur 404
         echo $twig->render('public/error404.html.twig', [
-            'menu' => $thesectionMenu,
+            'menu'    => $thesectionMenu,
             'message' => $theSectionDatas,
-            'membre' => $_SESSION,
+            'membre'  => $_SESSION,
         ]);
     else:
 
@@ -60,10 +58,10 @@ elseif (isset($_GET['section'])):
 
         // affichage de le section
         echo $twig->render('public/section.html.twig', [
-            'menu' => $thesectionMenu,
-            'section' => $theSectionDatas,
+            'menu'     => $thesectionMenu,
+            'section'  => $theSectionDatas,
             'articles' => $articles,
-            'membre' => $_SESSION,
+            'membre'   => $_SESSION,
         ]);
 
     endif;
@@ -77,32 +75,32 @@ elseif (isset($_GET['article'])):
     if (!$theArticleDatas):
         // appel de l'erreur 404
         echo $twig->render('public/error404.html.twig', [
-            'menu' => $thesectionMenu,
+            'menu'    => $thesectionMenu,
             'message' => "Cet article n'existe plus !",
-            'membre' => $_SESSION,
+            'membre'  => $_SESSION,
         ]);
     // on a récupéré un article
     else:
         echo $twig->render('public/article.html.twig', [
-            'menu' => $thesectionMenu,
+            'menu'    => $thesectionMenu,
             'article' => $theArticleDatas,
-            'membre' => $_SESSION,
+            'membre'  => $_SESSION,
         ]);
 
     endif;
 
 // Articles par utilisateur    
 elseif (isset($_GET['user']) && ctype_digit($_GET['user'])):
-    $idUser = (int)$_GET['user'];
+    $idUser = (int) $_GET['user'];
 
     $theArticleDatas = $thearticleManager->thearticleSelectAllByIdUser($idUser);
     $theUserDatas = $theuserManager->theuserSelectOneById($idUser);
 
     if (!$theArticleDatas):
         echo $twig->render('public/error404.html.twig', [
-            'menu' => $thesectionMenu,
+            'menu'    => $thesectionMenu,
             'message' => "Ces articles n'existent plus !",
-            'membre' => $_SESSION,
+            'membre'  => $_SESSION,
         ]);
     else:
         echo $twig->render('public/user.html.twig', [
@@ -121,8 +119,8 @@ elseif (isset($_GET['user']) && ctype_digit($_GET['user'])):
 // contact
 elseif (isset($_GET['contact'])):
     if (isset($_POST["name"], $_POST["email"], $_POST["message"])) {
-        $name = theuserMapping::userEntryProtection($_POST["name"]);
-        $email = filter_var(theuserMapping::userEntryProtection($_POST["email"]), FILTER_VALIDATE_EMAIL);
+        $name    = theuserMapping::userEntryProtection($_POST["name"]);
+        $email   = filter_var(theuserMapping::userEntryProtection($_POST["email"]), FILTER_VALIDATE_EMAIL);
         $message = theuserMapping::userEntryProtection($_POST["message"]);
         if (!empty($name) && !empty($email) && !empty($message)) {
             $mailToAdmin->from($email)->subject("Message de l'utilisateur $name")->text($message);
@@ -137,18 +135,20 @@ Nous vous répondrons dans les plus bref délai.");
                 $twig->addGlobal("message", $message);
                 if (PROD) {
                     echo "<script>alert('Une erreur est survenue! Veuillez réessayer')</script>";
-                } else {
+                }
+                else {
                     throw new Error($e);
                 }
             }
-        } else {
+        }
+        else {
             $twig->addGlobal("name", $name);
             $twig->addGlobal("email", $email);
             $twig->addGlobal("message", $message);
         }
     }
     echo $twig->render('public/contact.html.twig', [
-        'menu' => $thesectionMenu,
+        'menu'   => $thesectionMenu,
         'membre' => $_SESSION,
     ]);
 elseif (isset($_GET['connect']) && !isset($_SESSION["idSession"])):
@@ -158,21 +158,23 @@ elseif (isset($_GET['connect']) && !isset($_SESSION["idSession"])):
 
         if ($theuserManager->theuserConnectByLoginAndPwd($instanceTheuser)) {
             header("Location: ./");
-        } else {
+        }
+        else {
             echo $twig->render("public/connexion.html.twig", [
-                'menu' => $thesectionMenu,
-                "error" => "Wrong Login or Password!",
+                'menu'   => $thesectionMenu,
+                "error"  => "Wrong Login or Password!",
                 'membre' => $_SESSION,
             ]);
         }
-    } else {
+    }
+    else {
         echo $twig->render("public/connexion.html.twig", ['menu' => $thesectionMenu, 'membre' => $_SESSION,]);
     }
 else:
     $lastArticles = $thearticleManager->thearticleSelectAll(3, 0);
     echo $twig->render('public/homepage.html.twig', [
-        'menu' => $thesectionMenu,
+        'menu'         => $thesectionMenu,
         "lastArticles" => $lastArticles,
-        'membre' => $_SESSION,
+        'membre'       => $_SESSION,
     ]);
 endif;
