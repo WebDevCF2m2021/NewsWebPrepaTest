@@ -88,6 +88,17 @@ elseif (isset($_GET["update"])) {
         "sections" => $sectionManager->SelectAllThesection(),
     ]);
 }
+elseif (isset($_GET["delete"])) {
+    $slug     = userEntryProtectionTrait::userEntryProtection($_GET["delete"]);
+    $article  = $articleManager->thearticleForAdminSelectOneBySlug($slug);
+    $comments = $commentManager->thecommentSelectAllByIdArticle($article["idthearticle"]);
+    echo $twig->render("private/articleDelete.html.twig", [
+        'username' => $_SESSION['userLogin'],
+        'session'  => $_SESSION,
+        'article'  => $article,
+        "comments" => $comments,
+    ]);
+}
 else {
     echo $twig->render("private/homepage.template.html.twig", [
         'username' => $_SESSION['userLogin'],
