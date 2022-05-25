@@ -1,6 +1,6 @@
 {% extends 'private/private.template.html.twig' %}
 
-{% block title %}{{ parent() }} Modification de l'article {{ article.thearticletitle }}{% endblock %}
+{% block title %}{{ parent() }} Modification de l'article {{ article.thearticletitle|raw }}{% endblock %}
 
 
 {% block pagecontent %}
@@ -16,10 +16,12 @@
                                 <input type="hidden" name="idthearticle" value="{{ article.idthearticle }}">
                             </div>
                             <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" name="thearticletitle" value="{{ article.thearticletitle }}">
+                                <input class="form-control form-control-lg" type="text" name="thearticletitle"
+                                       value="{{ article.thearticletitle|raw }}">
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" style="resize: none" rows="20" name="thearticletext">{{ article.thearticletext }}</textarea>
+                                <textarea class="form-control" style="resize: none" rows="20"
+                                          name="thearticletext">{{ article.thearticletext|raw }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -32,7 +34,8 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="auteur">Auteur</label>
-                                <input class="form-control" id="auteur" type="text" placeholder="{{ username }}" readonly>
+                                <input class="form-control" id="auteur" type="text" placeholder="{{ username }}"
+                                       readonly>
                             </div>
                             <div class="form-group">
                                 <label>Slug</label>
@@ -40,14 +43,19 @@
                             </div>
                             <div class="form-group">
                                 <label>Article resume</label>
-                                <textarea class="form-control" style="resize: none" rows="5" placeholder="" id="resume" disabled></textarea>
+                                <textarea class="form-control" style="resize: none" rows="5" placeholder="" id="resume"
+                                          disabled></textarea>
                             </div>
                             <div class="form-group">
                                 <label class="col-12 p-0">Sections</label>
                                 {% for section in sections %}
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="{{ section.thesectionslug }}" name="sections[{{ section.thesectionslug }}]" value="{{ section.idthesection }}" {{ (section.thesectionslug in article.thesectionslug|split("|||")) ? "checked" : "" }}>
-                                        <label class="form-check-label" for="{{ section.thesectionslug }}">{{ section.thesectionslug }}</label>
+                                        <input class="form-check-input" type="checkbox"
+                                               id="{{ section.thesectionslug }}"
+                                               name="sections[{{ section.thesectionslug }}]"
+                                               value="{{ section.idthesection }}" {{ (section.thesectionslug in article.thesectionslug|split("|||")) ? "checked" : "" }}>
+                                        <label class="form-check-label"
+                                               for="{{ section.thesectionslug }}">{{ section.thesectionslug }}</label>
                                     </div>
                                 {% endfor %}
                             </div>

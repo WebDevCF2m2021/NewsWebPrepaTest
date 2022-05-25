@@ -1,6 +1,6 @@
 {% extends 'public/public.template.html.twig' %}
 
-{% block title %}{{ parent() }} Article : {{ article.thearticletitle }} {% endblock %}
+{% block title %}{{ parent() }} Article : {{ article.thearticletitle|raw }} {% endblock %}
 
 {% block pagetype %}section{% endblock %}
 
@@ -16,7 +16,7 @@
     <section>
         <div id="line">
             <div class="dline"></div>
-            <h1>Article : {{ article.thearticletitle }}</h1>
+            <h1>Article : {{ article.thearticletitle|raw }}</h1>
             <div class="dline"></div>
         </div>
         <div class="sectionDesc">
@@ -28,14 +28,14 @@
 
             <article>
                 <div id="displayArticle">
-                    <h1><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></h1>
+                    <h1><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle|raw }}</a></h1>
                     <h2>Posté par : <a href="?user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
                         le {{ article.thearticledate|date('d/m/Y') }}</h2>
                     <img src="images/a1.jpg" alt=""/>
 
                     <div id="descArticle">
                         <h4>
-                            {{ article.thearticleresume }}
+                            {{ article.thearticleresume|raw }}
                         </h4>
                     </div>
 

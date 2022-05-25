@@ -8,8 +8,8 @@
         table.dataTable > thead .sorting_desc::before,
         table.dataTable > thead .sorting_asc_disabled::before,
         table.dataTable > thead .sorting_desc_disabled::before {
-            right   : 0;
-            content : "";
+            right: 0;
+            content: "";
         }
 
         table.dataTable > thead .sorting:after,
@@ -17,12 +17,12 @@
         table.dataTable > thead .sorting_desc:after,
         table.dataTable > thead .sorting_asc_disabled:after,
         table.dataTable > thead .sorting_desc_disabled:after {
-            right   : 0;
-            content : "";
+            right: 0;
+            content: "";
         }
 
         table.dataTable > thead > tr > th:not(.sorting_disabled), table.dataTable > thead > tr > td:not(.sorting_disabled) {
-            padding-right : 0.75em;
+            padding-right: 0.75em;
         }
     </style>
 {% endblock %}
@@ -76,9 +76,13 @@
                                         {{ (article.thearticleactivate is same as "1") ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>' }}
                                     {% endif %}
                                 </td>
-                                <td class="align-middle"><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></td>
-                                <td class="align-middle">{{ article.thearticleresume }}</td>
-                                <td class="align-middle"><a href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a></td>
+                                <td class="align-middle"><a
+                                            href="?article={{ article.thearticleslug }}">{{ article.thearticletitle|raw }}</a>
+                                </td>
+                                <td class="align-middle">{{ article.thearticleresume|raw }}</td>
+                                <td class="align-middle"><a
+                                            href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
+                                </td>
                                 <td class="align-middle">
                                     {% set slugs = article.thesectionslug|split("|||") %}
                                     {% set sections = article.thesectionslug|split("|||") %}
@@ -107,7 +111,9 @@
                         {% endfor %}
                     </table>
                 {% else %}
-                    <h1>Il n'y a pas encore d'article{{ (session.permissionRole is not same as "Administrateur")?" ou l'administrateur ne l'a pas encore validé":"" }}!</h1>
+                    <h1>Il n'y a pas encore
+                        d'article{{ (session.permissionRole is not same as "Administrateur")?" ou l'administrateur ne l'a pas encore validé":"" }}
+                        !</h1>
                 {% endif %}
             </div>
         </div>
@@ -118,7 +124,7 @@
     <script src="js/admin/datatables/jquery.dataTables.min.js"></script>
     <script src="js/admin/datatables/dataTables.bootstrap4.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#dataTable').DataTable({order: [1, "desc"]});
         });
     </script>

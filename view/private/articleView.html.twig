@@ -4,7 +4,7 @@
     {{ parent() }}
     <style>
         #wrap-text {
-            min-height : 60vh;
+            min-height: 60vh;
         }
     </style>
 {% endblock %}
@@ -14,14 +14,17 @@
         <div class="col-lg-7">
             <div id="wrap-text" class="card shadow mb-4">
                 <div class="card-header  bg-primary py-3">
-                    <h3 class="m-1 font-weight-bold text-white">{{ article.thearticletitle }}</h3>
-                    <h5 class="m-1 font-weight-bold text-white">Écrit par <a class="text-white" href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a> le {{ article.thearticledate|date("d-m-y à H:i") }}</h5>
+                    <h3 class="m-1 font-weight-bold text-white">{{ article.thearticletitle|raw }}</h3>
+                    <h5 class="m-1 font-weight-bold text-white">Écrit par <a class="text-white"
+                                                                             href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
+                        le {{ article.thearticledate|date("d-m-y à H:i") }}</h5>
                     <h6 class="m-1 font-weight-bold text-white">
                         Sections:
                         {% set sections = article.thesectiontitle|split("|||") %}
                         {% set slugs = article.thesectionslug|split("|||") %}
                         {% for section in sections %}
-                            <a class="text-white" href="?articleSearch=thesection&section={{ slugs[loop.index0] }}">{{ section }}</a>
+                            <a class="text-white"
+                               href="?articleSearch=thesection&section={{ slugs[loop.index0] }}">{{ section }}</a>
                             {% if not loop.last %}
                                 /
                             {% endif %}
@@ -81,11 +84,11 @@
     {{ parent() }}
     <script>
         $(document).ready(() => {
-            let max         = $("#wrap-text").height();
-            let maxOut      = $("#wrap-text").outerHeight(false);
-            let maxOut2     = $("#wrap-text").outerHeight(true)
-            let extra       = $("#actions").height();
-            let elWMarABor  = $("#actions").outerHeight(true)
+            let max = $("#wrap-text").height();
+            let maxOut = $("#wrap-text").outerHeight(false);
+            let maxOut2 = $("#wrap-text").outerHeight(true)
+            let extra = $("#actions").height();
+            let elWMarABor = $("#actions").outerHeight(true)
             let elWoMarABor = $("#actions").outerHeight(false)
             $("#comments").height(((max + (maxOut2 - maxOut)) - extra - (2 * (elWMarABor - elWoMarABor))) - 2)
         })

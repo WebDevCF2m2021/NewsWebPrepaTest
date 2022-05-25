@@ -29,42 +29,44 @@
 
                 {% for item in articles %}
 
-                <article>
-                    <div id="displayArticle">
-                        <h1><a href="?article={{ item.thearticleslug }}">{{ item.thearticletitle }}</a></h1>
-                        <h2>Posté par : <a href="?user={{ item.idtheuser }}">{{ item.theuserlogin }}</a> le {{ item.thearticledate|date('d/m/Y') }}<br>
-{# Nous avons plusieures sections possibles, il faut les séparer (|||) avant de les afficher en tant que lien, tant qu'il y en a, sinon affichons "Pas de section pour cet article" #}
+                    <article>
+                        <div id="displayArticle">
+                            <h1><a href="?article={{ item.thearticleslug }}">{{ item.thearticletitle|raw }}</a></h1>
+                            <h2>Posté par : <a href="?user={{ item.idtheuser }}">{{ item.theuserlogin }}</a>
+                                le {{ item.thearticledate|date('d/m/Y') }}<br>
+                                {# Nous avons plusieures sections possibles, il faut les séparer (|||) avant de les afficher en tant que lien, tant qu'il y en a, sinon affichons "Pas de section pour cet article" #}
 
-                            {# on coupe nos 2 variables avec le séparateur #}
-                            {% set slugs = item.thesectionslug|split('|||') %}
-                            {% set titles = item.thesectiontitle|split('|||') %}
+                                {# on coupe nos 2 variables avec le séparateur #}
+                                {% set slugs = item.thesectionslug|split('|||') %}
+                                {% set titles = item.thesectiontitle|split('|||') %}
 
-                            {# ensuite, tant qu'on a récupéré des éléments, on fait une boucle sur un des 2 (ils ont le même nombre d'éléments)  #}
-                            {% for slug in slugs %}
-                                {# on récupère le slug grâce à son alias dans la boucle #}
-                                <a href="?section={{ slug }}">{{ titles[loop.index0] }}</a>
-                                {# On récupère le titre en utilisant l'index du tableau commençant par  #}
-                                {# Si nous ne sommes pas au dernier tour #}
-                                {% if not loop.last %} | {% endif %}
-                            {% else %}
-                            Pas de section pour cette article
-                            {% endfor %}
-                        </h2>
+                                {# ensuite, tant qu'on a récupéré des éléments, on fait une boucle sur un des 2 (ils ont le même nombre d'éléments)  #}
+                                {% for slug in slugs %}
+                                    {# on récupère le slug grâce à son alias dans la boucle #}
+                                    <a href="?section={{ slug }}">{{ titles[loop.index0] }}</a>
+                                    {# On récupère le titre en utilisant l'index du tableau commençant par  #}
+                                    {# Si nous ne sommes pas au dernier tour #}
+                                    {% if not loop.last %} | {% endif %}
+                                {% else %}
+                                    Pas de section pour cette article
+                                {% endfor %}
+                            </h2>
 
 
-                        <img src="images/a1.jpg" alt=""/>
-                    </div>
-                    <div id="descArticle">
-                        <p>
-                            {{ item.thearticleresume }}<br>
-                            <a class="continue" href="?article={{ item.thearticleslug }}">Continuer la lecture &rarr;</a><br>
+                            <img src="images/a1.jpg" alt=""/>
+                        </div>
+                        <div id="descArticle">
+                            <p>
+                                {{ item.thearticleresume|raw }}<br>
+                                <a class="continue" href="?article={{ item.thearticleslug }}">Continuer la lecture
+                                    &rarr;</a><br>
                             <h3>Nombre de commentaires : {{ item.nbcomment }}</h3>
-                        </p>
-                    </div>
-                </article>
-               {# si pas encore d'article #}
-               {% else %}
-                <h2 style="text-align: center;">Pas encore d'articles</h2>
+                            </p>
+                        </div>
+                    </article>
+                    {# si pas encore d'article #}
+                {% else %}
+                    <h2 style="text-align: center;">Pas encore d'articles</h2>
                 {% endfor %}
             </div>
         </div>
