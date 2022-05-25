@@ -13,10 +13,10 @@
                         <h6 class="m-0 font-weight-bold text-primary">Article</h6>
                         <div class="card-body">
                             <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" name="thearticletitle" placeholder="Votre titre">
+                                <input class="form-control form-control-lg" type="text" name="thearticletitle" {{ (article is defined) ? "value="~article.getarticletitle:"placeholder=Votre titre" }}>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" style="resize: none" rows="20" placeholder="Votre article" name="thearticletext"></textarea>
+                                <textarea class="form-control" style="resize: none" rows="20" placeholder="Votre article" name="thearticletext">{{ (article is defined) ? article.getarticletext:"" }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
     {{ parent() }}
     <script>
         function slugify(str) {
-            return str.toString().normalize('NFKD').toLowerCase().trim().replace(/\s+/g, '-').replace(/[\u0300-\u036f]/g, "").replace(/[^\w\-]+/g, '-').replace(/\-\-+/g, '-');
+            return str.toString().normalize('NFKD').toLowerCase().trim().replace(/\s+/g, '-').replace(/[\u0300-\u036f]/g, "").replace(/[^\w\-]+/g, '-').replace(/\-\-+/g, '-').replace(/^-|-$/, "");
         }
 
         let title = $("input[name=thearticletitle]");
@@ -78,5 +78,12 @@
         text.keyup(() => {
             $("#resume").val(text.val().substr(0, 250));
         })
+        $("document").ready(() => {
+            $("#slug").val(slugify(title.val()));
+            $("#resume").val(text.val().substr(0, 250));
+            {% if(alert is defined) %}
+            alert('Une erreur est survenue, veuillez réessayer!');
+            {% endif %}
+        });
     </script>
 {% endblock %}
