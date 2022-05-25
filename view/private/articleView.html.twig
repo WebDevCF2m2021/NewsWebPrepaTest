@@ -40,18 +40,20 @@
                     <h4 class="m-0 font-weight-bold text-white text-center">Actions</h4>
                 </div>
                 <div class="card-body text-center">
-                    <a href="?update={{ article.thearticleslug }}" class="btn btn-primary btn-icon-split">
+                    {% if article.idtheuser is same as session.idUser %}
+                        <a href="?update={{ article.thearticleslug }}" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-pencil-alt"></i>
                     </span>
-                        <span class="text">Modifier</span>
-                    </a>
-                    <a href="?delete={{ article.thearticleslug }}" class="btn btn-danger btn-icon-split">
+                            <span class="text">Modifier</span>
+                        </a>
+                        <a href="?delete={{ article.thearticleslug }}" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-trash"></i>
                     </span>
-                        <span class="text">Supprimer</span>
-                    </a>
+                            <span class="text">Supprimer</span>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
             <div class="card shadow m-0" id="comments" style="overflow-y: scroll">
