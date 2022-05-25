@@ -16,7 +16,8 @@
     <div class="slider-wrapper theme-default">
         <div id="slider" class="nivoSlider">
             <img src="images/slide1.jpg" alt=""/>
-            <a href="http://geeksband.com"><img src="images/slide2.jpg" alt="" title="This is an example of a caption with a link"/></a>
+            <a href="http://geeksband.com"><img src="images/slide2.jpg" alt=""
+                                                title="This is an example of a caption with a link"/></a>
             <img src="images/slide3.jpg" alt="" title="This is an example of a caption"/>
             <img src="images/slide4.jpg" alt=""/>
         </div>
@@ -31,12 +32,13 @@
     <div id="derniers-articles">
         {% for article in lastArticles %}
             <article id="art-1">
-                <h1><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle }}</a></h1>
+                <h1><a href="?article={{ article.thearticleslug }}">{{ article.thearticletitle|raw }}</a></h1>
                 <img src="images/1.jpg" alt=""/>
-                <p>{{ article.thearticleresume }}</p>
+                <p>{{ article.thearticleresume|raw }}</p>
                 <p>Nombre de commentaires : {{ article.nbcomment }}</p>
                 <a href="?article={{ article.thearticleslug }}" class="rm">En savoir plus...</a>
-                <p>Posté par : <a href="?user={{ article.idtheuser }}">{{ article.theuserlogin }}</a> le {{ article.thearticledate|date('d/m/Y') }}</p>
+                <p>Posté par : <a href="?user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
+                    le {{ article.thearticledate|date('d/m/Y') }}</p>
 
             </article>
         {% endfor %}

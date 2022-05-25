@@ -17,13 +17,12 @@ require_once "../model/NewsWeb/Trait/SlugifyTrait.php";
     <input type="text" name="toslug" size="40">
     <input type="submit" value="slug me too much">
     <?php
-    if(isset($_POST['toslug'])):
-    ?>
-    <textarea rows="15" cols="30"><?=\NewsWeb\Trait\SlugifyTrait::slugify($_POST['toslug'])?></textarea>
+    if (isset($_POST['toslug'])):
+        ?>
+        <textarea rows="15" cols="30"><?= \NewsWeb\Trait\SlugifyTrait::slugify($_POST['toslug']) ?></textarea>
     <?php
     endif;
     ?>
 </form>
 </body>
 </html>
-

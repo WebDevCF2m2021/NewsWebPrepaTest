@@ -1,0 +1,97 @@
+{% extends 'private/private.template.html.twig' %}
+
+{% block title %}{{ parent() }} Modification de l'article {{ article.thearticletitle|raw }}{% endblock %}
+
+
+{% block pagecontent %}
+    <h3 class="mb-1 pb-2 text-gray-800">Veuillez modifier votre article</h3>
+    <form method="POST">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-success">Article</h6>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="hidden" name="idthearticle" value="{{ article.idthearticle }}">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control form-control-lg" type="text" name="thearticletitle"
+                                       value="{{ article.thearticletitle|raw }}">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" style="resize: none" rows="20"
+                                          name="thearticletext">{{ article.thearticletext|raw }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-success">Informations</h6>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="auteur">Auteur</label>
+                                <input class="form-control" id="auteur" type="text" placeholder="{{ username }}"
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Slug</label>
+                                <input class="form-control" id="slug" type="text" placeholder="" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Article resume</label>
+                                <textarea class="form-control" style="resize: none" rows="5" placeholder="" id="resume"
+                                          disabled></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-12 p-0">Sections</label>
+                                {% for section in sections %}
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox"
+                                               id="{{ section.thesectionslug }}"
+                                               name="sections[{{ section.thesectionslug }}]"
+                                               value="{{ section.idthesection }}" {{ (section.thesectionslug in article.thesectionslug|split("|||")) ? "checked" : "" }}>
+                                        <label class="form-check-label"
+                                               for="{{ section.thesectionslug }}">{{ section.thesectionslug }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Images</label>
+                                <input type="file" class="form-control-file" id="image">
+                            </div>
+                            <hr>
+                            <div class="form-group m-0">
+                                <button type="submit" class="col-lg-12 btn btn-success">Modifier</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function slugify(str) {
+            return str.toString().normalize('NFKD').toLowerCase().trim().replace(/\s+/g, '-').replace(/[\u0300-\u036f]/g, "").replace(/[^\w\-]+/g, '-').replace(/\-\-+/g, '-');
+        }
+
+        let title = $("input[name=thearticletitle]");
+        title.keyup(() => {
+            $("#slug").val(slugify(title.val()));
+        })
+        let text = $("textarea[name=thearticletext]");
+        text.keyup(() => {
+            $("#resume").val(text.val().substr(0, 250));
+        })
+        $(document).ready(() => {
+            $("#slug").val(slugify(title.val()));
+            $("#resume").val(text.val().substr(0, 250));
+        })
+    </script>
+{% endblock %}

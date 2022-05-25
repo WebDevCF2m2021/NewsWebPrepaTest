@@ -44,7 +44,7 @@ $mailToCustomer = (new Email())->from(ADMIN_MAIL);
 
 // Personal autoload
 spl_autoload_register(function ($class) {
-    include_once '../model/' . $class . '.php';
+    include_once '../model/' . str_replace('\\', '/', $class). '.php';
 });
 
 // connect with MyPDO
