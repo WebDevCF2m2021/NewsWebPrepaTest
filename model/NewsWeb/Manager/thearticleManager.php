@@ -308,18 +308,25 @@ class thearticleManager implements ManagerInterface
 
     public function updateArticle(thearticleMapping $article, array $sections, array $userInfos) : string|bool
     {
-        $sql = "UPDATE thearticle SET thearticletitle = ? , thearticleslug = ?, thearticleresume = ? , thearticletext = ?, thearticleactivate=0, where idthearticle = ?";
-        /*$prepare = $this->connect->prepare($sql);
+        $sql     = "UPDATE thearticle SET thearticletitle = ? , thearticleslug = ?, thearticleresume = ? , thearticletext = ?, thearticleactivate=0 WHERE idthearticle = ?";
+        $prepare = $this->connect->prepare($sql);
         try {
             $this->connect->beginTransaction();
+            $prepare->bindValue(1, $article->getArticleTitle(), \PDO::PARAM_STR);
+            $prepare->bindValue(2, $article->getArticleSlug(), \PDO::PARAM_STR);
+            $prepare->bindValue(3, $article->getArticleResume(), \PDO::PARAM_STR);
+            $prepare->bindValue(4, $article->getArticleText(), \PDO::PARAM_STR);
+            $prepare->bindValue(5, $article->getIdthearticle(), \PDO::PARAM_INT);
             $prepare->execute();
-            $lastId = $this->connect->lastInsertId();
+            $prepare = $this->connect->prepare("DELETE FROM thesection_has_thearticle WHERE thearticle_idthearticle = ?");
+            $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
+            $prepare->execute();
             foreach ($sections as $section) {
                 $prepare = $this->connect->prepare("INSERT INTO thesection_has_thearticle
                                             (thearticle_idthearticle, thesection_idthesection) 
                                          VALUES
                                             (?,?);");
-                $prepare->bindParam(1, $lastId, PDO::PARAM_INT);
+                $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
                 $prepare->bindParam(2, $section, PDO::PARAM_INT);
                 $prepare->execute();
             }
@@ -327,6 +334,6 @@ class thearticleManager implements ManagerInterface
         } catch (Exception $e) {
             $result = $e->getMessage();
         }
-        return $result;*/
+        return $result;
     }
 }

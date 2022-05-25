@@ -69,16 +69,16 @@ elseif (isset($_GET["articleActivate"])) {
 }
 elseif (isset($_GET["update"])) {
     $slug    = userEntryProtectionTrait::userEntryProtection($_GET["update"]);
-    $article = $articleManager->thearticleSelectOneBySlug($slug);
+    $article = $articleManager->thearticleForAdminSelectOneBySlug($slug);
     if (isset($_POST["thearticletitle"], $_POST["thearticletext"], $_POST["sections"])) {
-        $id = (int) $_POST["idthearticle"];
-        if ($article->getIdthearticle() === $id) {
-            $articleUpdate = new thearticleMapping([
-                "idthearticle"    => $id,
-                'thearticletitle' => userEntryProtectionTrait::userEntryProtection($_POST["thearticletitle"]),
-                'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"], allowed_tags: ["<pre>", "</pre>", "</br>", "<br/>"]),
-            ], true);
-            $articleManager->updateArticle($articleUpdate, $_POST["sections"], $_SESSION);
+        $id            = (int) $_POST["idthearticle"];
+        $articleUpdate = new thearticleMapping([
+            "idthearticle"    => $id,
+            'thearticletitle' => userEntryProtectionTrait::userEntryProtection($_POST["thearticletitle"]),
+            'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"], allowed_tags: ["<pre>", "</pre>", "</br>", "<br/>"]),
+        ], true);
+        if ($articleUpdate->getIdthearticle() === $id && $articleManager->updateArticle($articleUpdate, $_POST["sections"], $_SESSION)) {
+            header("Location: ./?viewArticles");
         }
     }
     echo $twig->render("private/articleUpdate.html.twig", [
