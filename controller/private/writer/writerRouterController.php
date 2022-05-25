@@ -49,6 +49,9 @@ elseif (isset($_GET["article"])) {
     $slug     = userEntryProtectionTrait::userEntryProtection($_GET["article"]);
     $article  = $articleManager->thearticleforAdminSelectOneBySlug($slug);
     $comments = $commentManager->thecommentSelectAllByIdArticle($article["idthearticle"]);
+    if (isset($_POST["userComment"])) {
+        
+    }
     echo $twig->render("private/articleView.html.twig", [
         'username' => $_SESSION['userLogin'],
         'session'  => $_SESSION,

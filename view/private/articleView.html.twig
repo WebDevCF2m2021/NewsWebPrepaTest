@@ -4,7 +4,7 @@
     {{ parent() }}
     <style>
         #wrap-text {
-            min-height: 60vh;
+            min-height : 60vh;
         }
     </style>
 {% endblock %}
@@ -57,6 +57,23 @@
                             <span class="text">Supprimer</span>
                         </a>
                     {% endif %}
+                    <button type="submit" class="btn btn-success btn-icon-split" id="commentButton">
+                        <span class="icon text-white-50"><i class="fa fa-comment"></i></span>
+                        <span class="text">Commenter</span>
+                    </button>
+                    <form method="POST" style="display: none" id="commentForm">
+                        <div class="row">
+                            <div class="form-group mt-4 col-lg-12">
+                                <textarea class="col-lg-12" rows="5" name="userComment" style="resize: none" placeholder="Rédigez votre commentaire"></textarea>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <button type="submit" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white-50"><i class="fa fa-comment"></i></span>
+                                    <span class="text">Commenter</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="card shadow m-0" id="comments" style="overflow-y: scroll">
@@ -84,13 +101,17 @@
     {{ parent() }}
     <script>
         $(document).ready(() => {
-            let max = $("#wrap-text").height();
-            let maxOut = $("#wrap-text").outerHeight(false);
-            let maxOut2 = $("#wrap-text").outerHeight(true)
-            let extra = $("#actions").height();
-            let elWMarABor = $("#actions").outerHeight(true)
+            let max         = $("#wrap-text").height();
+            let maxOut      = $("#wrap-text").outerHeight(false);
+            let maxOut2     = $("#wrap-text").outerHeight(true)
+            let extra       = $("#actions").height();
+            let elWMarABor  = $("#actions").outerHeight(true)
             let elWoMarABor = $("#actions").outerHeight(false)
             $("#comments").height(((max + (maxOut2 - maxOut)) - extra - (2 * (elWMarABor - elWoMarABor))) - 2)
         })
+        $("#commentButton").click((el) => {
+            $("#commentButton").hide();
+            $("#commentForm").show();
+        });
     </script>
 {% endblock %}
