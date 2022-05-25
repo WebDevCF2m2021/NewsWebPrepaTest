@@ -312,11 +312,11 @@ class thearticleManager implements ManagerInterface
         $prepare = $this->connect->prepare($sql);
         try {
             $this->connect->beginTransaction();
-            $prepare->bindValue(1, $article->getArticleTitle(), \PDO::PARAM_STR);
-            $prepare->bindValue(2, $article->getArticleSlug(), \PDO::PARAM_STR);
-            $prepare->bindValue(3, $article->getArticleResume(), \PDO::PARAM_STR);
-            $prepare->bindValue(4, $article->getArticleText(), \PDO::PARAM_STR);
-            $prepare->bindValue(5, $article->getIdthearticle(), \PDO::PARAM_INT);
+            $prepare->bindValue(1, $article->getArticleTitle(), PDO::PARAM_STR);
+            $prepare->bindValue(2, $article->getArticleSlug(), PDO::PARAM_STR);
+            $prepare->bindValue(3, $article->getArticleResume(), PDO::PARAM_STR);
+            $prepare->bindValue(4, $article->getArticleText(), PDO::PARAM_STR);
+            $prepare->bindValue(5, $article->getIdthearticle(), PDO::PARAM_INT);
             $prepare->execute();
             $prepare = $this->connect->prepare("DELETE FROM thesection_has_thearticle WHERE thearticle_idthearticle = ?");
             $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
@@ -331,6 +331,21 @@ class thearticleManager implements ManagerInterface
                 $prepare->execute();
             }
             $result = $this->connect->commit();
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function deleteArticle(thearticleMapping $article, array $session) : int|string
+    {
+        $sql     = "DELETE FROM thearticle WHERE idthearticle = ? AND theuser_idtheuser = ?";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
+            $prepare->bindParam(2, $session["idUser"], PDO::PARAM_STR);
+            $prepare->execute();
+            $result = $prepare->rowCount();
         } catch (Exception $e) {
             $result = $e->getMessage();
         }

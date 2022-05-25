@@ -92,6 +92,12 @@ elseif (isset($_GET["delete"])) {
     $slug     = userEntryProtectionTrait::userEntryProtection($_GET["delete"]);
     $article  = $articleManager->thearticleForAdminSelectOneBySlug($slug);
     $comments = $commentManager->thecommentSelectAllByIdArticle($article["idthearticle"]);
+    if (isset($_GET["confirm"])) {
+        $articleDelete = new thearticleMapping($article);
+        if ($articleManager->deleteArticle($articleDelete, $_SESSION)) {
+            header("Location: ./?viewArticles");
+        }
+    }
     echo $twig->render("private/articleDelete.html.twig", [
         'username' => $_SESSION['userLogin'],
         'session'  => $_SESSION,
