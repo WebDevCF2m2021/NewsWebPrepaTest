@@ -364,7 +364,7 @@ class thearticleManager implements ManagerInterface
             foreach ($sections as $section) {
                 $sql .= "(" . (int) $article->getIdthearticle() . "," . (int) $section . "),";
             }
-            $prepare->execute();
+            $this->connect->exec(substr($sql, 0, -1));
             $result = $this->connect->commit();
         } catch (Exception $e) {
             $result = $e->getMessage();
