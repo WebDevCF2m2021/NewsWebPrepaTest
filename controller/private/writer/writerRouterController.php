@@ -81,12 +81,17 @@ elseif (isset($_GET["update"])) {
             header("Location: ./?viewArticles");
         }
     }
-    echo $twig->render("private/articleUpdate.html.twig", [
-        'username' => $_SESSION['userLogin'],
-        'session'  => $_SESSION,
-        "article"  => $article,
-        "sections" => $sectionManager->SelectAllThesection(),
-    ]);
+    if ($article["idtheuser"] === $_SESSION["idUser"]) {
+        echo $twig->render("private/articleUpdate.html.twig", [
+            'username' => $_SESSION['userLogin'],
+            'session'  => $_SESSION,
+            "article"  => $article,
+            "sections" => $sectionManager->SelectAllThesection(),
+        ]);
+    }
+    else {
+        header("Location: ./?viewArticles");
+    }
 }
 elseif (isset($_GET["delete"])) {
     $slug     = userEntryProtectionTrait::userEntryProtection($_GET["delete"]);
@@ -98,12 +103,17 @@ elseif (isset($_GET["delete"])) {
             header("Location: ./?viewArticles");
         }
     }
-    echo $twig->render("private/articleDelete.html.twig", [
-        'username' => $_SESSION['userLogin'],
-        'session'  => $_SESSION,
-        'article'  => $article,
-        "comments" => $comments,
-    ]);
+    if ($article["idtheuser"] === $_SESSION["idUser"]) {
+        echo $twig->render("private/articleDelete.html.twig", [
+            'username' => $_SESSION['userLogin'],
+            'session'  => $_SESSION,
+            'article'  => $article,
+            "comments" => $comments,
+        ]);
+    }
+    else {
+        header("Location: ./?viewArticles");
+    }
 }
 else {
     echo $twig->render("private/homepage.template.html.twig", [
