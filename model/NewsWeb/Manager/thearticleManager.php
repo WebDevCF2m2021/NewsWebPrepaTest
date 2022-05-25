@@ -17,11 +17,11 @@ class thearticleManager implements ManagerInterface
     {
         $this->connect = $db;
     }
-     // ticket MARTINE: Récupération de tous les commentaires et l'affichage des commentaires lorsque l'id du correspond à $iduser (de 0 à X résultats)
+    // ticket MARTINE: Récupération de tous les commentaires et l'affichage des commentaires lorsque l'id du correspond à $iduser (de 0 à X résultats)
     // Récupération de tous les articles d'une section (même champs que thearticleSelectAll() sauf l'affichage de l'utilisateur déjà pris par une autre requête) lorsque l'id de l'utilisateur correspond à $iduser (de 0 à X résultats)
-    public function thearticleSelectAllByIdUser(int $iduser): array|string
+    public function thearticleSelectAllByIdUser(int $iduser) : array|string
     {
-        $sql = "SELECT 
+        $sql     = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate, LEFT(a.thearticletext,800) AS thearticletext,
             u.idtheuser, u.theuserlogin,
             (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
@@ -55,9 +55,9 @@ class thearticleManager implements ManagerInterface
     }
 
     // Récupération de tous les articles d'une section
-    public function thearticleSelectAllFromSection(int $idthesection): array|string
+    public function thearticleSelectAllFromSection(int $idthesection) : array|string
     {
-        $sql = "SELECT 
+        $sql     = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate,
             u.idtheuser, u.theuserlogin,
             (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
@@ -95,7 +95,7 @@ class thearticleManager implements ManagerInterface
     }
 
     // Récupération de l'article (idthearticle, thearticletitle, thearticletext, thearticleresume, thearticledate ) avec toutes les rubriques avec le lien, l'auteur et le lien vers celui-ci, via son slug
-    public function thearticleSelectOneBySlug(string $slug): array|bool
+    public function thearticleSelectOneBySlug(string $slug) : array|bool
     {
         $query = $this->connect->prepare("SELECT a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticletext, a.thearticledate,
             u.idtheuser, u.theuserlogin,
@@ -124,9 +124,9 @@ class thearticleManager implements ManagerInterface
     }
 
     // Récupération de tous les articles du site
-    public function thearticleSelectAll(int $limit = 1000000000000000, int $offset = 0): array|string
+    public function thearticleSelectAll(int $limit = 1000000000000000, int $offset = 0) : array|string
     {
-        $sql = "SELECT 
+        $sql     = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate,
             u.idtheuser, u.theuserlogin,
             (SELECT COUNT(thecomment_idthecomment) FROM thearticle_has_thecomment WHERE thearticle_idthearticle = a.idthearticle) AS nbcomment,
@@ -158,17 +158,17 @@ class thearticleManager implements ManagerInterface
             return $e->getMessage();
         }
     }
-   
-
 
     /**
      * insertion d'un article
-     * @param thearticleMapping $article // article passé par les setters et getters
-     * @param array $sections // tableau contenant les sections
-     * @param array $userInfos // les informations de session $_SESSION
+     *
+     * @param thearticleMapping $article   // article passé par les setters et getters
+     * @param array             $sections  // tableau contenant les sections
+     * @param array             $userInfos // les informations de session $_SESSION
+     *
      * @return string|bool
      */
-    public function insertArticle(thearticleMapping $article, array $sections, array $userInfos): string|bool
+    public function insertArticle(thearticleMapping $article, array $sections, array $userInfos) : string|bool
     {
         $sql = "INSERT INTO thearticle
                         (thearticletitle, thearticleslug, thearticleresume, thearticletext,theuser_idtheuser, thearticleactivate) 
@@ -212,14 +212,13 @@ class thearticleManager implements ManagerInterface
                     (thearticle_idthearticle, thesection_idthesection) 
                     VALUES ";
             foreach ($sections as $section) {
-                $sql .= "(" . (int)$lastId . "," . (int)$section . "),";
+                $sql .= "(" . (int) $lastId . "," . (int) $section . "),";
             }
             // exécution de l'insertion des liens entre catégories et l'article
             $this->connect->exec(substr($sql, 0, -1));
 
             // fin de la transaction
             $result = $this->connect->commit();
-
         } catch (Exception $e) {
             $this->connect->rollBack();
             $result = $e->getMessage();
@@ -227,9 +226,9 @@ class thearticleManager implements ManagerInterface
         return $result;
     }
 
-    public function thearticleAdminSelectAll(array $user, int $limit = 1000000000000000, int $offset = 0): array|string
+    public function thearticleAdminSelectAll(array $user, int $limit = 1000000000000000, int $offset = 0) : array|string
     {
-        $sql = "SELECT 
+        $sql     = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate, a.thearticleactivate,
             u.idtheuser, u.theuserlogin,
             (SELECT COUNT(thecomment_idthecomment) FROM thecomment INNER JOIN thearticle_has_thecomment ON idthecomment = thearticle_has_thecomment.thecomment_idthecomment WHERE thearticle_idthearticle = a.idthearticle AND thecommentactive = 1) AS nbcomment,
@@ -259,9 +258,9 @@ class thearticleManager implements ManagerInterface
         }
     }
 
-    public function thearticleActivate(string $slug, bool $state, array $session): ?string
+    public function thearticleActivate(string $slug, bool $state, array $session) : ?string
     {
-        $sql = "UPDATE thearticle SET thearticleactivate = ? WHERE thearticleslug = ? AND theuser_idtheuser = ?";
+        $sql     = "UPDATE thearticle SET thearticleactivate = ? WHERE thearticleslug = ? AND theuser_idtheuser = ?";
         $prepare = $this->connect->prepare($sql);
         try {
             $prepare->bindParam(1, $state, PDO::PARAM_INT);
@@ -274,9 +273,9 @@ class thearticleManager implements ManagerInterface
         return $result ?? null;
     }
 
-    public function thearticleSelectAllByMod(string $type, string|int $mod, array $user, int $limit = 1000000000000000, int $offset = 0): array|string
+    public function thearticleSelectAllByMod(string $type, string|int $mod, array $user, int $limit = 1000000000000000, int $offset = 0) : array|string
     {
-        $sql = "SELECT 
+        $sql     = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate, a.thearticleactivate,
             u.idtheuser, u.theuserlogin,
             (SELECT COUNT(thecomment_idthecomment) FROM thecomment INNER JOIN thearticle_has_thecomment ON idthecomment = thearticle_has_thecomment.thecomment_idthecomment WHERE thearticle_idthearticle = a.idthearticle AND thecommentactive = 1) AS nbcomment,
@@ -303,7 +302,8 @@ class thearticleManager implements ManagerInterface
         try {
             if ($type === "s") {
                 $prepare->bindParam(1, $mod, PDO::PARAM_STR);
-            } else {
+            }
+            else {
                 $prepare->bindParam(1, $mod, PDO::PARAM_INT);
             }
             $prepare->bindParam(2, $user["idUser"], PDO::PARAM_INT);
@@ -316,7 +316,7 @@ class thearticleManager implements ManagerInterface
         }
     }
 
-    public function thearticleForAdminSelectOneBySlug(string $slug): array|bool
+    public function thearticleForAdminSelectOneBySlug(string $slug) : array|bool
     {
         $query = $this->connect->prepare("SELECT a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticletext, a.thearticledate,
             u.idtheuser, u.theuserlogin,
@@ -342,9 +342,9 @@ class thearticleManager implements ManagerInterface
         }
     }
 
-    public function updateArticle(thearticleMapping $article, array $sections, array $userInfos): string|bool
+    public function updateArticle(thearticleMapping $article, array $sections, array $userInfos) : string|bool
     {
-        $sql = "UPDATE thearticle SET thearticletitle = ? , thearticleslug = ?, thearticleresume = ? , thearticletext = ?, thearticleactivate=0 WHERE idthearticle = ? AND theuser_idtheuser = ?";
+        $sql     = "UPDATE thearticle SET thearticletitle = ? , thearticleslug = ?, thearticleresume = ? , thearticletext = ?, thearticleactivate=0 WHERE idthearticle = ? AND theuser_idtheuser = ?";
         $prepare = $this->connect->prepare($sql);
         try {
             $this->connect->beginTransaction();
@@ -358,15 +358,13 @@ class thearticleManager implements ManagerInterface
             $prepare = $this->connect->prepare("DELETE FROM thesection_has_thearticle WHERE thearticle_idthearticle = ?");
             $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
             $prepare->execute();
+            $sql = "INSERT INTO thesection_has_thearticle
+                    (thearticle_idthearticle, thesection_idthesection) 
+                    VALUES ";
             foreach ($sections as $section) {
-                $prepare = $this->connect->prepare("INSERT INTO thesection_has_thearticle
-                                            (thearticle_idthearticle, thesection_idthesection) 
-                                         VALUES
-                                            (?,?);");
-                $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
-                $prepare->bindParam(2, $section, PDO::PARAM_INT);
-                $prepare->execute();
+                $sql .= "(" . (int) $article->getIdthearticle() . "," . (int) $section . "),";
             }
+            $prepare->execute();
             $result = $this->connect->commit();
         } catch (Exception $e) {
             $result = $e->getMessage();
@@ -374,9 +372,9 @@ class thearticleManager implements ManagerInterface
         return $result;
     }
 
-    public function deleteArticle(thearticleMapping $article, array $session): int|string
+    public function deleteArticle(thearticleMapping $article, array $session) : int|string
     {
-        $sql = "UPDATE thearticle SET thearticleactivate=2 WHERE idthearticle = ? AND theuser_idtheuser = ?";
+        $sql     = "UPDATE thearticle SET thearticleactivate=2 WHERE idthearticle = ? AND theuser_idtheuser = ?";
         $prepare = $this->connect->prepare($sql);
         try {
             $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
