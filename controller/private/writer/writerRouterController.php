@@ -13,8 +13,7 @@ if (isset($_GET["addArticle"])) {
     if (isset($_POST["thearticletitle"], $_POST["thearticletext"], $_POST["sections"])) {
         $article = new thearticleMapping([
             'thearticletitle' => userEntryProtectionTrait::userEntryProtection($_POST["thearticletitle"]),
-            'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"]),
-            'thesections'     => $_POST["sections"],
+            'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"], allowed_tags: ["<pre>", "</pre>", "</br>", "<br/>"]),
         ], true);
         $articleManager->insertArticle($article, $_POST["sections"], $_SESSION);
         header("Location: ./?viewArticles");
@@ -65,8 +64,56 @@ elseif (isset($_GET["articleSearch"])) {
 elseif (isset($_GET["articleActivate"])) {
     $state = !(bool) $_GET["state"];
     $slug  = userEntryProtectionTrait::userEntryProtection($_GET["articleActivate"]);
-    $articleManager->thearticleActivate($slug, $state);
+    $articleManager->thearticleActivate($slug, $state, $_SESSION);
     header("Location: ./?viewArticles");
+}
+elseif (isset($_GET["update"])) {
+    $slug    = userEntryProtectionTrait::userEntryProtection($_GET["update"]);
+    $article = $articleManager->thearticleForAdminSelectOneBySlug($slug);
+    if (isset($_POST["thearticletitle"], $_POST["thearticletext"], $_POST["sections"])) {
+        $id            = (int) $_POST["idthearticle"];
+        $articleUpdate = new thearticleMapping([
+            "idthearticle"    => $id,
+            'thearticletitle' => userEntryProtectionTrait::userEntryProtection($_POST["thearticletitle"]),
+            'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"], allowed_tags: ["<pre>", "</pre>", "</br>", "<br/>"]),
+        ], true);
+        if ($articleUpdate->getIdthearticle() === $id && $articleManager->updateArticle($articleUpdate, $_POST["sections"], $_SESSION)) {
+            header("Location: ./?viewArticles");
+        }
+    }
+    if ($article["idtheuser"] === $_SESSION["idUser"]) {
+        echo $twig->render("private/articleUpdate.html.twig", [
+            'username' => $_SESSION['userLogin'],
+            'session'  => $_SESSION,
+            "article"  => $article,
+            "sections" => $sectionManager->SelectAllThesection(),
+        ]);
+    }
+    else {
+        header("Location: ./?viewArticles");
+    }
+}
+elseif (isset($_GET["delete"])) {
+    $slug     = userEntryProtectionTrait::userEntryProtection($_GET["delete"]);
+    $article  = $articleManager->thearticleForAdminSelectOneBySlug($slug);
+    $comments = $commentManager->thecommentSelectAllByIdArticle($article["idthearticle"]);
+    if (isset($_GET["confirm"])) {
+        $articleDelete = new thearticleMapping($article);
+        if ($articleManager->deleteArticle($articleDelete, $_SESSION)) {
+            header("Location: ./?viewArticles");
+        }
+    }
+    if ($article["idtheuser"] === $_SESSION["idUser"]) {
+        echo $twig->render("private/articleDelete.html.twig", [
+            'username' => $_SESSION['userLogin'],
+            'session'  => $_SESSION,
+            'article'  => $article,
+            "comments" => $comments,
+        ]);
+    }
+    else {
+        header("Location: ./?viewArticles");
+    }
 }
 else {
     echo $twig->render("private/homepage.template.html.twig", [

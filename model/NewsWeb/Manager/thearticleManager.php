@@ -223,13 +223,14 @@ class thearticleManager implements ManagerInterface
         }
     }
 
-    public function thearticleActivate(string $slug, bool $state) : ?string
+    public function thearticleActivate(string $slug, bool $state, array $session) : ?string
     {
-        $sql     = "UPDATE thearticle SET thearticleactivate = ? WHERE thearticleslug = ?";
+        $sql     = "UPDATE thearticle SET thearticleactivate = ? WHERE thearticleslug = ? AND theuser_idtheuser = ?";
         $prepare = $this->connect->prepare($sql);
         try {
             $prepare->bindParam(1, $state, PDO::PARAM_INT);
             $prepare->bindParam(2, $slug, PDO::PARAM_STR);
+            $prepare->bindParam(3, $session["idUser"], PDO::PARAM_STR);
             $prepare->execute();
         } catch (Exception $e) {
             $result = $e->getMessage();
@@ -306,4 +307,50 @@ class thearticleManager implements ManagerInterface
         }
     }
 
+    public function updateArticle(thearticleMapping $article, array $sections, array $userInfos) : string|bool
+    {
+        $sql     = "UPDATE thearticle SET thearticletitle = ? , thearticleslug = ?, thearticleresume = ? , thearticletext = ?, thearticleactivate=0 WHERE idthearticle = ? AND theuser_idtheuser = ?";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $this->connect->beginTransaction();
+            $prepare->bindValue(1, $article->getArticleTitle(), PDO::PARAM_STR);
+            $prepare->bindValue(2, $article->getArticleSlug(), PDO::PARAM_STR);
+            $prepare->bindValue(3, $article->getArticleResume(), PDO::PARAM_STR);
+            $prepare->bindValue(4, $article->getArticleText(), PDO::PARAM_STR);
+            $prepare->bindValue(5, $article->getIdthearticle(), PDO::PARAM_INT);
+            $prepare->bindParam(6, $userInfos["idUser"], PDO::PARAM_STR);
+            $prepare->execute();
+            $prepare = $this->connect->prepare("DELETE FROM thesection_has_thearticle WHERE thearticle_idthearticle = ?");
+            $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
+            $prepare->execute();
+            foreach ($sections as $section) {
+                $prepare = $this->connect->prepare("INSERT INTO thesection_has_thearticle
+                                            (thearticle_idthearticle, thesection_idthesection) 
+                                         VALUES
+                                            (?,?);");
+                $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
+                $prepare->bindParam(2, $section, PDO::PARAM_INT);
+                $prepare->execute();
+            }
+            $result = $this->connect->commit();
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function deleteArticle(thearticleMapping $article, array $session) : int|string
+    {
+        $sql     = "UPDATE thearticle SET thearticleactivate=2 WHERE idthearticle = ? AND theuser_idtheuser = ?";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
+            $prepare->bindParam(2, $session["idUser"], PDO::PARAM_STR);
+            $prepare->execute();
+            $result = $prepare->rowCount();
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result;
+    }
 }

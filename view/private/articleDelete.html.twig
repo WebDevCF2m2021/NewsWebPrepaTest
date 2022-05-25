@@ -9,11 +9,11 @@
     </style>
 {% endblock %}
 {% block pagecontent %}
-    <h3 class="mb-1 pb-2 text-gray-800">Article</h3>
+    <h3 class="mb-1 pb-2 text-gray-800">Suppression de l'article : "{{ article.thearticletitle }}"</h3>
     <div class="row row-eq">
         <div class="col-lg-7">
             <div id="wrap-text" class="card shadow mb-4">
-                <div class="card-header  bg-primary py-3">
+                <div class="card-header  bg-danger py-3">
                     <h3 class="m-1 font-weight-bold text-white">{{ article.thearticletitle }}</h3>
                     <h5 class="m-1 font-weight-bold text-white">Écrit par <a class="text-white" href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a> le {{ article.thearticledate|date("d-m-y à H:i") }}</h5>
                     <h6 class="m-1 font-weight-bold text-white">
@@ -36,24 +36,16 @@
         </div>
         <div class="col-lg-5">
             <div class="card shadow mb-4" id="actions">
-                <div class="card-header bg-info py-3">
-                    <h4 class="m-0 font-weight-bold text-white text-center">Actions</h4>
+                <div class="card-header bg-danger py-3">
+                    <h4 class="m-0 font-weight-bold text-white text-center">Confirmation</h4>
                 </div>
                 <div class="card-body text-center">
-                    {% if article.idtheuser is same as session.idUser %}
-                        <a href="?update={{ article.thearticleslug }}" class="btn btn-primary btn-icon-split">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-pencil-alt"></i>
-                    </span>
-                            <span class="text">Modifier</span>
-                        </a>
-                        <a href="?delete={{ article.thearticleslug }}" class="btn btn-danger btn-icon-split">
+                    <a href="?delete={{ article.thearticleslug }}&confirm" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-trash"></i>
                     </span>
-                            <span class="text">Supprimer</span>
-                        </a>
-                    {% endif %}
+                        <span class="text">Supprimer</span>
+                    </a>
                 </div>
             </div>
             <div class="card shadow m-0" id="comments" style="overflow-y: scroll">
