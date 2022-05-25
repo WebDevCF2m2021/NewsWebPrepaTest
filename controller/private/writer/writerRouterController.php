@@ -64,7 +64,7 @@ elseif (isset($_GET["articleSearch"])) {
 elseif (isset($_GET["articleActivate"])) {
     $state = !(bool) $_GET["state"];
     $slug  = userEntryProtectionTrait::userEntryProtection($_GET["articleActivate"]);
-    $articleManager->thearticleActivate($slug, $state);
+    $articleManager->thearticleActivate($slug, $state, $_SESSION);
     header("Location: ./?viewArticles");
 }
 elseif (isset($_GET["update"])) {
