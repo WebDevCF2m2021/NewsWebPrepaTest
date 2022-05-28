@@ -63,7 +63,7 @@
                                 <p class="m-0 font-weight-bold text-white">{{ comment.thecommentdate|date("d-m-y à H:i") }}</p>
                             </div>
                             <div class="card-body">
-                                {{ comment.thecommenttext }}
+                                {{ comment.thecommenttext|raw }}
                             </div>
                         </div>
                     {% endfor %}
