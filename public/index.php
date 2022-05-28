@@ -20,6 +20,7 @@ use Twig\Loader\FilesystemLoader;
 // dependencies
 require_once "../config.php";
 
+
 // Composer autoload
 require_once '../vendor/autoload.php';
 
@@ -43,7 +44,7 @@ $mailToAdmin    = (new Email())->to(ADMIN_MAIL);
 $mailToCustomer = (new Email())->from(ADMIN_MAIL);
 
 // Personal autoload
-spl_autoload_register(function($class) {
+spl_autoload_register(function ($class) {
     include_once '../model/' . str_replace('\\', '/', $class) . '.php';
 });
 
