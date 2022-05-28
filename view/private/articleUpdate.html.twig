@@ -34,8 +34,16 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="auteur">Auteur</label>
-                                <input class="form-control" id="auteur" type="text" placeholder="{{ username }}"
-                                       readonly>
+                                {% if(session.permissionRole is not same as "0") %}
+                                    <input class="form-control" id="auteur" type="text" placeholder="{{ username }}"
+                                           readonly>
+                                {% else %}
+                                    <select class="form-control" name="idtheuser">
+                                        {% for user in users %}
+                                            <option value="{{ user.idtheuser }}" {{ (article.idtheuser is same as user.idtheuser)?"selected":"" }}>{{ user.theuserlogin }}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
                             </div>
                             <div class="form-group">
                                 <label>Slug</label>

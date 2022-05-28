@@ -43,21 +43,30 @@
                     <h4 class="m-0 font-weight-bold text-white text-center">Actions</h4>
                 </div>
                 <div class="card-body text-center">
-                    {% if article.idtheuser is same as session.idUser %}
-                        <a href="?update={{ article.thearticleslug }}" class="btn btn-primary btn-icon-split">
+                    {% if article.idtheuser is same as session.idUser or session.permissionRole == 0 %}
+                        <a href="?update={{ article.thearticleslug }}" class="btn m-1 btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-pencil-alt"></i>
                     </span>
                             <span class="text">Modifier</span>
                         </a>
-                        <a href="?delete={{ article.thearticleslug }}" class="btn btn-danger btn-icon-split">
+                        {% if article.thearticleactivate is not same as "2" %}
+                            <a href="?delete={{ article.thearticleslug }}" class="btn m-1 btn-danger btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-trash"></i>
                     </span>
-                            <span class="text">Supprimer</span>
-                        </a>
+                                <span class="text">Supprimer</span>
+                            </a>
+                        {% else %}
+                            <a href="?articleActivate={{ article.thearticleslug }}&state={{ article.tharticleactivate }}" class="btn m-1 btn-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash-restore"></i>
+                    </span>
+                                <span class="text">Réactiver</span>
+                            </a>
+                        {% endif %}
                     {% endif %}
-                    <button type="submit" class="btn btn-success btn-icon-split" id="commentButton">
+                    <button type="submit" class="btn m-1 btn-success btn-icon-split" id="commentButton">
                         <span class="icon text-white-50"><i class="fa fa-comment"></i></span>
                         <span class="text">Commenter</span>
                     </button>
@@ -76,7 +85,7 @@
                     </form>
                 </div>
             </div>
-            <div class="card shadow m-3" id="comments" style="overflow-y: scroll">
+            <div class="card shadow mb-3" id="comments" style="overflow-y: scroll">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Commentaires</h6>
                 </div>
