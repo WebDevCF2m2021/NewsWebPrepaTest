@@ -10,19 +10,32 @@ $sectionManager = new thesectionManager($connectMyPDO);
 $articleManager = new thearticleManager($connectMyPDO);
 $commentManager = new thecommentManager($connectMyPDO);
 if (isset($_GET["addArticle"])) {
-    if (isset($_POST["thearticletitle"], $_POST["thearticletext"], $_POST["sections"])) {
+    if (isset($_POST["thearticletitle"], $_POST["thearticletext"])) {
         $article = new thearticleMapping([
             'thearticletitle' => userEntryProtectionTrait::userEntryProtection($_POST["thearticletitle"]),
             'thearticletext'  => userEntryProtectionTrait::userEntryProtection($_POST["thearticletext"], allowed_tags: ["<pre>", "</pre>", "</br>", "<br/>"]),
         ], true);
-        $articleManager->insertArticle($article, $_POST["sections"], $_SESSION);
-        header("Location: ./?viewArticles");
+        if (isset($_POST["sections"])) {
+            $articleManager->insertArticle($article, $_POST["sections"], $_SESSION);
+            header("Location: ./?viewArticles");
+        }
+        else {
+            echo $twig->render("private/articleForm.html.twig", [
+                'username' => $_SESSION['userLogin'],
+                'session'  => $_SESSION,
+                "article"  => $article,
+                "alert"    => true,
+                "sections" => $sectionManager->SelectAllThesection(),
+            ]);
+        }
     }
-    echo $twig->render("private/articleForm.html.twig", [
-        'username' => $_SESSION['userLogin'],
-        'session'  => $_SESSION,
-        "sections" => $sectionManager->SelectAllThesection(),
-    ]);
+    else {
+        echo $twig->render("private/articleForm.html.twig", [
+            'username' => $_SESSION['userLogin'],
+            'session'  => $_SESSION,
+            "sections" => $sectionManager->SelectAllThesection(),
+        ]);
+    }
 }
 elseif (isset($_GET["viewArticles"])) {
     $articles = $articleManager->thearticleAdminSelectAll($_SESSION);
@@ -36,6 +49,9 @@ elseif (isset($_GET["article"])) {
     $slug     = userEntryProtectionTrait::userEntryProtection($_GET["article"]);
     $article  = $articleManager->thearticleforAdminSelectOneBySlug($slug);
     $comments = $commentManager->thecommentSelectAllByIdArticle($article["idthearticle"]);
+    if (isset($_POST["userComment"])) {
+        
+    }
     echo $twig->render("private/articleView.html.twig", [
         'username' => $_SESSION['userLogin'],
         'session'  => $_SESSION,

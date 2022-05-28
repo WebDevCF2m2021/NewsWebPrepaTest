@@ -78,7 +78,7 @@
     {{ parent() }}
     <script>
         function slugify(str) {
-            return str.toString().normalize('NFKD').toLowerCase().trim().replace(/\s+/g, '-').replace(/[\u0300-\u036f]/g, "").replace(/[^\w\-]+/g, '-').replace(/\-\-+/g, '-');
+            return str.toString().normalize('NFKD').toLowerCase().trim().replace(/\s+/g, '-').replace(/[\u0300-\u036f]/g, "").replace(/[^\w\-]+/g, '-').replace(/\-\-+/g, '-').replace(/^-|-$/, "");
         }
 
         let title = $("input[name=thearticletitle]");
