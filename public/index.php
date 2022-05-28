@@ -3,6 +3,7 @@ session_start();
 
 // use NewsWeb MyPDO class
 use NewsWeb\MyPDO;
+// use composer dependencies
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Email;
@@ -58,18 +59,19 @@ try {
 // Call the router
 // Si on est connecté
 if (isset($_SESSION["idSession"]) && $_SESSION["idSession"] === session_id()) {
-    // si nous sommes un simple utilisateur
+    // Si nous sommes un simple utilisateur, nous restons sur la partie publique du site, mais avec la permission d'écrire des commentaires
     if ($_SESSION['permissionRole'] == 2) {
 
         require_once "../controller/routerController.php";
         // nous sommes admin ou rédacteurs
     }
     else {
+        // Nous allons sur l'administration
         require_once "../controller/private/privateRouterController.php";
     }
 } // Si nous ne sommes pas connectés
 else {
     require_once "../controller/routerController.php";
 }
-// close connection
+// close connection (portabilité hors MySQL, mettre en commentaire en cas de connexion permanente)
 $connectMyPDO = null;
