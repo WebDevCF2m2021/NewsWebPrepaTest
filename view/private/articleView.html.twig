@@ -76,7 +76,7 @@
                     </form>
                 </div>
             </div>
-            <div class="card shadow m-0" id="comments" style="overflow-y: scroll">
+            <div class="card shadow m-3" id="comments" style="overflow-y: scroll">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Commentaires</h6>
                 </div>
@@ -100,7 +100,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        $(document).ready(() => {
+        function resize() {
             let max         = $("#wrap-text").height();
             let maxOut      = $("#wrap-text").outerHeight(false);
             let maxOut2     = $("#wrap-text").outerHeight(true)
@@ -108,10 +108,15 @@
             let elWMarABor  = $("#actions").outerHeight(true)
             let elWoMarABor = $("#actions").outerHeight(false)
             $("#comments").height(((max + (maxOut2 - maxOut)) - extra - (2 * (elWMarABor - elWoMarABor))) - 2)
+        }
+
+        $(document).ready(() => {
+            resize();
         })
         $("#commentButton").click((el) => {
             $("#commentButton").hide();
             $("#commentForm").show();
+            resize()
         });
     </script>
 {% endblock %}
