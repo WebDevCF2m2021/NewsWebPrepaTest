@@ -1,0 +1,1 @@
+# resized and crop pictures
