@@ -1,0 +1,62 @@
+{% extends 'private/private.template.html.twig' %}
+
+{% block title %}{{ parent() }} Création d'un article{% endblock %}
+
+
+{% block pagecontent %}
+    <h3 class="mb-1 pb-2 text-gray-800">Informations de votre utilisateur</h3>
+    <form method="POST">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Utilisateur</h6>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="auteur">Login</label>
+                                <input class="form-control form-control-lg" type="text" value="{{ user.theuserlogin }}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="auteur">Mail</label>
+                                <input class="form-control form-control-lg" type="email" value="{{ user.theusermail }}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Informations</h6>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="auteur">Permission</label>
+                                <select class="form-control" name="permission_idpermission">
+                                    {% for permission in permissions %}
+                                        {% if permission.permissionname is not same as "Administrateur" %}
+                                            <option value="{{ permission.idpermission }}" {{ (permission.idpermission == user.getPermissionIdpermission)?"selected":"" }}>{{ permission.permissionname }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <hr>
+                            <div class="form-group m-0">
+                                <button type="submit" class="col-lg-12 btn btn-primary">Poster</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if newUser is defined %}
+        <script>
+            $("document").ready(() => {
+                alert('Le login ou le mail sont déjà pris!');
+            });
+        </script>
+    {% endif %}
+{% endblock %}
