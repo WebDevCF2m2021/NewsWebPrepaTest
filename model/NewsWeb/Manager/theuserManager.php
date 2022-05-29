@@ -52,6 +52,20 @@ class theuserManager implements ManagerInterface
         }
     }
 
+    public function theuserSelectOneByIdForAdmin(int $id) : array|bool
+    {
+        $query   = "SELECT u.idtheuser, u.theuserlogin, u.theusermail, u.permission_idpermission
+                    FROM theuser u
+                    WHERE u.idtheuser = ?;";
+        $prepare = $this->connect->prepare($query);
+        try {
+            $prepare->execute([$id]);
+            return $prepare->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     // se connecter et vérifier la validité du login/pwd, renvoie un tableau contenant les information de theuser et de permission, (sans mots de passes ni infos dangereuses), ou false
 
     public function theuserConnectByLoginAndPwd(theuserMapping $user) : bool
@@ -163,6 +177,20 @@ class theuserManager implements ManagerInterface
             $prepare->bindValue(4, $user->getTheuseruniqid());
             $prepare->bindValue(5, $user->getTheuseracivate());
             $prepare->bindValue(6, $user->getPermissionIdpermission());
+            $result = $prepare->execute();
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function theuserUpdate(theuserMapping $user) : bool|string
+    {
+        $sql     = "UPDATE theuser SET permission_idpermission=? WHERE idtheuser = ?";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $prepare->bindValue(1, $user->getPermissionIdpermission());
+            $prepare->bindValue(2, $user->getIdtheuser());
             $result = $prepare->execute();
         } catch (Exception $e) {
             $result = $e->getMessage();

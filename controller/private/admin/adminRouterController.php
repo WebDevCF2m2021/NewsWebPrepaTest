@@ -186,12 +186,25 @@ switch (key($_GET)) {
         break;
     case "updateUser":
         $permissions = $permissionManager->permissionSelectAll();
-        echo $twig->render("private/user/userForm.html.twig", [
-            'username'    => $_SESSION['userLogin'],
-            'session'     => $_SESSION,
-            "permissions" => $permissions,
-            "sections"    => $sectionManager->SelectAllThesection(),
-        ]);
+        $user        = new theuserMapping($userManager->theuserSelectOneByIdForAdmin((int) $_GET["updateUser"]));
+        if ($user->getPermissionIdpermission() !== 1) {
+            if (isset($_POST["permission_idpermission"])) {
+                $user->setPermissionIdpermission((int) $_POST["permission_idpermission"] !== 1 ? (int) $_POST["permission_idpermission"] : 3);
+                if ($userManager->theuserUpdate($user)) {
+                    header("Location: ./?viewUsers");
+                }
+            }
+            echo $twig->render("private/user/userUpdate.html.twig", [
+                'username'    => $_SESSION['userLogin'],
+                'session'     => $_SESSION,
+                "user"        => $user,
+                "permissions" => $permissions,
+                "sections"    => $sectionManager->SelectAllThesection(),
+            ]);
+        }
+        else {
+            header("Location: ./?viewUsers");
+        }
         break;
     default:
         echo $twig->render("private/homepage.template.html.twig", [
