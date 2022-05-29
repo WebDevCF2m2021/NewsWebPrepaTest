@@ -1,4 +1,4 @@
-{% extends "private/private.template.html.twig " %}
+{% extends "private/private.template.html.twig" %}
 {% block stylesheets %}
     {{ parent() }}
     <link href="js/admin/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -29,19 +29,16 @@
 {% block title %}{{ parent() }} Liste des articles{% endblock %}
 
 {% block pagecontent %}
-    <h3 class="mb-1 pb-2 text-gray-800">Liste des articles filtrés
-        par {{ (type is same as "s") ? "section" : "utilisateur" }}</h3>
+    <h3 class="mb-1 pb-2 text-gray-800">Liste des articles</h3>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><a href="?viewArticles"><i class="fas fa-times-circle"
-                                                                                     style="color:red"></i></a> {{ (type is same as "s") ? "Section:  "~mod : "Utilisateur: "~articles[0].theuserlogin }}
-            </h6>
+            <h6 class="m-0 font-weight-bold text-primary">Articles</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 {% if articles is not empty %}
                     <table class="text-center table table-striped table-bordered" id="dataTable">
-                        <thead class="bg-primary text-white">
+                        <thead class="thead-dark">
                         <tr>
                             <th scope="col" class="align-middle">id</th>
                             <th scope="col" class="align-middle">Date</th>
@@ -54,7 +51,7 @@
                             <th scope="col" class="align-middle">Actions</th>
                         </tr>
                         </thead>
-                        <tfoot class="bg-primary text-white">
+                        <tfoot class="thead-dark">
                         <tr>
                             <th scope="col" class="align-middle">id</th>
                             <th scope="col" class="align-middle">Date</th>
@@ -91,23 +88,15 @@
                                             href="?article={{ article.thearticleslug }}">{{ article.thearticletitle|raw }}</a>
                                 </td>
                                 <td class="align-middle">{{ article.thearticleresume|raw }}</td>
-                                <td class="align-middle">
-                                    {% if mod != article.idtheuser %}
-                                        <a href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
-                                    {% else %}
-                                        {{ article.theuserlogin }}
-                                    {% endif %}
+                                <td class="align-middle"><a
+                                            href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
                                 </td>
                                 <td class="align-middle">
                                     {% set slugs = article.thesectionslug|split("|||") %}
                                     {% set sections = article.thesectionslug|split("|||") %}
                                     {% for section in sections %}
-                                        {% if mod != slugs[loop.index0] %}
-                                            <a href="?articleSearch=thesection&section={{ slugs[loop.index0] }}">
-                                                {{ section }}</a>
-                                        {% else %}
-                                            {{ section }}
-                                        {% endif %}
+                                        <a href="?articleSearch=thesection&section={{ slugs[loop.index0] }}">
+                                            {{ section }}</a>
                                         {% if not loop.last %}
                                             /
                                         {% endif %}
@@ -116,11 +105,11 @@
                                 <td class="align-middle">{{ article.nbcomment }}</td>
                                 <td class="align-middle">
                                     {% if article.idtheuser is same as session.idUser or session.permissionRole == 0 %}
-                                        <a href="?update={{ article.thearticleslug }}" style="text-decoration: none">
+                                        <a href="?updateArticle={{ article.thearticleslug }}" style="text-decoration: none">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <span> | </span>
-                                        <a href="?delete={{ article.thearticleslug }}" style="text-decoration: none">
+                                        <a href="?deleteArticle={{ article.thearticleslug }}" style="text-decoration: none">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     {% else %}
@@ -130,8 +119,9 @@
                         {% endfor %}
                     </table>
                 {% else %}
-                    <h1>Il n'y a pas d'articles
-                        écrit {{ (type is same as "s") ? "dans cette section ou cette section n'existe pas!" : "par cet utilisateur ou cet utilisateur n'existe pas!" }}</h1>
+                    <h1>Il n'y a pas encore
+                        d'article{{ (session.permissionRole is not same as "Administrateur")?" ou l'administrateur ne l'a pas encore validé":"" }}
+                        !</h1>
                 {% endif %}
             </div>
         </div>
@@ -141,7 +131,6 @@
     {{ parent() }}
     <script src="js/admin/datatables/jquery.dataTables.min.js"></script>
     <script src="js/admin/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="js/demo/datatables-demo.js"></script>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({order: [1, "desc"]});

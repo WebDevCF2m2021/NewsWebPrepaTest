@@ -4,7 +4,7 @@
     {{ parent() }}
     <style>
         #wrap-text {
-            min-height: 60vh;
+            min-height : 60vh;
         }
     </style>
 {% endblock %}
@@ -43,7 +43,7 @@
                     <h4 class="m-0 font-weight-bold text-white text-center">Confirmation</h4>
                 </div>
                 <div class="card-body text-center">
-                    <a href="?delete={{ article.thearticleslug }}&confirm" class="btn btn-danger btn-icon-split">
+                    <a href="?deleteArticle={{ article.thearticleslug }}&confirm" class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-trash"></i>
                     </span>
@@ -76,11 +76,11 @@
     {{ parent() }}
     <script>
         $(document).ready(() => {
-            let max = $("#wrap-text").height();
-            let maxOut = $("#wrap-text").outerHeight(false);
-            let maxOut2 = $("#wrap-text").outerHeight(true)
-            let extra = $("#actions").height();
-            let elWMarABor = $("#actions").outerHeight(true)
+            let max         = $("#wrap-text").height();
+            let maxOut      = $("#wrap-text").outerHeight(false);
+            let maxOut2     = $("#wrap-text").outerHeight(true)
+            let extra       = $("#actions").height();
+            let elWMarABor  = $("#actions").outerHeight(true)
             let elWoMarABor = $("#actions").outerHeight(false)
             $("#comments").height(((max + (maxOut2 - maxOut)) - extra - (2 * (elWMarABor - elWoMarABor))) - 2)
         })
