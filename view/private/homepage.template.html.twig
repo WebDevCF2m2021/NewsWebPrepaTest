@@ -3,5 +3,151 @@
 {% block title %}{{ parent() }} Accueil{% endblock %}
 
 
-{% block pagecontent %}{{ dump(session) }}{% endblock %}
+{% block pagecontent %}
+    <h1 class="mb-1 pb-2 text-gray-800 text-center">Bienvenue {{ session.userLogin }}!</h1>
+    <h2 class="mb-1 pb-2 text-gray-800">En tant qu{{ (session.permissionRole == 1) ? "e ": "'" }}{{ session.permissionName|lower }} vous pouvez :</h2>
+    <div class="accordion" id="accordionLogin">
+        <div class="card shadow mb-4">
+            <div class="card-heade p-0r" id="articles">
+                <a class="d-block card-header bg-primary py-3 text-white" role="button" data-toggle="collapse" data-target="#articlesCollapse" aria-expanded="true" aria-controls="articlesCollapse">
+                    <h5 class="m-0 font-weight-bold text-decoration-none">Gestion des articles</h5>
+                </a>
+            </div>
+
+            <div id="articlesCollapse" class="collapse show" aria-labelledby="articles" data-parent="#accordionLogin">
+                <div class="card-body">
+                    <div class="row row-eq">
+                        <div class="col-lg-6">
+                            <a href="?viewArticles" class="text-decoration-none">
+                                <div id="wrap-text" class="card shadow mb-4 border-bottom-primary">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold">Voir la liste des articles</h6>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <p>En cliquant ici vous pourrez voir la liste des articles afin de : <br/></p>
+                                        <ul>
+                                            <li><p>Consulter un article.</p></li>
+                                            <li><p>Effectuer une recherche.</p></li>
+                                            <li><p>Cliquer sur un rédacteur ou une section afin d'appliquer un filtre sur ce dernier et ainsi affiner votre recherche.</p></li>
+                                            <li><p>Modifier un de vos articles.</p></li>
+                                            <li><p>Supprimer un de vos articles.</p></li>
+                                            <li><p>Commenter un article.</p></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-6">
+                            <a href="?addArticle" class="text-decoration-none">
+                                <div id="wrap-text" class="card shadow mb-4 border-bottom-success">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold">Créer un nouvel article</h6>
+                                    </div>
+                                    <div class="card-body text-secondary">
+                                        <p>En cliquant ici vous pourrez créer un nouvel article <br/></p>
+                                        <p class="font-italic"><small>Notez que l'article doit faire partie d'une section afin d'être inséré</small></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if(session.permissionRole == 0) %}
+            <div class="card shadow mb-4">
+                <div class="card-header p-0" id="users">
+                    <a class="d-block card-header bg-info py-3 text-white collapsed" role="button" data-toggle="collapse" data-target="#usersCollapse" aria-expanded="false" aria-controls="usersCollapse">
+                        <h5 class="m-0 font-weight-bold text-decoration-none">Gestion des utilisateurs</h5>
+                    </a>
+                </div>
+                <div id="usersCollapse" class="collapse" aria-labelledby="users" data-parent="#accordionLogin">
+                    <div class="card-body">
+                        <div class="row row-eq">
+                            <div class="col-lg-6">
+                                <a href="" class="text-decoration-none">
+                                    <div id="wrap-text" class="card shadow mb-4 border-bottom-primary">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold">Voir la liste des articles</h6>
+                                        </div>
+                                        <div class="card-body text-secondary">
+                                            <p>En cliquant ici vous pourrez voir la liste des articles afin de : <br/></p>
+                                            <ul>
+                                                <li><p>Consulter un article.</p></li>
+                                                <li><p>Effectuer une recherche.</p></li>
+                                                <li><p>Cliquer sur un rédacteur ou une section afin d'appliquer un filtre sur ce dernier et ainsi affiner votre recherche.</p></li>
+                                                <li><p>Modifier un de vos articles.</p></li>
+                                                <li><p>Supprimer un de vos articles.</p></li>
+                                                <li><p>Commenter un article.</p></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6">
+                                <a href="" class="text-decoration-none">
+                                    <div id="wrap-text" class="card shadow mb-4 border-bottom-success">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold">Créer un nouvel article</h6>
+                                        </div>
+                                        <div class="card-body text-secondary">
+                                            <p>En cliquant ici vous pourrez créer un nouvel article <br/></p>
+                                            <p class="font-italic"><small>Notez que l'article doit faire partie d'une section afin d'être inséré</small></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-header p-0" id="sections">
+                    <a class="d-block card-header bg-success py-3 text-white collapsed" role="button" data-toggle="collapse" data-target="#sectionsCollapse" aria-expanded="false" aria-controls="sectionsCollapse">
+                        <h5 class="m-0 font-weight-bold text-decoration-none">Gestion des sections</h5>
+                    </a>
+                </div>
+                <div id="sectionsCollapse" class="collapse" aria-labelledby="sections" data-parent="#accordionLogin">
+                    <div class="card-body">
+                        <div class="row row-eq">
+                            <div class="col-lg-6">
+                                <a href="" class="text-decoration-none">
+                                    <div id="wrap-text" class="card shadow mb-4 border-bottom-primary">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold">Voir la liste des articles</h6>
+                                        </div>
+                                        <div class="card-body text-secondary">
+                                            <p>En cliquant ici vous pourrez voir la liste des articles afin de : <br/></p>
+                                            <ul>
+                                                <li><p>Consulter un article.</p></li>
+                                                <li><p>Effectuer une recherche.</p></li>
+                                                <li><p>Cliquer sur un rédacteur ou une section afin d'appliquer un filtre sur ce dernier et ainsi affiner votre recherche.</p></li>
+                                                <li><p>Modifier un de vos articles.</p></li>
+                                                <li><p>Supprimer un de vos articles.</p></li>
+                                                <li><p>Commenter un article.</p></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6">
+                                <a href="" class="text-decoration-none">
+                                    <div id="wrap-text" class="card shadow mb-4 border-bottom-success">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold">Créer un nouvel article</h6>
+                                        </div>
+                                        <div class="card-body text-secondary">
+                                            <p>En cliquant ici vous pourrez créer un nouvel article <br/></p>
+                                            <p class="font-italic"><small>Notez que l'article doit faire partie d'une section afin d'être inséré</small></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
 
