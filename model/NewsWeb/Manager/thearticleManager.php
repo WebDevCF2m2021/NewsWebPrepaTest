@@ -226,7 +226,7 @@ class thearticleManager implements ManagerInterface
         return $result;
     }
 
-    public function thearticleAdminSelectAll(array $user, int $limit = 1000000000000000, int $offset = 0) : array|string
+    public function thearticleWriterSelectAll(array $user, int $limit = 1000000000000000, int $offset = 0) : array|string
     {
         $sql     = "SELECT 
             a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate, a.thearticleactivate,
@@ -258,14 +258,46 @@ class thearticleManager implements ManagerInterface
         }
     }
 
+    public function thearticleAdminSelectAll(int $limit = 1000000000000000, int $offset = 0) : array|string
+    {
+        $sql     = "SELECT 
+            a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate, a.thearticleactivate,
+            u.idtheuser, u.theuserlogin,
+            (SELECT COUNT(thecomment_idthecomment) FROM thecomment INNER JOIN thearticle_has_thecomment ON idthecomment = thearticle_has_thecomment.thecomment_idthecomment WHERE thearticle_idthearticle = a.idthearticle AND thecommentactive = 1) AS nbcomment,
+            GROUP_CONCAT(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
+            GROUP_CONCAT(s.thesectionslug SEPARATOR '|||') AS thesectionslug
+                FROM thearticle a
+                INNER JOIN theuser u
+                    ON u.idtheuser = a.theuser_idtheuser 
+                INNER JOIN thesection_has_thearticle sha2
+                    ON sha2.thearticle_idthearticle = a.idthearticle
+                INNER JOIN thesection s
+                    ON sha2.thesection_idthesection = s.idthesection
+                GROUP BY a.idthearticle
+                ORDER BY a.thearticledate DESC
+                LIMIT ? OFFSET ?;";
+        $prepare = $this->connect->prepare($sql);
+
+        try {
+            $prepare->bindParam(1, $limit, PDO::PARAM_INT);
+            $prepare->bindParam(2, $offset, PDO::PARAM_INT);
+            $prepare->execute();
+            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function thearticleActivate(string $slug, bool $state, array $session) : ?string
     {
-        $sql     = "UPDATE thearticle SET thearticleactivate = ? WHERE thearticleslug = ? AND theuser_idtheuser = ?";
+        $sql     = "UPDATE thearticle SET thearticleactivate = ? WHERE thearticleslug = ?" . ($session["permissionRole"] !== "0" ? " AND theuser_idtheuser = ?" : "") . ";";
         $prepare = $this->connect->prepare($sql);
         try {
             $prepare->bindParam(1, $state, PDO::PARAM_INT);
             $prepare->bindParam(2, $slug, PDO::PARAM_STR);
-            $prepare->bindParam(3, $session["idUser"], PDO::PARAM_STR);
+            if ($session["permissionRole"] !== "0") {
+                $prepare->bindParam(3, $session["idUser"], PDO::PARAM_STR);
+            }
             $prepare->execute();
         } catch (Exception $e) {
             $result = $e->getMessage();
@@ -316,9 +348,51 @@ class thearticleManager implements ManagerInterface
         }
     }
 
+    public function thearticleAdminSelectAllByMod(string $type, string|int $mod, int $limit = 1000000000000000, int $offset = 0) : array|string
+    {
+        $sql     = "SELECT 
+            a.idthearticle, a.thearticletitle, a.thearticleslug , LEFT(a.thearticletext,800) AS thearticletext, a.thearticleresume, a.thearticledate, a.thearticleactivate,
+            u.idtheuser, u.theuserlogin,
+            (SELECT COUNT(thecomment_idthecomment) FROM thecomment INNER JOIN thearticle_has_thecomment ON idthecomment = thearticle_has_thecomment.thecomment_idthecomment WHERE thearticle_idthearticle = a.idthearticle AND thecommentactive = 1) AS nbcomment,
+            GROUP_CONCAT(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
+            GROUP_CONCAT(s.thesectionslug SEPARATOR '|||') AS thesectionslug
+                FROM thearticle a
+                INNER JOIN theuser u
+                    ON u.idtheuser = a.theuser_idtheuser 
+                INNER JOIN thesection_has_thearticle sha2
+                    ON sha2.thearticle_idthearticle = a.idthearticle
+                INNER JOIN thesection s
+                    ON sha2.thesection_idthesection = s.idthesection
+                       " . ($type === "s" ? "
+                INNER JOIN thesection_has_thearticle sha
+                    ON sha.thearticle_idthearticle = a.idthearticle
+                INNER JOIN thesection s2
+                    ON sha.thesection_idthesection = s2.idthesection" : "") . "
+                WHERE (" . ($type === "s" ? "s2.thesectionslug = ?" : "u.idtheuser = ?") . ")
+                GROUP BY a.idthearticle
+                ORDER BY a.thearticledate DESC
+                LIMIT ? OFFSET ?;";
+        $prepare = $this->connect->prepare($sql);
+
+        try {
+            if ($type === "s") {
+                $prepare->bindParam(1, $mod, PDO::PARAM_STR);
+            }
+            else {
+                $prepare->bindParam(1, $mod, PDO::PARAM_INT);
+            }
+            $prepare->bindParam(2, $limit, PDO::PARAM_INT);
+            $prepare->bindParam(3, $offset, PDO::PARAM_INT);
+            $prepare->execute();
+            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function thearticleForAdminSelectOneBySlug(string $slug) : array|bool
     {
-        $query = $this->connect->prepare("SELECT a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticletext, a.thearticledate,
+        $query = $this->connect->prepare("SELECT a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticletext, a.thearticledate, a.thearticleactivate,
             u.idtheuser, u.theuserlogin,
             group_concat(s.thesectiontitle SEPARATOR '|||') AS thesectiontitle, 
             group_concat(s.thesectionslug SEPARATOR '|||') AS thesectionslug
@@ -372,13 +446,45 @@ class thearticleManager implements ManagerInterface
         return $result;
     }
 
+    public function updateForAdminArticle(thearticleMapping $article, array $sections) : string|bool
+    {
+        $sql     = "UPDATE thearticle SET thearticletitle = ? , thearticleslug = ?, thearticleresume = ? , thearticletext = ?, theuser_idtheuser= ?, thearticleactivate=1 WHERE idthearticle = ?";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $this->connect->beginTransaction();
+            $prepare->bindValue(1, $article->getArticleTitle(), PDO::PARAM_STR);
+            $prepare->bindValue(2, $article->getArticleSlug(), PDO::PARAM_STR);
+            $prepare->bindValue(3, $article->getArticleResume(), PDO::PARAM_STR);
+            $prepare->bindValue(4, $article->getArticleText(), PDO::PARAM_STR);
+            $prepare->bindValue(5, $article->getTheuserIdtheuser(), PDO::PARAM_INT);
+            $prepare->bindValue(6, $article->getIdthearticle(), PDO::PARAM_INT);
+            $prepare->execute();
+            $prepare = $this->connect->prepare("DELETE FROM thesection_has_thearticle WHERE thearticle_idthearticle = ?");
+            $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
+            $prepare->execute();
+            $sql = "INSERT INTO thesection_has_thearticle
+                    (thearticle_idthearticle, thesection_idthesection) 
+                    VALUES ";
+            foreach ($sections as $section) {
+                $sql .= "(" . (int) $article->getIdthearticle() . "," . (int) $section . "),";
+            }
+            $this->connect->exec(substr($sql, 0, -1));
+            $result = $this->connect->commit();
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result;
+    }
+
     public function deleteArticle(thearticleMapping $article, array $session) : int|string
     {
-        $sql     = "UPDATE thearticle SET thearticleactivate=2 WHERE idthearticle = ? AND theuser_idtheuser = ?";
+        $sql     = "UPDATE thearticle SET thearticleactivate=2 WHERE idthearticle = ?" . ($session["permissionRole"] !== "0" ? " AND theuser_idtheuser = ?" : "");
         $prepare = $this->connect->prepare($sql);
         try {
             $prepare->bindValue(1, $article->getIdthearticle(), PDO::PARAM_INT);
-            $prepare->bindParam(2, $session["idUser"], PDO::PARAM_STR);
+            if ($session["permissionRole"] !== "0") {
+                $prepare->bindParam(2, $session["idUser"], PDO::PARAM_STR);
+            }
             $prepare->execute();
             $result = $prepare->rowCount();
         } catch (Exception $e) {
