@@ -10,33 +10,33 @@ use Verot\Upload\Upload;
 // Composer autoload
 require_once '../../vendor/autoload.php';
 
-define('IMG_RESIZED',__DIR__.'/images/resized');
-define('IMG_RESIZED_CROP',__DIR__.'/images/resizedcrop');
-define('IMG_ORIGINAL',__DIR__.'/images/original');
+define('IMG_RESIZED', __DIR__ . '/images/resized');
+define('IMG_RESIZED_CROP', __DIR__ . '/images/resizedcrop');
+define('IMG_ORIGINAL', __DIR__ . '/images/original');
 
-if(isset($_FILES['image_field'])){
+if (isset($_FILES['image_field'])) {
     $handle = new Upload($_FILES['image_field']);
     if ($handle->uploaded) {
 
         $name = date("YmdHis");
-        $handle->file_new_name_body   = $name.'image_original';
+        $handle->file_new_name_body = $name . 'image_original';
         $handle->allowed = array('image/*');
         $handle->process(IMG_ORIGINAL);
-        $handle->file_new_name_body   = $name.'image_resized_crop';
-        $handle->image_resize          = true;
-        $handle->image_ratio_crop      = true;
-        $handle->image_y               = 50;
-        $handle->image_x               = 50;
+        $handle->file_new_name_body = $name . 'image_resized_crop';
+        $handle->image_resize = true;
+        $handle->image_ratio_crop = true;
+        $handle->image_y = 50;
+        $handle->image_x = 50;
         $handle->allowed = array('image/*');
         $handle->process(IMG_RESIZED_CROP);
-        $handle->file_new_name_body   = $name.'image_resized';
-        $handle->image_resize         = true;
-        $handle->image_x              = 100;
-        $handle->image_ratio_y        = true;
+        $handle->file_new_name_body = $name . 'image_resized';
+        $handle->image_resize = true;
+        $handle->image_x = 100;
+        $handle->image_ratio_y = true;
         $handle->allowed = array('image/*');
         $handle->process(IMG_RESIZED);
         if ($handle->processed) {
-            //echo $handle->log;
+            echo $handle->log;
             echo 'image resized';
             $handle->clean();
         } else {
