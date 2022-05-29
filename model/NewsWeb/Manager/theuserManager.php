@@ -56,7 +56,7 @@ class theuserManager implements ManagerInterface
 
     public function theuserConnectByLoginAndPwd(theuserMapping $user) : bool
     {
-        $query   = "SELECT u.idtheuser, u.theuserlogin, u.theuserpwd, u.theusermail,
+        $query   = "SELECT u.idtheuser, u.theuserlogin, u.theuserpwd, u.theusermail, u.theuseractivate,
                     p.permissionname, p.permissionrole
                     FROM theuser u
                     INNER JOIN permission p
@@ -75,7 +75,7 @@ class theuserManager implements ManagerInterface
 
     private function userLogin($userInfo, $pwd) : bool
     {
-        if (password_verify($pwd, $userInfo["theuserpwd"])) {
+        if ($userInfo["theuseractivate"] === "1" && password_verify($pwd, $userInfo["theuserpwd"])) {
             $_SESSION["idSession"]      = session_id();
             $_SESSION["idUser"]         = $userInfo["idtheuser"];
             $_SESSION["userLogin"]      = $userInfo["theuserlogin"];
@@ -90,7 +90,7 @@ class theuserManager implements ManagerInterface
         return $result;
     }
 
-    public function theuserSelectAllForAdmin() : array|string
+    public function theuserSelectAllForAdminArticleUpdate() : array|string
     {
         $sql     = "SELECT idtheuser, theuserlogin
                     FROM theuser
@@ -99,6 +99,71 @@ class theuserManager implements ManagerInterface
         try {
             $prepare->execute();
             $result = $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function theuserSelectAllForAdmin() : array|string
+    {
+        $sql     = "SELECT u.idtheuser, u.theuserlogin, u.theusermail, u.theuseractivate, p.permissionname, p.permissionrole, c.nbcomments, a.nbarticles
+                    FROM theuser u
+                    INNER JOIN permission p 
+                    ON u.permission_idpermission = p.idpermission
+                    LEFT JOIN (SELECT theuser_idtheuser, COUNT(*) AS nbcomments FROM thecomment GROUP BY theuser_idtheuser) AS c
+                    ON c.theuser_idtheuser = u.idtheuser
+                    LEFT JOIN (SELECT theuser_idtheuser, COUNT(*) AS nbarticles FROM thearticle GROUP BY theuser_idtheuser) AS a
+                    ON a.theuser_idtheuser = u.idtheuser;";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $prepare->execute();
+            $result = $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result;
+    }
+
+    public function theuserActivate(int $id, bool $state) : ?string
+    {
+        $sql     = "UPDATE theuser SET theuseractivate = ? WHERE idtheuser = ? AND permission_idpermission != 1;";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $prepare->bindParam(1, $state, PDO::PARAM_BOOL);
+            $prepare->bindParam(2, $id, PDO::PARAM_INT);
+            $prepare->execute();
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result ?? null;
+    }
+
+    public function theuserBan(int $id) : ?string
+    {
+        $sql     = "UPDATE theuser SET theuseractivate = 2 WHERE idtheuser = ? AND permission_idpermission != 1;";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $prepare->bindParam(1, $id, PDO::PARAM_INT);
+            $prepare->execute();
+        } catch (Exception $e) {
+            $result = $e->getMessage();
+        }
+        return $result ?? null;
+    }
+
+    public function addUser(theuserMapping $user) : bool|string
+    {
+        $sql     = "INSERT INTO theuser(theuserlogin, theuserpwd, theusermail, theuseruniqid, theuseractivate, permission_idpermission) VALUES (?,?,?,?,?,?)";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $prepare->bindValue(1, $user->getTheuserlogin());
+            $prepare->bindValue(2, $user->getTheuserpwd());
+            $prepare->bindValue(3, $user->getTheusermail());
+            $prepare->bindValue(4, $user->getTheuseruniqid());
+            $prepare->bindValue(5, $user->getTheuseracivate());
+            $prepare->bindValue(6, $user->getPermissionIdpermission());
+            $result = $prepare->execute();
         } catch (Exception $e) {
             $result = $e->getMessage();
         }
