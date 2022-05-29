@@ -23,7 +23,7 @@ switch (key($_GET)) {
                 header("Location: ./?viewArticles");
             }
             else {
-                echo $twig->render("private/articleForm.html.twig", [
+                echo $twig->render("private/article/articleForm.html.twig", [
                     'username' => $_SESSION['userLogin'],
                     'session'  => $_SESSION,
                     "article"  => $article,
@@ -33,7 +33,7 @@ switch (key($_GET)) {
             }
         }
         else {
-            echo $twig->render("private/articleForm.html.twig", [
+            echo $twig->render("private/article/articleForm.html.twig", [
                 'username' => $_SESSION['userLogin'],
                 'session'  => $_SESSION,
                 "sections" => $sectionManager->SelectAllThesection(),
@@ -42,7 +42,7 @@ switch (key($_GET)) {
         break;
     case "viewArticles":
         $articles = $articleManager->thearticleAdminSelectAll();
-        echo $twig->render("private/articlesList.html.twig", [
+        echo $twig->render("private/article/articlesList.html.twig", [
             'username' => $_SESSION['userLogin'],
             'session'  => $_SESSION,
             'articles' => $articles,
@@ -58,7 +58,7 @@ switch (key($_GET)) {
             $mod = (int) ($_GET["user"] ?? null);
         }
         $articles = $articleManager->thearticleAdminSelectAllByMod($type, $mod);
-        echo $twig->render("private/articleSearch.html.twig", [
+        echo $twig->render("private/article/articleSearch.html.twig", [
             'username' => $_SESSION['userLogin'],
             'session'  => $_SESSION,
             'articles' => $articles,
@@ -73,7 +73,7 @@ switch (key($_GET)) {
         if (isset($_POST["userComment"])) {
 
         }
-        echo $twig->render("private/articleView.html.twig", [
+        echo $twig->render("private/article/articleView.html.twig", [
             'username' => $_SESSION['userLogin'],
             'session'  => $_SESSION,
             'article'  => $article,
@@ -86,8 +86,8 @@ switch (key($_GET)) {
         $articleManager->thearticleActivate($slug, $state, $_SESSION);
         header("Location: ./?viewArticles");
         break;
-    case "update":
-        $slug    = userEntryProtectionTrait::userEntryProtection($_GET["update"]);
+    case "updateArticle":
+        $slug    = userEntryProtectionTrait::userEntryProtection($_GET["updateArticle"]);
         $article = $articleManager->thearticleForAdminSelectOneBySlug($slug);
         $users   = $userManager->theuserSelectAllForAdmin();
         if (isset($_POST["thearticletitle"], $_POST["idtheuser"], $_POST["thearticletext"], $_POST["sections"])) {
@@ -101,7 +101,7 @@ switch (key($_GET)) {
                 header("Location: ./?viewArticles");
             }
         }
-        echo $twig->render("private/articleUpdate.html.twig", [
+        echo $twig->render("private/article/articleUpdate.html.twig", [
             'username' => $_SESSION['userLogin'],
             'session'  => $_SESSION,
             "article"  => $article,
@@ -109,8 +109,8 @@ switch (key($_GET)) {
             "sections" => $sectionManager->SelectAllThesection(),
         ]);
         break;
-    case "delete":
-        $slug     = userEntryProtectionTrait::userEntryProtection($_GET["delete"]);
+    case "deleteArticle":
+        $slug     = userEntryProtectionTrait::userEntryProtection($_GET["deleteArticle"]);
         $article  = $articleManager->thearticleForAdminSelectOneBySlug($slug);
         $comments = $commentManager->thecommentSelectAllByIdArticle($article["idthearticle"]);
         if (isset($_GET["confirm"])) {
@@ -120,7 +120,7 @@ switch (key($_GET)) {
             }
         }
         if ($article["thearticleactivate"] !== "2") {
-            echo $twig->render("private/articleDelete.html.twig", [
+            echo $twig->render("private/article/articleDelete.html.twig", [
                 'username' => $_SESSION['userLogin'],
                 'session'  => $_SESSION,
                 'article'  => $article,
@@ -130,6 +130,8 @@ switch (key($_GET)) {
         else {
             header("location: ./?viewArticles");
         }
+        break;
+    case "viewUsers":
         break;
     default:
         echo $twig->render("private/homepage.template.html.twig", [
