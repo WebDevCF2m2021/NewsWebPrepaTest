@@ -105,11 +105,11 @@
                                 <td class="align-middle">{{ article.nbcomment }}</td>
                                 <td class="align-middle">
                                     {% if article.idtheuser is same as session.idUser or session.permissionRole == 0 %}
-                                        <a href="?update={{ article.thearticleslug }}" style="text-decoration: none">
+                                        <a href="?updateArticle={{ article.thearticleslug }}" style="text-decoration: none">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <span> | </span>
-                                        <a href="?delete={{ article.thearticleslug }}" style="text-decoration: none">
+                                        <a href="?deleteArticle={{ article.thearticleslug }}" style="text-decoration: none">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     {% else %}

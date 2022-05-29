@@ -86,8 +86,8 @@ switch (key($_GET)) {
         $articleManager->thearticleActivate($slug, $state, $_SESSION);
         header("Location: ./?viewArticles");
         break;
-    case "update":
-        $slug    = userEntryProtectionTrait::userEntryProtection($_GET["update"]);
+    case "updateArticle":
+        $slug    = userEntryProtectionTrait::userEntryProtection($_GET["updateArticle"]);
         $article = $articleManager->thearticleForAdminSelectOneBySlug($slug);
         $users   = $userManager->theuserSelectAllForAdmin();
         if (isset($_POST["thearticletitle"], $_POST["idtheuser"], $_POST["thearticletext"], $_POST["sections"])) {
@@ -109,8 +109,8 @@ switch (key($_GET)) {
             "sections" => $sectionManager->SelectAllThesection(),
         ]);
         break;
-    case "delete":
-        $slug     = userEntryProtectionTrait::userEntryProtection($_GET["delete"]);
+    case "deleteArticle":
+        $slug     = userEntryProtectionTrait::userEntryProtection($_GET["deleteArticle"]);
         $article  = $articleManager->thearticleForAdminSelectOneBySlug($slug);
         $comments = $commentManager->thecommentSelectAllByIdArticle($article["idthearticle"]);
         if (isset($_GET["confirm"])) {

@@ -83,8 +83,8 @@ elseif (isset($_GET["articleActivate"])) {
     $articleManager->thearticleActivate($slug, $state, $_SESSION);
     header("Location: ./?viewArticles");
 }
-elseif (isset($_GET["update"])) {
-    $slug    = userEntryProtectionTrait::userEntryProtection($_GET["update"]);
+elseif (isset($_GET["updateArticle"])) {
+    $slug    = userEntryProtectionTrait::userEntryProtection($_GET["updateArticle"]);
     $article = $articleManager->thearticleForAdminSelectOneBySlug($slug);
     if (isset($_POST["thearticletitle"], $_POST["thearticletext"], $_POST["sections"])) {
         $articleUpdate = new thearticleMapping([
@@ -108,8 +108,8 @@ elseif (isset($_GET["update"])) {
         header("Location: ./?viewArticles");
     }
 }
-elseif (isset($_GET["delete"])) {
-    $slug     = userEntryProtectionTrait::userEntryProtection($_GET["delete"]);
+elseif (isset($_GET["deleteArticle"])) {
+    $slug     = userEntryProtectionTrait::userEntryProtection($_GET["deleteArticle"]);
     $article  = $articleManager->thearticleForAdminSelectOneBySlug($slug);
     $comments = $commentManager->thecommentSelectAllByIdArticle($article["idthearticle"]);
     if (isset($_GET["confirm"])) {
