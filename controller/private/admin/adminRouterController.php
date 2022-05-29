@@ -1,16 +1,19 @@
 <?php
 
+use NewsWeb\Manager\permissionManager;
 use NewsWeb\Manager\thearticleManager;
 use NewsWeb\Manager\thecommentManager;
 use NewsWeb\Manager\thesectionManager;
 use NewsWeb\Manager\theuserManager;
 use NewsWeb\Mapping\thearticleMapping;
+use NewsWeb\Mapping\theuserMapping;
 use NewsWeb\Trait\userEntryProtectionTrait;
 
-$sectionManager = new thesectionManager($connectMyPDO);
-$articleManager = new thearticleManager($connectMyPDO);
-$commentManager = new thecommentManager($connectMyPDO);
-$userManager    = new theuserManager($connectMyPDO);
+$sectionManager    = new thesectionManager($connectMyPDO);
+$articleManager    = new thearticleManager($connectMyPDO);
+$commentManager    = new thecommentManager($connectMyPDO);
+$userManager       = new theuserManager($connectMyPDO);
+$permissionManager = new permissionManager($connectMyPDO);
 switch (key($_GET)) {
     case "addArticle":
         if (isset($_POST["thearticletitle"], $_POST["thearticletext"])) {
@@ -89,7 +92,7 @@ switch (key($_GET)) {
     case "updateArticle":
         $slug    = userEntryProtectionTrait::userEntryProtection($_GET["updateArticle"]);
         $article = $articleManager->thearticleForAdminSelectOneBySlug($slug);
-        $users   = $userManager->theuserSelectAllForAdmin();
+        $users   = $userManager->theuserSelectAllForAdminArticleUpdate();
         if (isset($_POST["thearticletitle"], $_POST["idtheuser"], $_POST["thearticletext"], $_POST["sections"])) {
             $articleUpdate = new thearticleMapping([
                 "idthearticle"      => (int) $_POST["idthearticle"],
@@ -132,6 +135,63 @@ switch (key($_GET)) {
         }
         break;
     case "viewUsers":
+        $users = $userManager->theuserSelectAllForAdmin();
+        echo $twig->render("private/user/usersList.html.twig", [
+            'username' => $_SESSION['userLogin'],
+            'session'  => $_SESSION,
+            'users'    => $users,
+        ]);
+        break;
+    case "userActivate":
+        $state = $_GET["state"] === "2" ? !(bool) ((int) $_GET["state"] - 2) : !(bool) $_GET["state"];
+        $id    = (int) $_GET["userActivate"];
+        $userManager->theuserActivate($id, $state);
+        header("Location: ./?viewUsers");
+        break;
+    case "userBan":
+        $id = (int) $_GET["userBan"];
+        $userManager->theuserBan($id);
+        header("Location: ./?viewUsers");
+        break;
+    case "addUser":
+        $permissions = $permissionManager->permissionSelectAll();
+        if (isset($_POST["theuserlogin"], $_POST["theusermail"], $_POST["theuserpwd"], $_POST["permission_idpermission"])) {
+            $user = new theuserMapping([
+                "theuserlogin"            => userEntryProtectionTrait::userEntryProtection($_POST["theuserlogin"]),
+                "theuserpwd"              => password_hash($_POST["theuserpwd"], PASSWORD_DEFAULT),
+                "theusermail"             => filter_Var(userEntryProtectionTrait::userEntryProtection($_POST["theusermail"]), FILTER_VALIDATE_EMAIL),
+                "permission_idpermission" => (int) $_POST["permission_idpermission"] !== 1 ? (int) $_POST["permission_idpermission"] : 3,
+            ], true);
+            if (!is_string($userManager->addUser($user))) {
+                header("Location: ./?viewUsers");
+            }
+            else {
+                echo $twig->render("private/user/userForm.html.twig", [
+                    'username'    => $_SESSION['userLogin'],
+                    'session'     => $_SESSION,
+                    "newUser"     => $user,
+                    "permissions" => $permissions,
+                    "sections"    => $sectionManager->SelectAllThesection(),
+                ]);
+            }
+        }
+        else {
+            echo $twig->render("private/user/userForm.html.twig", [
+                'username'    => $_SESSION['userLogin'],
+                'session'     => $_SESSION,
+                "permissions" => $permissions,
+                "sections"    => $sectionManager->SelectAllThesection(),
+            ]);
+        }
+        break;
+    case "updateUser":
+        $permissions = $permissionManager->permissionSelectAll();
+        echo $twig->render("private/user/userForm.html.twig", [
+            'username'    => $_SESSION['userLogin'],
+            'session'     => $_SESSION,
+            "permissions" => $permissions,
+            "sections"    => $sectionManager->SelectAllThesection(),
+        ]);
         break;
     default:
         echo $twig->render("private/homepage.template.html.twig", [

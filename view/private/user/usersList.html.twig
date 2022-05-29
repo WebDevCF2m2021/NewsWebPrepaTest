@@ -1,0 +1,118 @@
+{% extends "private/private.template.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="js/admin/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <style>
+        table.dataTable > thead .sorting::before,
+        table.dataTable > thead .sorting_asc::before,
+        table.dataTable > thead .sorting_desc::before,
+        table.dataTable > thead .sorting_asc_disabled::before,
+        table.dataTable > thead .sorting_desc_disabled::before {
+            right   : 0;
+            content : "";
+        }
+
+        table.dataTable > thead .sorting:after,
+        table.dataTable > thead .sorting_asc:after,
+        table.dataTable > thead .sorting_desc:after,
+        table.dataTable > thead .sorting_asc_disabled:after,
+        table.dataTable > thead .sorting_desc_disabled:after {
+            right   : 0;
+            content : "";
+        }
+
+        table.dataTable > thead > tr > th:not(.sorting_disabled), table.dataTable > thead > tr > td:not(.sorting_disabled) {
+            padding-right : 0.75em;
+        }
+    </style>
+{% endblock %}
+{% block title %}{{ parent() }} Liste des utilisateurs{% endblock %}
+
+{% block pagecontent %}
+    <h3 class="mb-1 pb-2 text-gray-800">Liste des utilisateurs</h3>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Utilisateurs</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {% if users is not empty %}
+                    <table class="text-center table table-striped table-bordered" id="dataTable">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" class="align-middle">Id</th>
+                            <th scope="col" class="align-middle">Actif/Banni</th>
+                            <th scope="col" class="align-middle">Login</th>
+                            <th scope="col" class="align-middle">Mail</th>
+                            <th scope="col" class="align-middle">Rôle</th>
+                            <th scope="col" class="align-middle">Nombre de commentaires</th>
+                            <th scope="col" class="align-middle">Nombre d'articles écrits</th>
+                            <th scope="col" class="align-middle">Actions</th>
+                        </tr>
+                        </thead>
+                        <tfoot class="thead-dark">
+                        <tr>
+                            <th scope="col" class="align-middle">Id</th>
+                            <th scope="col" class="align-middle">Actif/Banni</th>
+                            <th scope="col" class="align-middle">Login</th>
+                            <th scope="col" class="align-middle">Mail</th>
+                            <th scope="col" class="align-middle">Rôle</th>
+                            <th scope="col" class="align-middle">Nombre de commentaires</th>
+                            <th scope="col" class="align-middle">Nombre d'articles écrits</th>
+                            <th scope="col" class="align-middle">Actions</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <th scope="row" class="align-middle">{{ user.idtheuser }}</th>
+                                <td class="align-middle">
+                                    {% if(user.permissionrole is not same as "0") %}
+                                        <a href="?userActivate={{ user.idtheuser }}&state={{ user.theuseractivate }}">
+                                            {% if(user.theuseractivate is same as "1") %}
+                                                <i class="fa fa-user-check"></i>
+                                            {% elseif(user.theuseractivate is same as "2") %}
+                                                <i class="fa fa-user-slash" style="color:red"></i>
+                                            {% else %}
+                                                <i class="far fa-user"></i>
+                                            {% endif %}
+                                        </a>
+                                    {% else %}
+                                        <i class="fa fa-user"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="align-middle">{{ user.theuserlogin }}</td>
+                                <td class="align-middle">{{ user.theusermail }}</td>
+                                <td class="align-middle">{{ user.permissionname }}</td>
+                                <td class="align-middle">{{ user.nbcomments ?? "0" }}</td>
+                                <td class="align-middle">{{ user.nbarticles ?? "0" }}</td>
+                                <td class="align-middle">
+                                    {% if user.permissionrole is not same as "0" %}
+                                        <a href="?updateUser={{ user.idtheuser }}" style="text-decoration: none">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <span> | </span>
+                                        <a href="?userBan={{ user.idtheuser }}" style="text-decoration: none">
+                                            <i class="fas fa-ban" style="color:red"></i>
+                                        </a>
+                                    {% else %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="js/admin/datatables/jquery.dataTables.min.js"></script>
+    <script src="js/admin/datatables/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({order: [0, "asc"]});
+        });
+    </script>
+{% endblock %}
