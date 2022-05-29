@@ -37,7 +37,9 @@
                                 <label for="auteur">Permission</label>
                                 <select class="form-control" name="permission_idpermission">
                                     {% for permission in permissions %}
-                                        <option value="{{ permission.idpermission }}" {{ (permission.idpermission is same as "3")?"selected":"" }}>{{ permission.permissionname }}</option>
+                                        {% if permission.permissionname is not same as "Administrateur" %}
+                                            <option value="{{ permission.idpermission }}" {{ (permission.idpermission is same as "3")?"selected":"" }}>{{ permission.permissionname }}</option>
+                                        {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>

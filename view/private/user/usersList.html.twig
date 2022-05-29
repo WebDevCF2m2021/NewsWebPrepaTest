@@ -88,7 +88,7 @@
                                 <td class="align-middle">{{ user.nbarticles ?? "0" }}</td>
                                 <td class="align-middle">
                                     {% if user.permissionrole is not same as "0" %}
-                                        <a href="?" style="text-decoration: none">
+                                        <a href="?updateUser={{ user.idtheuser }}" style="text-decoration: none">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <span> | </span>

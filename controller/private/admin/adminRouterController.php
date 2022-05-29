@@ -160,7 +160,7 @@ switch (key($_GET)) {
                 "theuserlogin"            => userEntryProtectionTrait::userEntryProtection($_POST["theuserlogin"]),
                 "theuserpwd"              => password_hash($_POST["theuserpwd"], PASSWORD_DEFAULT),
                 "theusermail"             => filter_Var(userEntryProtectionTrait::userEntryProtection($_POST["theusermail"]), FILTER_VALIDATE_EMAIL),
-                "permission_idpermission" => (int) $_POST["permission_idpermission"],
+                "permission_idpermission" => (int) $_POST["permission_idpermission"] !== 1 ? (int) $_POST["permission_idpermission"] : 3,
             ], true);
             if (!is_string($userManager->addUser($user))) {
                 header("Location: ./?viewUsers");
@@ -183,6 +183,15 @@ switch (key($_GET)) {
                 "sections"    => $sectionManager->SelectAllThesection(),
             ]);
         }
+        break;
+    case "updateUser":
+        $permissions = $permissionManager->permissionSelectAll();
+        echo $twig->render("private/user/userForm.html.twig", [
+            'username'    => $_SESSION['userLogin'],
+            'session'     => $_SESSION,
+            "permissions" => $permissions,
+            "sections"    => $sectionManager->SelectAllThesection(),
+        ]);
         break;
     default:
         echo $twig->render("private/homepage.template.html.twig", [
