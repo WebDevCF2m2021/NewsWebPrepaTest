@@ -8,8 +8,8 @@
         table.dataTable > thead .sorting_desc::before,
         table.dataTable > thead .sorting_asc_disabled::before,
         table.dataTable > thead .sorting_desc_disabled::before {
-            right: 0;
-            content: "";
+            right   : 0;
+            content : "";
         }
 
         table.dataTable > thead .sorting:after,
@@ -17,12 +17,12 @@
         table.dataTable > thead .sorting_desc:after,
         table.dataTable > thead .sorting_asc_disabled:after,
         table.dataTable > thead .sorting_desc_disabled:after {
-            right: 0;
-            content: "";
+            right   : 0;
+            content : "";
         }
 
         table.dataTable > thead > tr > th:not(.sorting_disabled), table.dataTable > thead > tr > td:not(.sorting_disabled) {
-            padding-right: 0.75em;
+            padding-right : 0.75em;
         }
     </style>
 {% endblock %}
@@ -71,7 +71,15 @@
                                 <td class="align-middle">{{ article.thearticledate }}</td>
                                 <td class="align-middle">
                                     {% if session.userLogin is same as article.theuserlogin or session.permissionName is same as "Administrateur" %}
-                                        <a href="?articleActivate={{ article.thearticleslug }}&state={{ article.thearticleactivate }}">{{ (article.thearticleactivate is same as "1") ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>' }}</a>
+                                        <a href="?articleActivate={{ article.thearticleslug }}&state={{ article.thearticleactivate }}">
+                                            {% if(article.thearticleactivate is same as "1") %}
+                                                <i class="fa fa-eye"></i>
+                                            {% elseif(article.thearticleactivate is same as "2") %}
+                                                <i class="fa fa-trash-restore" style="color:red"></i>
+                                            {% else %}
+                                                <i class="fa fa-eye-slash"></i>
+                                            {% endif %}
+                                        </a>
                                     {% else %}
                                         {{ (article.thearticleactivate is same as "1") ? '<i class="fa fa-eye"></i>' : '<i class="fa fa-eye-slash"></i>' }}
                                     {% endif %}
@@ -96,7 +104,7 @@
                                 </td>
                                 <td class="align-middle">{{ article.nbcomment }}</td>
                                 <td class="align-middle">
-                                    {% if article.idtheuser is same as session.idUser %}
+                                    {% if article.idtheuser is same as session.idUser or session.permissionRole == 0 %}
                                         <a href="?update={{ article.thearticleslug }}" style="text-decoration: none">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
@@ -124,7 +132,7 @@
     <script src="js/admin/datatables/jquery.dataTables.min.js"></script>
     <script src="js/admin/datatables/dataTables.bootstrap4.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#dataTable').DataTable({order: [1, "desc"]});
         });
     </script>

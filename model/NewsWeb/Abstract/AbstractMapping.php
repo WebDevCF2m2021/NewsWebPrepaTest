@@ -4,7 +4,7 @@ namespace NewsWeb\Abstract;
 
 class AbstractMapping
 {
-// constructeur - Appelé lors de l'instanciation
+    // constructeur - Appelé lors de l'instanciation
     public function __construct(array $tab)
     {
         // tentative d'hydration des données de Personnage
@@ -17,7 +17,7 @@ class AbstractMapping
         // tant qu'on a des éléments dans le tableau
         foreach ($assoc as $clef => $valeur) {
             // création du nom de la méthode
-            $methodeName = "set" . ucfirst($clef);
+            $methodeName = "set" . str_replace("_", "", ucfirst($clef));
             // si la méthode existe
             if (method_exists($this, $methodeName)) {
                 $this->$methodeName($valeur);

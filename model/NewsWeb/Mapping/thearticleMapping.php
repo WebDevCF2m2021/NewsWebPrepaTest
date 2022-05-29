@@ -2,7 +2,10 @@
 
 namespace NewsWeb\Mapping;
 
-class thearticleMapping extends \NewsWeb\Abstract\AbstractMapping
+use NewsWeb\Abstract\AbstractMapping;
+use NewsWeb\Trait\SlugifyTrait;
+
+class thearticleMapping extends AbstractMapping
 {
 
     // Propriétés
@@ -13,8 +16,9 @@ class thearticleMapping extends \NewsWeb\Abstract\AbstractMapping
     private string $thearticletext;
     private string $thearticledate;
     private int    $thearticleactivate;
+    private int    $theuser_idtheuser;
 
-    use \NewsWeb\Trait\SlugifyTrait;
+    use SlugifyTrait;
 
     public function __construct(array $tab, bool $new = false)
     {
@@ -24,7 +28,75 @@ class thearticleMapping extends \NewsWeb\Abstract\AbstractMapping
             $this->summarize();
         }
     }
+
+    private function slugifyTitle() : void
+    {
+        $this->setThearticleslug(self::slugify($this->thearticletitle));
+    }
+
+    /**
+     * @param string $thearticleslug
+     *
+     * @return thearticleMapping
+     */
+    public function setThearticleslug(string $thearticleslug) : thearticleMapping
+    {
+        // dépasse 120 caractères
+        if (strlen($thearticleslug) > 120) {
+            // affichage de l'erreur
+            trigger_error("La longueur du slug ne doit pas dépasser 120 caractères", E_USER_NOTICE);
+            return $this;
+        }
+        else {
+            $this->thearticleslug = $thearticleslug;
+            return $this;
+        }
+    }
+
     // Getters
+
+    private function summarize(int $offset = 0, int $substr = 250) : void
+    {
+        $this->setThearticleresume(substr($this->thearticletext, $offset, $substr));
+    }
+
+    /**
+     * @param string $thearticleresume
+     *
+     * @return thearticleMapping
+     */
+    public function setThearticleresume(string $thearticleresume) : thearticleMapping
+    {
+        // dépasse 120 caractères
+        if (strlen($thearticleresume) > 250) {
+            // affichage de l'erreur
+            trigger_error("La longueur du résumé ne doit pas dépasser 250 caractères", E_USER_NOTICE);
+            return $this;
+        }
+        else {
+            $this->thearticleresume = $thearticleresume;
+            return $this;
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getTheuserIdtheuser() : int
+    {
+        return $this->theuser_idtheuser;
+    }
+
+    /**
+     * @param int $theuser_idtheuser
+     *
+     * @return thearticleMapping
+     */
+    public function setTheuserIdtheuser(int $theuser_idtheuser) : thearticleMapping
+    {
+        $this->theuser_idtheuser = $theuser_idtheuser;
+        return $this;
+    }
 
     /**
      * @return int
@@ -35,12 +107,25 @@ class thearticleMapping extends \NewsWeb\Abstract\AbstractMapping
     }
 
     /**
+     * @param int $idthearticle
+     *
+     * @return thearticleMapping
+     */
+    public function setIdthearticle(int $idthearticle) : thearticleMapping
+    {
+        $this->idthearticle = $idthearticle;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getArticleTitle() : string
     {
         return $this->thearticletitle;
     }
+
+    // Setters
 
     /**
      * @return int
@@ -82,19 +167,6 @@ class thearticleMapping extends \NewsWeb\Abstract\AbstractMapping
         return $this->thearticleactivate;
     }
 
-    // Setters
-
-    /**
-     * @param int $idthearticle
-     *
-     * @return thearticleMapping
-     */
-    public function setIdthearticle(int $idthearticle) : thearticleMapping
-    {
-        $this->idthearticle = $idthearticle;
-        return $this;
-    }
-
     /**
      * @param string $thearticletitle
      *
@@ -110,44 +182,6 @@ class thearticleMapping extends \NewsWeb\Abstract\AbstractMapping
         }
         else {
             $this->thearticletitle = $thearticletitle;
-            return $this;
-        }
-    }
-
-    /**
-     * @param string $thearticleslug
-     *
-     * @return thearticleMapping
-     */
-    public function setThearticleslug(string $thearticleslug) : thearticleMapping
-    {
-        // dépasse 120 caractères
-        if (strlen($thearticleslug) > 120) {
-            // affichage de l'erreur
-            trigger_error("La longueur du slug ne doit pas dépasser 120 caractères", E_USER_NOTICE);
-            return $this;
-        }
-        else {
-            $this->thearticleslug = $thearticleslug;
-            return $this;
-        }
-    }
-
-    /**
-     * @param string $thearticleresume
-     *
-     * @return thearticleMapping
-     */
-    public function setThearticleresume(string $thearticleresume) : thearticleMapping
-    {
-        // dépasse 120 caractères
-        if (strlen($thearticleresume) > 250) {
-            // affichage de l'erreur
-            trigger_error("La longueur du résumé ne doit pas dépasser 250 caractères", E_USER_NOTICE);
-            return $this;
-        }
-        else {
-            $this->thearticleresume = $thearticleresume;
             return $this;
         }
     }
@@ -183,15 +217,5 @@ class thearticleMapping extends \NewsWeb\Abstract\AbstractMapping
     {
         $this->thearticleactivate = $thearticleactivate;
         return $this;
-    }
-
-    private function slugifyTitle() : void
-    {
-        $this->setThearticleslug(self::slugify($this->thearticletitle));
-    }
-
-    private function summarize(int $offset = 0, int $substr = 250) : void
-    {
-        $this->setThearticleresume(substr($this->thearticletext, $offset, $substr));
     }
 }
