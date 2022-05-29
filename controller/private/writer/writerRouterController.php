@@ -20,7 +20,7 @@ if (isset($_GET["addArticle"])) {
             header("Location: ./?viewArticles");
         }
         else {
-            echo $twig->render("private/articleForm.html.twig", [
+            echo $twig->render("private/article/articleForm.html.twig", [
                 'username' => $_SESSION['userLogin'],
                 'session'  => $_SESSION,
                 "article"  => $article,
@@ -30,7 +30,7 @@ if (isset($_GET["addArticle"])) {
         }
     }
     else {
-        echo $twig->render("private/articleForm.html.twig", [
+        echo $twig->render("private/article/articleForm.html.twig", [
             'username' => $_SESSION['userLogin'],
             'session'  => $_SESSION,
             "sections" => $sectionManager->SelectAllThesection(),
@@ -39,7 +39,7 @@ if (isset($_GET["addArticle"])) {
 }
 elseif (isset($_GET["viewArticles"])) {
     $articles = $articleManager->thearticleWriterSelectAll($_SESSION);
-    echo $twig->render("private/articlesList.html.twig", [
+    echo $twig->render("private/article/articlesList.html.twig", [
         'username' => $_SESSION['userLogin'],
         'session'  => $_SESSION,
         'articles' => $articles,
@@ -52,7 +52,7 @@ elseif (isset($_GET["article"])) {
     if (isset($_POST["userComment"])) {
 
     }
-    echo $twig->render("private/articleView.html.twig", [
+    echo $twig->render("private/article/articleView.html.twig", [
         'username' => $_SESSION['userLogin'],
         'session'  => $_SESSION,
         'article'  => $article,
@@ -69,7 +69,7 @@ elseif (isset($_GET["articleSearch"])) {
         $mod = (int) ($_GET["user"] ?? null);
     }
     $articles = $articleManager->thearticleSelectAllByMod($type, $mod, $_SESSION);
-    echo $twig->render("private/articleSearch.html.twig", [
+    echo $twig->render("private/article/articleSearch.html.twig", [
         'username' => $_SESSION['userLogin'],
         'session'  => $_SESSION,
         'articles' => $articles,
@@ -97,7 +97,7 @@ elseif (isset($_GET["updateArticle"])) {
         }
     }
     if ($article["idtheuser"] === $_SESSION["idUser"]) {
-        echo $twig->render("private/articleUpdate.html.twig", [
+        echo $twig->render("private/article/articleUpdate.html.twig", [
             'username' => $_SESSION['userLogin'],
             'session'  => $_SESSION,
             "article"  => $article,
@@ -119,7 +119,7 @@ elseif (isset($_GET["deleteArticle"])) {
         }
     }
     if ($article["idtheuser"] === $_SESSION["idUser"]) {
-        echo $twig->render("private/articleDelete.html.twig", [
+        echo $twig->render("private/article/articleDelete.html.twig", [
             'username' => $_SESSION['userLogin'],
             'session'  => $_SESSION,
             'article'  => $article,
