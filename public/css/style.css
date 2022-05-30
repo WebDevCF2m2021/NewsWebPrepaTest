@@ -184,6 +184,7 @@ body {
 #blog a#blognav,
 #fullwidth a#fullwidthnav,
 #contact a#contact,
+#connect a#connect,
 #section a#sectionnav {
     color : #b82924;
 }
@@ -192,6 +193,7 @@ body {
 #menu a,
 #blog #menu a,
 #contact #menu a,
+#connect #menu a,
 #section #menu a {
     display    : block;
     color      : #fff;
@@ -212,6 +214,7 @@ body {
 .topnav.responsive ul li a,
 #blog .topnav.responsive ul li a,
 #contact .topnav.responsive ul li a,
+#connect .topnav.responsive ul li a,
 #section .topnav.responsive ul li a {
     display     : block;
     height      : 2em;
@@ -225,6 +228,7 @@ body {
 .topnav.responsive #menu a,
 #blog .topnav.responsive #menu a,
 #contact .topnav.responsive #menu a,
+#connect .topnav.responsive #menu a,
 #section .topnav.responsive ul li a {
     border     : 2px solid transparent;
     margin-top : 10px;
@@ -389,7 +393,8 @@ body {
 }
 
 #sidebar,
-#contact #sidebar {
+#contact #sidebar,
+#connect #sidebar {
     width  : 280px;
     margin : 0 0 0 55px;
 }
@@ -400,26 +405,26 @@ body {
     margin : 0 0 40px 0;
 }
 
-#contactpost {
+#contactpost, #connectpost {
     width  : 80%;
     margin : 0 auto;
 }
 
-#contactform {
+#contactform, #connectform {
     display        : flex;
     flex-direction : column;
 }
 
-#contactform div {
+#contactform div, #connectform div {
     display        : flex;
     flex-direction : column;
 }
 
-#contactform div > * {
+#contactform div > *, #connectform div > * {
     margin-bottom : 0.5em;
 }
 
-#contactform div:last-child {
+#contactform div:last-child, #connectform div:last-child {
     margin : 2em 0;
 }
 
@@ -430,6 +435,9 @@ body {
 	list-style-type: square;
 }
 */
+#connect section {
+    width : 80%;
+}
 
 #blog article,
 #section article {
@@ -443,6 +451,7 @@ body {
 
 #blog footer,
 #contact footer,
+#connect footer,
 #section footer {
     margin-top : 0;
 }
@@ -487,7 +496,8 @@ body {
 /* barre latérale */
 
 #sidebar h1,
-#contact #sidebar h1 {
+#contact #sidebar h1,
+#connect #sidebar h1 {
     font-family    : LeagueGothic, sans-serif;
     font-weight    : normal;
     text-transform : uppercase;
@@ -498,31 +508,37 @@ body {
 }
 
 #sidebar li,
-#contact #sidebar li {
+#contact #sidebar li,
+#connect #sidebar li {
     margin : 0 0 4px 25px;
     color  : #b82924;
 }
 
 #sidebar li:hover,
-#contact #sidebar li:hover {
+#contact #sidebar li:hover,
+#connect #sidebar li:hover {
     margin-left : 30px;
 }
 
 #sidebar li a:hover,
-#contact #sidebar li a:hover {
+#contact #sidebar li a:hover,
+#connect #sidebar li a:hover {
     text-decoration : underline;
 }
 
 #blog aside,
 #section aside,
-#contact #sidebar aside {
+#contact #sidebar aside,
+#connect #sidebar aside {
     margin : 0 0 20px 0;
 }
 
 #cat,
 #archives,
 #contact #sidebar #cat,
-#contact #sidebar #archives {
+#contact #sidebar #archives,
+#connect #sidebar #cat,
+#connect #sidebar #archives {
     width          : 130px;
     display        : inline-block;
     vertical-align : top;
@@ -555,7 +571,7 @@ body {
 }
 
 /* CONTACT PAGE */
-#contactpost p {
+#contactpost p, #connectpost p {
     margin-bottom : 25px;
 }
 
@@ -730,6 +746,7 @@ footer {
     .topnav,
     #blog .topnav,
     #contact .topnav,
+    #connect .topnav,
     #section .topnav {
         width      : 100%;
         grid-area  : menu;
@@ -778,7 +795,8 @@ footer {
     .topnav ul li,
     #blog .topnav ul li,
     #section .topnav ul li,
-    #contact .topnav ul li {
+    #contact .topnav ul li,
+    #connect .topnav ul li {
         display : block;
         width   : 100%;
     }
@@ -786,7 +804,8 @@ footer {
     .topnav ul li a,
     #blog .topnav ul li a,
     #section .topnav ul li a,
-    #contact .topnav ul li a {
+    #contact .topnav ul li a,
+    #connect .topnav ul li a {
         display    : block;
         text-align : center;
         font-size  : 2em;
@@ -797,7 +816,8 @@ footer {
     #menu a,
     #blog #menu a,
     #section #menu a,
-    #contact #menu a {
+    #contact #menu a,
+    #connect #menu a {
         display : none;
     }
 
@@ -805,6 +825,9 @@ footer {
         padding : 2em;
     }
 
+    #connect section {
+        width : auto;
+    }
 
     #derniers-articles {
         grid-area             : articles;
@@ -869,7 +892,7 @@ footer {
         margin-bottom : 40px;
     }
 
-    #contactpost {
+    #contactpost, #connectpost {
         width : 90%;
     }
 
@@ -916,7 +939,8 @@ footer {
     .topnav,
     #blog .topnav,
     #section .topnav,
-    #contact .topnav {
+    #contact .topnav,
+    #connect .topnav {
         margin-top : 0;
         min-height : 100px;
         max-width  : 600px;
@@ -928,7 +952,8 @@ footer {
     .topnav ul,
     #blog .topnav ul,
     #section .topnav ul,
-    #contact .topnav ul {
+    #contact .topnav ul,
+    #connect .topnav ul {
         display         : flex;
         flex-flow       : row nowrap;
         justify-content : flex-end;
@@ -955,7 +980,8 @@ footer {
     #home .topnav ul li a,
     #blog .topnav ul li a,
     #section .topnav ul li a,
-    #contact .topnav ul li a {
+    #contact .topnav ul li a,
+    #connect .topnav ul li a {
         display : block;
     }
 
@@ -963,6 +989,7 @@ footer {
     #home #menu a,
     #blog #menu a,
     #contact #menu a,
+    #connect #menu a,
     #section #menu a {
         display : none;
     }
@@ -971,7 +998,8 @@ footer {
     #blog a#blognav,
     #fullwidth a#fullwidthnav,
     #section a#sectionnav,
-    #contact a#contact {
+    #contact a#contact,
+    #connect a#connect {
         color : #b82924;
     }
 
@@ -1062,6 +1090,10 @@ footer {
         margin-bottom  : 5px;
     }
 
+    #connect section {
+        width : auto;
+    }
+
     #derniers-articles {
         width           : 100%;
 
@@ -1121,12 +1153,16 @@ footer {
         width : 60%;
     }
 
-    #contactpost {
+    #contactpost, #connectpost {
         width : fit-content;
     }
 
-    .connectform {width: 400px}
-    #signin {width: 100px;
+    .connectform {
+        width : 400px
+    }
+
+    #signin {
+        width : 100px;
     }
 
     footer {
