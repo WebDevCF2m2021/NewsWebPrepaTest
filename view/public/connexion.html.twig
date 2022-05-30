@@ -2,15 +2,16 @@
 
 {% block title %}{{ parent() }} Veuillez vous connecter à votre compte {% endblock %}
 
-{% block pagetype %}blog{% endblock %}
+{% block pagetype %}connect{% endblock %}
 
 {% block logo %}
     <div id="logo">
         <h1>News <span id="iisrt"><span id="ii">II</span>  <span id="srt">WEB</span></span></h1>
         <div id="tagline">
-            <h2>Bienvenue, veuillez-vous connecter à votre compte</h2>
+            <h2>Page de connexion</h2>
         </div>
-    </div>{% endblock %}
+    </div>
+{% endblock %}
 {% block main %}
     <section>
         <div id="line">
@@ -18,11 +19,9 @@
             <h1>Connexion</h1>
             <div class="dline"></div>
         </div>
-
-
         <div id="connectpost">
-            <h1>Connectez-vous à votre compte</h1> </br>
-            <!-- <p>Below is an example of how a contact form might look with this template:</p>-->
+            <h1>Page de connexion</h1>
+            <p>Bienvenue, veuillez vous connecter sur votre compte</p>
             <form method="post">
                 <div id="connectform">
                     <div><label for="login">your user name</label><input type="text" name="theuserlogin" id="login"
@@ -32,11 +31,11 @@
                                                                          value=""/></div>
 
 
-                    <div><label for="pass">Your password</label></br><input type="password" name="theuserpwd" id="pass"
-                                                                            placeholder="your password"
-                                                                            onfocus="this.placeholder = ''"
-                                                                            onblur="this.placeholder = 'your password'"
-                                                                            value=""/></div>
+                    <div><label for="pass">Your password</label><input type="password" name="theuserpwd" id="pass"
+                                                                       placeholder="your password"
+                                                                       onfocus="this.placeholder = ''"
+                                                                       onblur="this.placeholder = 'your password'"
+                                                                       value=""/></div>
 
 
                     <div><input class="signin" type="submit" name="connect_submitted" value="sign In"/></div>
