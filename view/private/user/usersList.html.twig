@@ -81,7 +81,7 @@
                                         <i class="fa fa-user"></i>
                                     {% endif %}
                                 </td>
-                                <td class="align-middle">{{ user.theuserlogin }}</td>
+                                <td class="align-middle"><a href="?user={{ user.idtheuser }}">{{ user.theuserlogin }}</a></td>
                                 <td class="align-middle">{{ user.theusermail }}</td>
                                 <td class="align-middle">{{ user.permissionname }}</td>
                                 <td class="align-middle">{{ user.nbcomments ?? "0" }}</td>
