@@ -54,7 +54,7 @@ class theuserManager implements ManagerInterface
 
     public function theuserSelectOneByIdForAdmin(int $id) : array|bool
     {
-        $query   = "SELECT u.idtheuser, u.theuserlogin, u.theusermail, u.permission_idpermission
+        $query   = "SELECT u.idtheuser, u.theuserlogin, u.theusermail, u.theuseractivate, u.permission_idpermission
                     FROM theuser u
                     WHERE u.idtheuser = ?;";
         $prepare = $this->connect->prepare($query);

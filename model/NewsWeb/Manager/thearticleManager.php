@@ -492,4 +492,22 @@ class thearticleManager implements ManagerInterface
         }
         return $result;
     }
+
+    public function thearticleSelectAllByIdUserForAdmin(int $iduser) : array|string
+    {
+        $sql     = "SELECT 
+            a.idthearticle, a.thearticletitle, a.thearticleslug , a.thearticleresume, a.thearticledate
+                FROM thearticle a
+                WHERE a.theuser_idtheuser = ?
+                ORDER BY a.thearticledate DESC;
+        ";
+        $prepare = $this->connect->prepare($sql);
+        try {
+            $prepare->bindParam(1, $iduser, PDO::PARAM_INT);
+            $prepare->execute();
+            return $prepare->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

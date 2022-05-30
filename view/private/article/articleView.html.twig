@@ -16,7 +16,7 @@
                 <div class="card-header  bg-primary py-3">
                     <h3 class="m-1 font-weight-bold text-white">{{ article.thearticletitle|raw }}</h3>
                     <h5 class="m-1 font-weight-bold text-white">Écrit par <a class="text-white"
-                                                                             href="?articleSearch=theuser&user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
+                                                                             href="?user={{ article.idtheuser }}">{{ article.theuserlogin }}</a>
                         le {{ article.thearticledate|date("d-m-y à H:i") }}</h5>
                     <h6 class="m-1 font-weight-bold text-white">
                         Sections:
