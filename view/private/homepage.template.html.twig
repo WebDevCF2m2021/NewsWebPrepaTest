@@ -2,7 +2,6 @@
 
 {% block title %}{{ parent() }} Accueil{% endblock %}
 
-
 {% block pagecontent %}
     <h1 class="mb-1 pb-2 text-gray-800 text-center">Bienvenue {{ session.userLogin }}!</h1>
     <h2 class="mb-1 pb-2 text-gray-800">En tant qu{{ (session.permissionRole == 1) ? "e ": "'" }}{{ session.permissionName|lower }} vous pouvez :</h2>
@@ -145,4 +144,11 @@
         {% endif %}
     </div>
 {% endblock %}
-
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        if (!navigator.userAgent.toLowerCase().match(/mobile/i)) {
+            $("body").css("overflow", "hidden");
+        }
+    </script>
+{% endblock %}
