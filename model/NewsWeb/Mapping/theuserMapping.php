@@ -163,7 +163,7 @@ class theuserMapping extends AbstractMapping
     /**
      * @return int
      */
-    public function getTheuseracivate() : int
+    public function getTheuseractivate() : int
     {
         return $this->theuseracivate;
     }

@@ -5,6 +5,7 @@ use NewsWeb\Manager\thearticleManager;
 use NewsWeb\Manager\thecommentManager;
 use NewsWeb\Manager\thesectionManager;
 use NewsWeb\Manager\theuserManager;
+use NewsWeb\Mapping\permissionMapping;
 use NewsWeb\Mapping\thearticleMapping;
 use NewsWeb\Mapping\theuserMapping;
 use NewsWeb\Trait\userEntryProtectionTrait;
@@ -205,6 +206,20 @@ switch (key($_GET)) {
         else {
             header("Location: ./?viewUsers");
         }
+        break;
+    case "user":
+        $user       = new theuserMapping($userManager->theuserSelectOneByIdForAdmin((int) $_GET["user"]));
+        $permission = new permissionMapping($permissionManager->permissionSelectOneById($user->getPermissionIdpermission()));
+        $articles   = $articleManager->thearticleSelectAllByIdUserForAdmin($user->getIdtheuser());
+        $comments   = "";
+        echo $twig->render("private/user/userView.html.twig", [
+            'username'   => $_SESSION['userLogin'],
+            'session'    => $_SESSION,
+            'user'       => $user,
+            "permission" => $permission,
+            "articles"   => $articles,
+            "comments"   => $comments,
+        ]);
         break;
     default:
         echo $twig->render("private/homepage.template.html.twig", [

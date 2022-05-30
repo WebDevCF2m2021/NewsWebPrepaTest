@@ -1,0 +1,111 @@
+{% extends "private/private.template.html.twig" %}
+{% block title %}{{ parent() ~ user.theuserlogin }} {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #wrap-text {
+            min-height : 70vh;
+        }
+    </style>
+{% endblock %}
+{% block pagecontent %}
+
+    <div class="row row-eq">
+        <div class="col-lg-7">
+            <div id="wrap-text" class="card shadow mb-4">
+                <div class="card-header bg-primary py-3">
+                    <h3 class="m-1 font-weight-bold text-white">Article{{ (articles|length > 1 )?"s":"" }} {{ (permission.getPermissionrole is same as 0)? "de l'":"du " }}{{ permission.getPermissionname|lower }} {{ user.theuserlogin }}</h3>
+                </div>
+                <div class="card-body" style="overflow-y: scroll;max-height:70vh;">
+                    {% for article in articles %}
+                        <div class="card shadow mb-4">
+                            <a href="?article={{ article.thearticleslug }}" style="text-decoration: none;">
+                                <div class="card-header {{ (loop.index0 is even) ? "bg-info":"bg-success" }} py-3">
+                                    <h6 class="m-0 font-weight-bold text-white">{{ article.thearticletitle }}</h6>
+                                    <p class="m-0 font-weight-bold text-white">Écrit le {{ article.thearticledate|date("d-m-y à H:i") }}</p>
+                                </div>
+                                <div class="card-body" style="color:#858796">
+                                    {{ article.thearticleresume|raw }}
+                                </div>
+                            </a>
+                        </div>
+                    {% else %}
+                        {% if permission.getPermissionrole is same as 2 %}
+                            <div>
+                                <h3>Cet utilisateur est un {{ permission.getPermissionname }}, il ne peut pas écrire d'articles!</h3>
+                            </div>
+                        {% else %}
+                            <div>
+                                <h3>Cet utilisateur n'a pas encore écrit d'articles</h3>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow mb-4" id="actions">
+                <div class="card-header bg-info py-3">
+                    <h4 class="m-0 font-weight-bold text-white text-center">Actions</h4>
+                </div>
+                <div class="card-body text-center">
+                    {% if user.getPermissionIdpermission is not same as 1 %}
+                        <a href="?updateUser={{ user.getIdtheuser }}" class="btn m-1 btn-primary btn-icon-split">
+                            <span class="icon text-white-50"><i class="fas fa-pencil-alt"></i></span><span class="text">Modifier</span>
+                        </a>
+                        {% if user.getTheuseractivate is not same as 2 %}
+                            <a href="?userBan={{ user.getIdtheuser }}" class="btn m-1 btn-danger btn-icon-split">
+                                <span class="icon text-white-50"><i class="fas fa-trash"></i></span><span class="text">Bannir</span>
+                            </a>
+                        {% else %}
+                            <a href="?userActivate={{ user.getIdtheuser }}&state={{ user.getTheuseractivate }}" class="btn m-1 btn-warning btn-icon-split">
+                                <span class="icon text-white-50"><i class="fas fa-trash-restore"></i></span><span class="text">Débannir</span>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card shadow mb-3" id="comments" style="overflow-y: scroll">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Commentaire(s) de {{ user.theuserlogin }}</h6>
+                </div>
+                <div class="card-body">
+                    {% for comment in comments %}
+                        <div class="card shadow mb-4">
+                            <div class="card-header {{ (loop.index0 is even) ? "bg-warning":"bg-success" }} py-3">
+                                <h6 class="m-0 font-weight-bold text-white">{{ comment.theuserlogin }}</h6>
+                                <p class="m-0 font-weight-bold text-white">{{ comment.thecommentdate|date("d-m-y à H:i") }}</p>
+                            </div>
+                            <div class="card-body">
+                                {{ comment.thecommenttext|raw }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function resize() {
+            let max         = $("#wrap-text").height();
+            let maxOut      = $("#wrap-text").outerHeight(false);
+            let maxOut2     = $("#wrap-text").outerHeight(true)
+            let extra       = $("#actions").height();
+            let elWMarABor  = $("#actions").outerHeight(true)
+            let elWoMarABor = $("#actions").outerHeight(false)
+            $("#comments").height(((max + (maxOut2 - maxOut)) - extra - (2 * (elWMarABor - elWoMarABor))) - 2)
+        }
+
+        $(document).ready(() => {
+            resize();
+        })
+        $("#commentButton").click((el) => {
+            $("#commentButton").hide();
+            $("#commentForm").show();
+            resize()
+        });
+    </script>
+{% endblock %}
