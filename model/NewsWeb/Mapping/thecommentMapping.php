@@ -21,7 +21,7 @@ class thecommentMapping extends \NewsWeb\Abstract\AbstractMapping{
      * 2
      * @return int
      */
-    public function getTheuser_idtheuser(): int
+    public function getTheuserIdtheuser(): int
     {
         return $this->theuser_idtheuser;
     }
@@ -69,7 +69,7 @@ class thecommentMapping extends \NewsWeb\Abstract\AbstractMapping{
      * @param int $theuser_idtheuser
      * @return thecommentMapping
      */
-    public function setTheuser_idtheuser(int $theuser_idtheuser): thecommentMapping
+    public function setTheuserIdtheuser(int $theuser_idtheuser): thecommentMapping
     {
         $this->theuser_idtheuser = $theuser_idtheuser;
         return $this;
@@ -101,4 +101,25 @@ class thecommentMapping extends \NewsWeb\Abstract\AbstractMapping{
         $this->thecommentactive = $thecommentactive;
         return $this;
     }
+
+    /**
+     * @param int $idthecomment
+     * @return thecommentMapping
+     */
+    public function setIdthecomment(int $idthecomment): thecommentMapping
+    {
+        $this->idthecomment = $idthecomment;
+        return $this;
+    }
+
+    /**
+     * @param string $thecommentdate
+     * @return thecommentMapping
+     */
+    public function setThecommentdate(string $thecommentdate): thecommentMapping
+    {
+        $this->thecommentdate = $thecommentdate;
+        return $this;
+    }
+
 }
